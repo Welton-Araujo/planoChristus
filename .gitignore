@@ -1,3 +1,15 @@
+### ATENCAO: PARA MANTER (FILE ou DIR) USE NA FRENTE: !
+### EXEMPLO (README.md): !*.md 
+
+## IGNORAR 'DIR' (EM QUALQUER LUGAR): qualquerNomePasta.nogit/
+**/*.nogitd/
+## IGNORAR 'FILE' DENTRO DA PASTA (EM QUALQUER LUGAR): qualquerNomePasta.nogitf/
+**/*.nogitf/*
+## IGNORAR 'FILE' (EM QUALQUER LUGAR): qualquerNomePasta.nogitf.[ext]/
+*.nogit.*
+*off.*
+*copy*
+
 # Logs
 logs
 *.log
