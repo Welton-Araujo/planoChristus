@@ -1,0 +1,98 @@
+{
+    "s00":{
+        "description":"Seção não faz parte do curso, é utilizada para configuraçõs/questões mais gerais, como por exemplo: o uso do git flow.",
+        "comment":[
+            "Algumas aulas (lessons), por serem simples demais ou possuirem temas básicos, serão omitidas;",
+            " significa que possivelmente terão suas explicações/comentários restridas(os) ao códigos produzidos nas aulas,",
+            " ou seja, as explicações destas não estão nesse resumo, mas sim nos arquivos.js das mesmas."
+        ],
+        "referenceCodeSummary":{
+            "exampleTask":"Exemplo: Esta tarefa realiza a conexão com o mongodb... : s0x-Mongodb:aula0x.js"
+        },
+        "resources":{
+            "gitflow":[
+                "(OLHAR O PRINT) https://www.youtube.com/watch?v=wzxBR4pOTTs",
+                "   OBS: Somente às branchs main e develop são infinitas, as demais sao criadas e deletadas!",
+                "2.1- $ git flow init (não fazer: $ git init)",
+                "   Obs: Apertar Enter... (Manterá o Padrão de nomes em todos)",                
+                "2.2- $ git flow feature start nome_branch", 
+                "   Obs: criar feature a partir da develop",       
+                "2.3- $ git flow feature finish nome_branch", 
+                "   Obs: Após feito a tarefa é só fechar a feature (Autom. faz merge e deleta a feature)",            
+                "2.4- $ git flow realese start 0.1.0 ",
+                "   Obs: criar feature a partir da develop",
+                "2.5- $ git flow realese finish nome_branch", 
+                "   Obs: Após feito a tarefa é só fechar a feature", 
+                "   (Autom. faz merge com master e develop e deleta a feature)"
+            ]
+        }
+    },
+    "s01":{
+        "description":"Construindo a Interface e Modelos de dados",
+        "comment":["A maioria dos conceitos desta seção foram colocados nos proprios Arquivos ou no repo: linguagens/development.json"],
+        "lessons":{
+            "l01":{
+                "description":"Modelo no Figma-design",
+                "comment":["(Saltei...) Seção voltada para modelagem utilizando: Figma"],
+                "contents":{}
+            }
+        },
+        "resources":{}
+    },
+    "s02":{
+        "description":"Backend",
+        "comment":["A maioria dos conceitos desta seção foram colocados nos proprios Arquivos ou no repo: linguagens/development.json"],
+        "lessons":{
+            "l02":{
+                "description":"Backend: Nodejs e Mongodb",
+                "comment":[""],
+                "contents":{}
+            }
+        },
+        "resources":{
+            "ws":{
+                "explication":[
+                    "O Backend ficará na pasta: ws (Web Services)",
+                    "Observar o resumo das dependencies em: ws/package.json"
+                ],
+                "cluster":{
+                    "definition": [
+                        "Um cluster consiste em computadores fracamente ou fortemente ligados que trabalham em conjunto, ",
+                        "de modo que, em muitos aspectos, podem ser considerados como um único sistema",
+                        "É uma arquitetura de sistema capaz combinar vários computadores para trabalharem em conjunto ",
+                        "ou pode denominar o grupo em si de computadores combinados."
+                    ],
+                    "explication": [
+                        "Cada estação é denominada “nodo” e, combinadas, formam o cluster. ",
+                        "Em alguns casos, é possível ver referências como “supercomputadores” ou “computação em cluster” para o mesmo cenário, ",
+                        "representando o hardware usado ou o software especialmente desenvolvido para conseguir combinar esses equipamentos."
+                    ],
+                    "resources": {},
+                    "references": {
+                        "definition":"https://www.opservices.com.br/o-que-e-um-cluster/"
+                    }
+                },
+                "mongodb":{
+                    "atlas":"cloud mongodb (cluster): https://www.mongodb.com/atlas/database",
+                    "localhost":"install (Ubuntu 2204): https://techviewleo.com/install-mongodb-on-ubuntu-linux/",
+                    "mongoose":[
+                        "é um ODM(ORM) do Mongodb para Nodejs (lib).",
+                        "terminal (dentro da pasta ws): npm install mongoose --save"
+                    ]
+                } 
+            }
+        }
+    },
+    "syy":{
+        "description":"",
+        "comment":["A maioria dos conceitos desta seção foram colocados nos proprios Arquivos ou no repo: linguagens/development.json"],
+        "lessons":{
+            "l00":{
+                "description":"",
+                "comment":[""],
+                "contents":{}
+            }
+        },
+        "resources":{}
+    }
+}
