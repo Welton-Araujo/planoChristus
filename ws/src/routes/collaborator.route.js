@@ -14,7 +14,7 @@ const collaboratorController = require('../api/controllers/collaborator.controll
  */
  router.get('/colaborador/salao/:salonId', async (req, res)=>{
     console.log('Collaborator:: /colaborador/salao/id')
-    collaboratorController.getById(req, res)
+    collaboratorController.getSalonCollaborators(req, res)
 })
 
 /*** AULA PAGAR.ME ***

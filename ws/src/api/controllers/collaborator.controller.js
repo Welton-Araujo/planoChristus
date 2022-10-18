@@ -10,11 +10,11 @@ const get = async (req, res)=>{
 }
 
 /** AULA **/
-const getById = async (req, res)=>{
+const getSalonCollaborators = async (req, res)=>{
     console.log('CollaboratorController::getById')
     const { salonId } = req.params
     const { filtro  } = req.query
-    const response = await collaboratorService.getById( salonId, filtro )
+    const response = await collaboratorService.getSalonCollaborators( salonId, filtro )
     res.json(response)
 }
 
@@ -55,7 +55,8 @@ const filters = async (req, res)=>{
 module.exports = {
     
     get,
-    getById,
+    // getById,
+    getSalonCollaborators,
     post,
     put,
     deleteById,

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const { createAccountPagarme }  = require('../../utils/external/pagarme')
-const { noPasswd } = require('../../utils/response/secureResponse')
 const { isEmpty } = require('../../utils/validations')
 
 const CollaboratorRepository        = require('../repositories/collaborator.repository')
@@ -13,15 +12,49 @@ const get = async ( query={}, fields='' )=>{
     return CollaboratorRepository.find(query, fields)
 }
 
-/** AULA **/
-const getById = async ( id, fields='' )=>{    
-    console.log('CollaboratorService::post Pagar.me' )
-    //BUSCAR RELEACIONAMETO:
+/** AULA **
+ * @Info USO DO POPULATE() NA CONSULTA noSQL.
+ * @param {*} salonId 
+ * @param {*} fields 
+ * @returns 
+ */
+const getSalonCollaborators = async ( salonId, fields='collaboratorId status dateRegistration' )=>{    
+    console.log('CollaboratorService::getSalonCollaborators', salonId, fields )
+    
+    //BUSCAR RELACIONAMETO:
+    const { salonCollaborators } = await SalonCollaboratorRepository.find(
+        { salonId, status:{$ne:'E'} },//query
+        fields, 
+        { path:'collaboratorId', select:'-passwd -recipientId' }//populate
+    )
+    if( isEmpty(salonCollaborators) ){ return {error:true, message:'Salão sem colaborador(es).', collaborators:[] } }
 
-    const { salonCollaborator } = await SalonCollaboratorRepository.findById(id, fields)
+    //CRIAR LISTA COLABORADORES:
+    let listCollaborador = []
+    for (const salCol of salonCollaborators) {
+        const services = await CollaboratorServiceRepository.find(
+            { collaboratorId: salCol.collaboratorId._id },//query
+            '',//fields
+            { path:'collaboratorId', select:'-passwd' }//populate
+        )
 
+        listCollaborador.push({
+            ...salCol._doc,
+            services,
+        })
+    }
 
-    return { error:false, message:'Colaborador encontrado.', collaborator:{} }
+    return { 
+        error:false, 
+        message:'Colaborador(es) encontrado.', 
+        collaborators:listCollaborador.map((salCol)=>({
+            ...salCol.collaboratorId._doc,
+            salonCollaboratorId: salCol._id,
+            status: salCol.status,
+            services: salCol.services,
+            dateRegistration: salCol.dateRegistration
+        }))
+    }
 }
 
 /*** API Pagar.me ***
@@ -125,8 +158,10 @@ const put = async ( collaboratorId, status, salColId , services )=>{
 /** AULA **/
 const deleteById = async (id) => {
     console.log('CollaboratorService::deleteById')
+    //BUSCAR RELACIONAMENTO:
     const { upSalonCollaborator } = await SalonCollaboratorRepository.findByIdAndUpdate(id,{status:'E'})
     if( !upSalonCollaborator ){ return { error: true, message: 'Erro ao deletar.' } }
+    
     return { error: true, message: 'Deletado com sucesso.' }
 }
 
@@ -139,7 +174,8 @@ const filters = async (filters={}) => {
 module.exports = {
 
     get,
-    getById,
+    // getById,
+    getSalonCollaborators,
     post,
     put,
     deleteById,

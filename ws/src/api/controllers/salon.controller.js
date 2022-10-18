@@ -3,16 +3,19 @@ const salonService = require('../services/salon.service')
 
 
 /**
- * @Salon
-*/
+ * 
+ * @param {*} req req.query = { filtro, param_1, param_2, ... }
+ * @param {*} res 
+ */
 const get = async (req, res)=>{
-    console.log('SalonController::getSalons')
-    const { filtro, ...query } = req.query// = { filtro, param_1, param_2, ... }
+    console.log('SalonController::get')
+    const { filtro, ...query } = req.query
     const response = await salonService.get(query, filtro)
     res.json(response)
 }
 
 const getById = async (req, res)=>{
+    console.log('SalonController::getById')
     const { id } = req.params
     const {  filtro, lat, long } = req.query
     const response = await salonService.getById(id, [lat, long], filtro)

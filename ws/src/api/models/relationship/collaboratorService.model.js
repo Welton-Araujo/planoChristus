@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const collaboratorService = new Schema({
-    collaboratorId: {
+    collaboratorId: {//use: .populate()
         type: mongoose.Types.ObjectId,
         ref: 'Collaborator',
         required: true

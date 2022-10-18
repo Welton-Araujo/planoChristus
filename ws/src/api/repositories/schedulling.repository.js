@@ -5,11 +5,11 @@
 const SchedulingModel = require('../models/scheduling.model')
 
 
-const find = async () => {
+const find = async (query, fields='') => {
     
 }
 
-const findById = async () => {
+const findById = async (id, fields='') => {
     
 }
 
@@ -18,9 +18,9 @@ const findById = async () => {
  * @param {*} files 
  * @returns 
  */
- const findOne = async (query) => {
+ const findOne = async (query, fields='') => {
     try {
-        const oldScheduling = await SchedulingModel.findOne(query)
+        const oldScheduling = await SchedulingModel.findOne(query).select(fields)
         return { error:false, oldScheduling }  
     } catch (error) {
         return { error:true, message:error.message, oldScheduling:null }  

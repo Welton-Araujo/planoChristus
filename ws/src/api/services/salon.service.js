@@ -1,6 +1,5 @@
 const { distance:geoDistance }  = require('../../utils/calculations/geoLocation')
 const { isFilled, isEmpty } = require('../../utils/validations')
-const { noPasswd } = require('../../utils/response/secureResponse')
 
 const SalonRepository = require('../repositories/salon.repository')
 const ServiceRepository = require('../repositories/service.repository')
@@ -14,7 +13,7 @@ const ServiceRepository = require('../repositories/service.repository')
  */
 const get = async (query={}, fields='')=>{
     console.log('SalonService::', query, fields)    
-    return SalonRepository.find(query, noPasswd(fields))
+    return SalonRepository.find(query, fields)
 }
 
 /**
@@ -27,19 +26,17 @@ const get = async (query={}, fields='')=>{
  * @returns error {error, message}
  */
 const getById = async (id, coordinates, fields='_id name address.city')=>{
-    console.log('SalonService::getById', id, coordinates, fields)    
-    try {
-        const { error, salon } = await SalonRepository.findById(id, fields)
-        if(error) return { error:true, message:'Salão não encontrado'}
+    console.log('SalonService::getById', id, coordinates, fields)
+    
+    //BUSCAR SALAO:
+    const { error, salon } = await SalonRepository.findById(id, fields)
+    if(error) return { error:true, message:'Salão não encontrado'}
 
-        let distance = null
-        //DISTANCIA: SE GEO EXISTIR, CALCULAR:
-        if( salon.geo ){  distance = geoDistance(salon.geo.coordinates, coordinates)  }//fixa no monento...
+    let distance = null
+    //DISTANCIA: SE GEO EXISTIR, CALCULAR:
+    if( salon.geo ){  distance = geoDistance(salon.geo.coordinates, coordinates)  }
 
-        return { erros:false, salon, distance }
-    } catch (error) {
-        return { error:true, message:error.message }
-    }
+    return { erros:false, salon, distance }
 }
 
 /*** AULA ***/
@@ -90,6 +87,7 @@ const getSalonFormattedServices = async (salonId, query={}, fields='_id title') 
     
     return { error, salonId, services }    
 }
+
 
 module.exports = {
     

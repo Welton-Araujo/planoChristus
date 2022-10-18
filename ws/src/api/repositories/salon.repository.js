@@ -13,7 +13,7 @@ const SalonModel = require('../models/salon.model')
  */
 const find = async ( query={}, fields='' ) => {
     try {
-        const salons = await SalonModel.find(query).select(fields)
+        const salons = await SalonModel.find(query).select(fields).select('-passwd')
         return { error:false, salons }
     } catch (error) {
         return { error:true, message:error.message, salons:[] }
