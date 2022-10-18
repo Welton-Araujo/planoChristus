@@ -1,3 +1,7 @@
+/**
+ * @COLLABORATOR_MODEL
+*/
+
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
@@ -16,7 +20,7 @@ const collaborator = new Schema({
     },
     passwd: {
         type: String,
-        required: true
+        default: null
     },
     photo: {
         type: String,
@@ -40,32 +44,38 @@ const collaborator = new Schema({
     bankAccount:{
         owner:{
             type: String,
-            required: true,
+            // required: true,
         },
         cpfCnpj:{
             type: String,
-            required: true,
+            // required: true,
         },
         bank:{
             type: String,
-            required: true,
+            // required: true,
         },
         type:{
             type: String,
-            required: true,
+            enum:[
+                "conta_corrente",
+                "conta_poupanca",
+                "conta_corrente_conjunta",
+                "conta_poupanca_conjunta",
+            ],
+            // required: true,
         },
-        branch:{
+        agency:{
             type: String,
-            required: true,
+            // required: true,
         },
         number:{
             type: String,
-            required: true,
+            // required: true,
         },        
-        digit:{
+        dv:{//digito validador
             type: String,
-            required: true,
-        },        
+            // required: true,
+        },
     },
     recipientId:{
         type: String,
