@@ -7,6 +7,7 @@ const ScheduleModel = require('../models/schedule.model')
 /**
  * 
  * @param {*} query 
+ * @param {*} fields 
  * @returns 
  */
 const find = async (query={}, fields='') => {
@@ -19,9 +20,15 @@ const find = async (query={}, fields='') => {
     }
 }
 
-const findById = async (id) => {
+/**
+ * 
+ * @param {*} id 
+ * @param {*} fields 
+ * @returns 
+ */
+const findById = async ( id, fields='' ) => {
     try {
-        const schedule = await ScheduleModel.findById({ _id:id })
+        const schedule = await ScheduleModel.findById({ _id:id }).select(fields)
         return { error:false, schedule }
     } catch (error) {
         return { error:true, message:error.message, schedule:null }

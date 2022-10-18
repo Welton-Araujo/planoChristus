@@ -10,8 +10,8 @@ const schedule      = require('./schedule.route')
 const collaborator  = require('./collaborator.route')
 
 //remover os: OFF
-const serviceOFF        = require('./service.off.route')
-const collaboratorOFF   = require('./collaborator.off.route')
+// const serviceOFF        = require('./service.off.route')
+// const collaboratorOFF   = require('./collaborator.off.route')
 
 module.exports = [
     
@@ -22,6 +22,7 @@ module.exports = [
     collaborator,
 
     //remover os: OFF
-    serviceOFF,
-    collaboratorOFF
+    // serviceOFF,
+    // collaboratorOFF
+
 ]

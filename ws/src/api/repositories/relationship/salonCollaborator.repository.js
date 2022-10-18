@@ -5,9 +5,23 @@
 
 const SalonCollaboratorModel = require('../../models/relationship/salonCollaborator.model')
 
-
-const find = async () => {
-    
+/**
+ * 
+ * @param {*} query 
+ * @param {*} fields 
+ * @param {*} populate { path, select }
+ * @returns 
+ */
+const find = async ( query={}, fields='', populate={} ) => {
+    console.log('SalonCollaboratorModel::find ...', fields, populate)
+    try {
+        const salonCollaborators = await SalonCollaboratorModel.find(query)
+                                            .select(fields)
+                                            .populate(populate)
+        return { error:false, salonCollaborators }
+    } catch (error) {
+        return { error:true, message:error.message, salonCollaborators:[] }
+    }
 }
 
 const findById = async (id, fields='') => {    

@@ -5,8 +5,7 @@
 
 /********************************
  * @BOOL
-*/
-
+***/
 /**
  * @Info Verificar se array ou object estão preenchidos com pelo menos um item. 
  *       Suporta valor UNDEFINED ou NULL sem gerar erros.
@@ -14,7 +13,7 @@
  * @returns bool
  */
 const isFilled = (obj) => {
-    if( obj==null || obj==undefined ) return false    
+    if( obj==null || obj==undefined ) return false
     return (Object.keys(obj).length > 0)
 }
 
@@ -31,7 +30,8 @@ const isEmpty = (obj) => {
 
 module.exports = {
 
+    //Bool:
     isFilled,
     isEmpty,
-
+    
 }

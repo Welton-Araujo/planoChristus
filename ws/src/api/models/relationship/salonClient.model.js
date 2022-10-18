@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const salonClient = new Schema({
-    salonId: {
+    salonId: {//use: .populate()
         type: mongoose.Types.ObjectId,
         ref: 'Salon',
         required: true
