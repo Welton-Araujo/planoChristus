@@ -1,13 +1,17 @@
+/**
+ * @SCHEDULE_MODEL
+*/
+
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const schedules = new Schema({
+const schedule = new Schema({
     salonId: {
         type: mongoose.Types.ObjectId,
         ref: 'Salon',
         required: true
     },
-    experts: [{
+    specialties: [{
         type: mongoose.Types.ObjectId,
         ref: 'Service',
         required: true
@@ -35,4 +39,4 @@ const schedules = new Schema({
     }
 })
 
-module.exports = mongoose.model('Schedules', schedules)
+module.exports = mongoose.model('Schedule', schedule)

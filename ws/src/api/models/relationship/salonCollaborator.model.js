@@ -1,3 +1,8 @@
+/**
+ * @SALON_COLLABORATOR_MODEL
+ * @RELATIONSHIP
+*/
+
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
@@ -14,7 +19,7 @@ const salonCollaborator = new Schema({
     }],
     status:{
         type: String,
-        enum:['A','I'],
+        enum:['A','I', 'E'],
         required: true,
         default: 'A'
     },

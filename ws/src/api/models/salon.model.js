@@ -1,3 +1,7 @@
+/**
+ * @SALON_MODEL
+*/
+
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
@@ -27,8 +31,15 @@ const salon = new Schema({
         country: String,
     },
     geo:{
-        type: String,
-        coordinates: Array
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
     },
     dateRegistration:{
         type: Date,

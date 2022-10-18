@@ -1,3 +1,8 @@
+/**
+ * @SALON_CLIENT_MODEL
+ * @RELATIONSHIP
+*/
+
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
