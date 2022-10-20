@@ -21,9 +21,12 @@ Course Youtube: O irmão mais velho: [https://www.youtube.com/watch?v=04QoJx7r_X
    * Tutorial to Install (Ubuntu 2204): [https://techviewleo.com/install-mongodb-on-ubuntu-linux/]()
 3. Libs:
    * A node.js module for parsing incoming HTML form data:
-     * busboy, busboy-body-parser, connect-busboy
-   * Upload file:
-     * express-busboy
+     * `busboy, busboy-body-parser, connect-busboy`
+   * Upload file: `express-busboy`
+   * Geo Location: `turf`
+   * JS tool: `lodash`
+   * HTTP Client based on promise: `axios`
+   * MongoDB object modeling tool: `mongoose`
 
 ##### SETTINGS:
 
