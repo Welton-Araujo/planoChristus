@@ -8,7 +8,6 @@ const SalonRepository   = require('../repositories/salon.repository')
 const FileRepository    = require('../repositories/file.repository')
 
 
-
 /**
  * @ServicesFull Obter os serviços (com arquivos) do salao.
  * @param {*} salonId 

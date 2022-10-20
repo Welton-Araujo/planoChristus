@@ -83,8 +83,8 @@ const pushSafe = async ( service, files )=>{
     console.log('AWS::pushSafe' )
     let defaultFiles = { error:true, files:[] }
 
-    //tem arquivo(s)? files{}
-    if( have(files) ){  defaultFiles = await defaultFilenames('service', service.salonId, files) }
+    //TEM ARQUIVO(S)? CRIAR:
+    if( have(files) ){ defaultFiles = await defaultFilenames('service', service.salonId, files) }
     if( defaultFiles.error ){ return { error:true, message: "Error na leitura dos arquivos.", files:[] } }
 
     //AWS PUSH:

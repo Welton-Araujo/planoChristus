@@ -17,12 +17,7 @@ const get = async (query={}, fields='')=>{
 */
 const getSalonSchedules = async ( salonId, query={}, fields='')=>{
     console.log('ScheduleService::getSalonSchedules', salonId)
-    return ScheduleRepository.find({
-        salonId,
-        ...query,
-    }, 
-        fields
-    )
+    return ScheduleRepository.find({ salonId, ...query }, fields )
 }
 
 /** AULA **
