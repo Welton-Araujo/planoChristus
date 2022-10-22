@@ -56,6 +56,7 @@ const save = async (query)=>{
         return { error:true, message:error.message, newCollaboratorService:null }  
     }
 }
+
 /**
  * 
  * @param {*} query 

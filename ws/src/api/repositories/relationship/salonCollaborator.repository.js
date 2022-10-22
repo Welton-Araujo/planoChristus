@@ -60,6 +60,7 @@ const save = async (query)=>{
         return { error:true, message:error.message, newSalonCollaborator:null }  
     }
 }
+
 /**
  * 
  * @param {*} id 

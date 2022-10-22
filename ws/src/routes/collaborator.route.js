@@ -4,7 +4,8 @@ const router  = express.Router()
 const collaboratorController = require('../api/controllers/collaborator.controller') 
 
 
- router.get('/colaborador', async (req, res)=>{
+/** AULA **/
+router.get('/colaborador', async (req, res)=>{
     console.log('Collaborator:: /colaborador')
     collaboratorController.get(req, res)
 })

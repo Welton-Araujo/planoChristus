@@ -5,12 +5,22 @@
 const ClientModel = require('../models/client.model')
 
 
-const find = async () => {
-    
+const find = async ( query={}, fields='' ) => {
+    try {
+        const clients = await ClientModel.find(query).select(fields)
+        return { error:false, clients }
+    } catch (error) {
+        return { error:true, message:error.message, clients:[] }
+    }
 }
 
-const findById = async () => {
-    
+const findById = async (id, fields='') => {    
+    try {
+       const client = await ClientModel.findById({ _id:id }).select(fields)
+       return { error:false, client }
+   } catch (error) {
+       return { error:true, message:error.message, client:null }
+   }
 }
 
 /**
@@ -40,6 +50,7 @@ const findById = async () => {
         return { error:true, message:error.message, newClient:null }  
     }
 }
+
 /**
  * 
  * @param {*} id 
@@ -62,19 +73,19 @@ const update = async () => {
 }
 
 
-const del = async () => {
+const deleteById = async () => {
     
 }
 
 
 module.exports = { 
 
-    // find,
-    // findById,
+    find,
+    findById,
     findOne,
     save,
     findByIdAndUpdate,
     // update,
-    // del
+    deleteById
     
 }

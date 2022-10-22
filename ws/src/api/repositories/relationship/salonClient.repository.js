@@ -6,12 +6,32 @@
 const SalonClientModel = require('../../models/relationship/salonClient.model')
 
 
-const find = async () => {
-    
+/**
+ * 
+ * @param {*} query 
+ * @param {*} fields 
+ * @param {*} populate { path, select }
+ * @returns 
+ */
+ const find = async ( query={}, fields='', populate='' ) => {
+    console.log('SalonClientModel::find ...', fields, populate)
+    try {
+        const salonClients = await SalonClientModel.find(query)
+                                            .select(fields)
+                                            .populate(populate)
+        return { error:false, salonClients }
+    } catch (error) {
+        return { error:true, message:error.message, salonClients:[] }
+    }
 }
 
-const findById = async () => {
-    
+const findById = async (id, fields='') => {    
+    try {
+       const salonClient = await SalonClientModel.findById({ _id:id }).select(fields)
+       return { error:false, salonClient }
+   } catch (error) {
+       return { error:true, message:error.message, salonClient:null }
+   }    
 }
 
 /**
@@ -41,6 +61,21 @@ const findById = async () => {
         return { error:true, message:error.message, newSalonClient:null }  
     }
 }
+
+/**
+ * 
+ * @param {*} query 
+ * @returns 
+ */
+ const insertMany = async (query) => {
+    try {
+        const newSalonClients = await SalonClientModel.insertMany(query)
+        return { error:false, newSalonClients }  
+    } catch (error) {
+        return { error:true, message:error.message, newSalonClients:null }  
+    }
+}
+
 /**
  * 
  * @param {*} id 
@@ -62,19 +97,31 @@ const update = async () => {
 }
 
 
-const del = async () => {
-    
+/**
+ * 
+ * @param {*} query 
+ * @returns 
+ */
+ const deleteMany = async (query) => {
+    try {
+        const delSalonClients = await SalonClientModel.deleteMany(query)
+        console.log('delllll', delSalonClients)
+        return { error:false, delSalonClients }
+    } catch (error) {
+        return { error:true, message:error.message, delSalonClients:null }  
+    }
 }
 
 
 module.exports = { 
 
-    // find,
-    // findById,
+    find,
+    findById,
     findOne,
     save,
+    insertMany,
     findByIdAndUpdate,
     // update,
-    // del
+    deleteMany
     
 }
