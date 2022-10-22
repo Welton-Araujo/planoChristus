@@ -25,7 +25,7 @@ Course Youtube: O irmão mais velho: [https://www.youtube.com/watch?v=04QoJx7r_X
    * Upload file: `express-busboy`
    * Geo Location: `turf`
    * JS tool: `lodash`
-   * HTTP Client based on promise: `axios`
+   * HTTP Client based on promise: `axiosMongoDB object modeling tool`
    * MongoDB object modeling tool: `mongoose`
 
 ##### SETTINGS:

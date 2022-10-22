@@ -5,7 +5,7 @@
 const pagarme = require('./PagarMe.api')
 const { PAGARME } = require('../../../config')
 
-const RECIPIENT = PAGARME.ENDPOINT_RECEIVER
+const CUSTOMER = PAGARME.ENDPOINT_CUSTOMER
 
 
 const createAccountPagarme = async(bankAccount)=>{
@@ -39,9 +39,41 @@ const createAccountPagarme = async(bankAccount)=>{
     }
 }
 
+const createCustomerPagarme = async (_id, client)=>{
+    console.log('Pagarme::customer', _id)
+    try {
+        //CRIAR CONTA NO Pagar.me:
+        const pagarmeCustomer = await pagarme({
+            external_id:    _id,
+            name:           client.naem,
+            country:        client.address.country,
+            email:          client.email,
+            type:           client.document.type === 'cpf' ? 'individual' : 'corporation',
+            documents:[
+                { 
+                    type: client.document.type, 
+                    numebr: client.document.number 
+                }
+            ],
+            phone_numbers:        [client.phone],
+            birthday: client.dateBirth,
+            legal_name:      client.owner,
+        }, CUSTOMER)        
+        //ERRO AO CRIAR CONTA Pagar.me:
+        if(pagarmeCustomer.error){ throw pagarmeCustomer }
+
+
+        return pagarmeCustomer
+    } catch (error) {
+        return { error:true, message:error.message, client:null }
+    }
+
+}
+
 
 module.exports = {
 
     createAccountPagarme,
+    createCustomerPagarme,
 
 }

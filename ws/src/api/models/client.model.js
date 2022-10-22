@@ -44,7 +44,7 @@ const client = new Schema({
     document:{
         type: {
             type: String,
-            enum:['individual','corporation'],//site pagar.me: individual(cpf) or corporation(cnpj)
+            enum:['cpf','cnpj'],//site pagar.me: individual(cpf) or corporation(cnpj)
             required: true
         },
         number: {
@@ -62,8 +62,18 @@ const client = new Schema({
         country: String,
     },
     geo:{
-        type: String,
-        coordinates: Array
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
+    customerId:{
+        type: String
     },
     dateRegistration:{
         type: Date,
@@ -71,6 +81,6 @@ const client = new Schema({
     }
 })
 
-salon.index({ geo: '2dsphere' })//2d: Lat e long
+client.index({ geo: '2dsphere' })//2d: Lat e long
 
 module.exports = mongoose.model('Client', client)

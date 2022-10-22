@@ -8,6 +8,7 @@ const salon         = require('./salon.route')
 const service       = require('./service.route')
 const schedule      = require('./schedule.route')
 const collaborator  = require('./collaborator.route')
+const client        = require('./client.route')
 
 //remover os: OFF
 // const serviceOFF        = require('./service.off.route')
@@ -20,6 +21,7 @@ module.exports = [
     service,
     schedule,
     collaborator,
+    client,
 
     //remover os: OFF
     // serviceOFF,

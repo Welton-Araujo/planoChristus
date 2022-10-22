@@ -50,6 +50,7 @@ module.exports = Object.freeze({
     URI:                      process.env.PAGARME_URI || "https://api.pagar.me/1",
     ENDPOINT_CREATE_ACCOUNTS: process.env.PAGARME_ENDPOINT_CREATE_ACCOUNTS || "/bank_accounts",
     ENDPOINT_RECEIVER:        process.env.PAGARME_ENDPOINT_RECEIVER || "/recipient",
+    ENDPOINT_CUSTOMER:        process.env.PAGARME_ENDPOINT_CUSTOMER || "/customer",
     API_KEY:                  process.env.PAGARME_API_KEY,
   },
 
