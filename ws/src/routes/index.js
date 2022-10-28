@@ -9,6 +9,7 @@ const service       = require('./service.route')
 const schedule      = require('./schedule.route')
 const collaborator  = require('./collaborator.route')
 const client        = require('./client.route')
+const scheduling    = require('./scheduling.route')
 
 //remover os: OFF
 // const serviceOFF        = require('./service.off.route')
@@ -22,6 +23,7 @@ module.exports = [
     schedule,
     collaborator,
     client,
+    scheduling,
 
     //remover os: OFF
     // serviceOFF,

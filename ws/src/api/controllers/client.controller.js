@@ -46,7 +46,8 @@ const deleteById = async (req, res)=>{
 /**AULA **/
 const filters = async (req, res)=>{
     console.log('ClientController::filters', req.body)   
-    const response = await clientService.filters(req.body)
+    const { filtro, ...query } = req.query
+    const response = await clientService.filters(query, filtro)
     res.json(response)
 }
 

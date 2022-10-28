@@ -27,6 +27,7 @@ Course Youtube: O irmão mais velho: [https://www.youtube.com/watch?v=04QoJx7r_X
    * JS tool: `lodash`
    * HTTP Client based on promise: `axiosMongoDB object modeling tool`
    * MongoDB object modeling tool: `mongoose`
+   * Manipulating and formatting dates: `moment`
 
 ##### SETTINGS:
 

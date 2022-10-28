@@ -53,7 +53,7 @@ const client = new Schema({
         }
     },
     address: {
-        road: String,
+        street: String,
         number: String,
         district: String,
         zipCode: String,

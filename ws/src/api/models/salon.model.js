@@ -22,7 +22,7 @@ const salon = new Schema({
     },
     phone: String,
     address: {
-        road: String,
+        street: String,
         number: String,
         district: String,
         zipCode: String,
@@ -41,6 +41,7 @@ const salon = new Schema({
             required: true
         }
     },
+    recipientId: String,
     dateRegistration:{
         type: Date,
         default: Date.now,
