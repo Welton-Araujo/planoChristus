@@ -21,7 +21,7 @@ const scheduling = new Schema({
         ref: 'Service',
         required: true
     },
-    collaboratorID: {
+    collaboratorId: {
         type: mongoose.Types.ObjectId,
         ref: 'Collaborator',
         required: true

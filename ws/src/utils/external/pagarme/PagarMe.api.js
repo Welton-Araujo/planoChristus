@@ -5,17 +5,24 @@
 const axios = require('axios')
 const { PAGARME } = require('../../../config')
 
+const api_key           = PAGARME.API_KEY
+const CREATE_ACCOUNTS   = PAGARME.ENDPOINT_CREATE_ACCOUNTS
+// console.log('PAGARME...', PAGARME)
+
 const pagarMeApi = axios.create({
     baseUrl: PAGARME.URI,
 })
 
-const api_key  = PAGARME.API_KEY
-const CREATE_ACCOUNTS = PAGARME.ENDPOINT_CREATE_ACCOUNTS
-// console.log('PAGARME...', PAGARME)
 
+/**
+ * 
+ * @param {*} data {...}
+ * @param {*} endpoint string
+ * @returns Promise {error,data}
+ */
 module.exports = async (data, endpoint=CREATE_ACCOUNTS) => {
     try {
-        //POST
+        //POST:
         const response = await pagarMeApi.post(endpoint,{
             api_key,
             ... data
@@ -24,7 +31,7 @@ module.exports = async (data, endpoint=CREATE_ACCOUNTS) => {
     } catch (error) {
         return { 
             error: true, 
-            message: { input: error.input, code: error.code }
+            message: { input:error.input, code:error.code }
         }
     }
 }

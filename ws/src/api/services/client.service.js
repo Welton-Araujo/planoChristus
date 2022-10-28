@@ -138,9 +138,9 @@ const deleteById = async (id) => {
     return { error: true, message: 'Deletado com sucesso.' }
 }
 
-const filters = async (filters={}) => {
+const filters = async (query={}, filters={}) => {
     console.log('ClientService::filters')
-    return ClientRepository.filters(filters)
+    return ClientRepository.find(query, filters)
 }
 
 module.exports = {

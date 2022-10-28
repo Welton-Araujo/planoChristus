@@ -51,7 +51,10 @@ module.exports = Object.freeze({
     ENDPOINT_CREATE_ACCOUNTS: process.env.PAGARME_ENDPOINT_CREATE_ACCOUNTS || "/bank_accounts",
     ENDPOINT_RECEIVER:        process.env.PAGARME_ENDPOINT_RECEIVER || "/recipient",
     ENDPOINT_CUSTOMER:        process.env.PAGARME_ENDPOINT_CUSTOMER || "/customer",
+    ENDPOINT_TRANSACTIONS:    process.env.PAGARME_ENDPOINT_TRANSACTION || "/transactions",
     API_KEY:                  process.env.PAGARME_API_KEY,
+    APP_FEE:                  process.env.PAGARME_APP_FEE || "99",
+    APP_RECIPIENT_ID:         process.env.PAGARME_APP_RECIPIENT_ID || "fds4654f6we54ffhyt4"
   },
 
   MAIL: {

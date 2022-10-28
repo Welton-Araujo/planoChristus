@@ -2,11 +2,25 @@
  * @SCHEDULLING_REPOSITORY
 */
 
+const mongoose      = require('mongoose')
+
+const ClientModel       = require('../models/client.model')
+const SalonModel        = require('../models/salon.model')
+const ServiceModel      = require('../models/service.model')
+const CollaboratorModel = require('../models/collaborator.model')
+
 const SchedulingModel = require('../models/scheduling.model')
 
 
-const find = async (query, fields='') => {
-    
+const find = async (query, fields='', populate='') => {
+    try {
+        const schedules = await SchedulingModel.find(query)
+                                    .select(fields)
+                                    .populate(populate)
+        return { error:false, schedules }
+    } catch (error) {
+        return { error:true, message:error.message, schedules:[] }
+    }
 }
 
 const findById = async (id, fields='') => {
@@ -29,18 +43,53 @@ const findById = async (id, fields='') => {
 
 /**
  * 
- * @param {*} query 
- * @returns 
+ * @param {*} clientId 
+ * @param {*} salonId 
+ * @param {*} collaboratorId 
+ * @param {*} serviceId 
+ * @returns found{cl,sa,co,se}
  */
-const save = async (query)=>{
+const findFull = async (clientId, salonId, collaboratorId, serviceId)=>{
+    console.log('Schedulling::findFull',clientId, salonId, collaboratorId, serviceId)
+    // const db = mongoose.connection
+    // const session = await db.startSession()
+    // session.startTransaction()
     try {
-        const newScheduling = await SchedulingModel(query).save()//{ session })
-        return { error:false, newScheduling }  
+        //BUSCAR CLIENT:
+        const client = await ClientModel.findById(clientId).select('name address customerId') 
+
+        //BUSCAR SALAO:
+        const salon = await SalonModel.findById(salonId).select('recipientId') 
+
+        //BUSCAR SERVICO:
+        const service = await ServiceModel.findById(serviceId).select('price title commission') 
+
+        //BUSCAR COLABORADOR:
+        const collaborator = await CollaboratorModel.findById(collaboratorId).select('recipientId') 
+
+        // await session.commitTransaction()
+        // session.endSession()
+        return { error:false, found:{ client, salon, service, collaborator } }  
     } catch (error) {
-        return { error:true, message:error.message, newScheduling:null }  
+        // await session.commitTransaction()
+        // session.endSession()
+        return { error:true, message:error.message, found:{} }  
     }
 }
 
+/**
+ * 
+ * @param {*} query 
+ * @returns 
+ */
+ const save = async (query={})=>{
+    try {
+        const newScheduling = await SchedulingModel(query).save()        
+        return { error:false,  newScheduling }
+    } catch (error) {
+        return { error:true, message:error.message, newScheduling:null }  
+    }
+ }
 /**
  * 
  * @param {*} id 
@@ -70,12 +119,13 @@ const del = async () => {
 
 module.exports = { 
 
-    // find,
-    // findById,
+    find,
+    findById,
     findOne,
+    findFull,
     save,
     findByIdAndUpdate,
     // update,
-    // del
+    del
     
 }
