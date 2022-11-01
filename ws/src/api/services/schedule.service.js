@@ -1,4 +1,6 @@
-const _ =require('lodash')
+const lodash = require('lodash')
+
+// const { dateTimezoneBR } = require('../../utils/operations/time')
 
 const ScheduleRepository = require('../repositories/schedule.repository')
 const CollaboratorServiceRepository = require('../repositories/relationship/collaboratorService.repository')
@@ -51,7 +53,7 @@ const postCollaboratorSchedules = async (newServices)=>{
     if( !collaboratorServices ){ return{ error:true, message:'Serviço(s) deste colaborador não existe.' } }
     
     //REMOVER OS REGISTROS REPETIDOS USANDO A LIB LODASH:
-    const uniqColSer  = _.uniqBy(collaboratorServices, (colSer)=>colSer.collaboratorId._id.toString())
+    const uniqColSer  = lodash.uniqBy(collaboratorServices, (colSer)=>colSer.collaboratorId._id.toString())
     //FORMATO DO FRONT: [{ label: 'Serviço', value: '12345' }] 
     const collaborators = uniqColSer.map(colSer=>({ 
         label:colSer.collaboratorId.name, 

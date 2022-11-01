@@ -20,7 +20,7 @@ const service = new Schema({
         required:true
     },
     duration: {
-        type: Number,// in minute
+        type: Date,// in minute
         default: null
     },
     commission:{

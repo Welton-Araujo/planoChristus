@@ -27,7 +27,7 @@ const find = async ( query={}, fields='' ) => {
  * @returns 
  */
 const findById = async (id, fields='') => {    
-     try {
+    try {
         const salon = await SalonModel.findById({ _id:id }).select(`${fields} geo.coordinates`)
         return { error:false, salon }
     } catch (error) {
