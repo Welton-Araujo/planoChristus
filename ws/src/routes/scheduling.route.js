@@ -35,30 +35,6 @@ router.post('/agendamento', async (req, res)=>{
     schedulingController.post(req, res)
 })
 
-/** AULA **
- *
-*
-router.post('/agendamento/colaboradores', async (req, res)=>{
-    console.log('Scheduling:: /agendamento/colaboradores')
-    schedulingController.postCollaboratorSchedules(req, res)
-})
-
-/** AULA **
- *
-*
-router.put('/agendamento/:id', async (req, res)=>{
-    console.log('Scheduling:: /agendamento/id')
-    schedulingController.put(req, res)
-})
-
-/** AULA **
- *
-*
-router.delete('/agendamento/:id', async (req, res)=>{
-    console.log('Scheduling:: /agendamento/id')
-    schedulingController.deleteById(req, res)
-})/** */
-
 /*** AULA REMOVER: EH IGUAL AO get()::find(query)***
  * 
  */
@@ -66,5 +42,13 @@ router.post('/agendamento/filters', async (req, res)=>{
     console.log('Scheduling:: /agendamento/filters')
     schedulingController.filters(req, res)
 })
+
+/*** AULA ***/
+ router.post('/agendamento/dias-disponiveis', async (req, res)=>{
+    console.log('Scheduling:: /agendamento/dias-disponiveis')
+    schedulingController.availableDays(req, res)
+})
+
+
 
 module.exports = router

@@ -8,10 +8,18 @@ const ClientModel       = require('../models/client.model')
 const SalonModel        = require('../models/salon.model')
 const ServiceModel      = require('../models/service.model')
 const CollaboratorModel = require('../models/collaborator.model')
+const ScheduleModel     = require('../models/schedule.model')
 
 const SchedulingModel = require('../models/scheduling.model')
 
 
+/**
+ * 
+ * @param {*} query 
+ * @param {*} fields 
+ * @param {*} populate 
+ * @returns 
+ */
 const find = async (query, fields='', populate='') => {
     try {
         const schedules = await SchedulingModel.find(query)
@@ -24,7 +32,13 @@ const find = async (query, fields='', populate='') => {
 }
 
 const findById = async (id, fields='') => {
-    
+    try {
+        const scheduling = await SchedulingModel.findById({ _id:id })
+                                    .select(fields)
+        return { error:false, scheduling }
+    } catch (error) {
+        return { error:true, message:error.message, scheduling:null }
+    }    
 }
 
 /**
@@ -49,7 +63,7 @@ const findById = async (id, fields='') => {
  * @param {*} serviceId 
  * @returns found{cl,sa,co,se}
  */
-const findFull = async (clientId, salonId, collaboratorId, serviceId)=>{
+const findBeforePosting = async (clientId, salonId, collaboratorId, serviceId)=>{
     console.log('Schedulling::findFull',clientId, salonId, collaboratorId, serviceId)
     // const db = mongoose.connection
     // const session = await db.startSession()
@@ -79,17 +93,35 @@ const findFull = async (clientId, salonId, collaboratorId, serviceId)=>{
 
 /**
  * 
+ * @param {*} salonId 
+ * @param {*} serviceId 
+ * @param {*} filters 
+ * @returns 
+ */
+const findDays = async (salonId, serviceId)=>{
+    try {
+        const schedules = await ScheduleModel.find({salonId})
+        const service  = await ServiceModel.findById(serviceId).select('duration')
+        return { error:false,  found:{ schedules, service } }
+    } catch (error) {
+        return { error:true, message:error.message, found:{} }  
+    }
+}
+
+/**
+ * 
  * @param {*} query 
  * @returns 
  */
- const save = async (query={})=>{
+const save = async (query={})=>{
     try {
         const newScheduling = await SchedulingModel(query).save()        
         return { error:false,  newScheduling }
     } catch (error) {
         return { error:true, message:error.message, newScheduling:null }  
     }
- }
+}
+
 /**
  * 
  * @param {*} id 
@@ -122,7 +154,8 @@ module.exports = {
     find,
     findById,
     findOne,
-    findFull,
+    findBeforePosting,
+    findDays,
     save,
     findByIdAndUpdate,
     // update,

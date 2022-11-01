@@ -1,9 +1,15 @@
-const _ =require('lodash')
-const moment = require('moment')
-
+const { findAvailableDays } = require('../../utils/actions/scheduling.action')
 const { createPayment } = require('../../utils/external/pagarme')
-const SchedulingRepository = require('../repositories/schedulling.repository')
+const { 
+    firstMinOfDay,
+    lastMinOfDay,
+    dateToMin,
+    datePlusMin,
+    sliceMinutes,
+} = require('../../utils/operations/time')
 
+const SchedulingRepository   = require('../repositories/schedulling.repository')
+const CollaboratorRepository = require('../repositories/collaborator.repository')
 
 /** 
  * 
@@ -31,7 +37,7 @@ const post = async (clientId, salonId, collaboratorId, serviceId, date)=>{
     }
 
     //BUSCAR CLI, SAL, COL, SER:
-    const { found } = await SchedulingRepository.findFull(clientId, salonId, collaboratorId, serviceId)
+    const { found } = await SchedulingRepository.findBeforePosting(clientId, salonId, collaboratorId, serviceId)
     //ERRO:
     if( !found.client || !found.salon || !found.collaborator || !found.service  ){ 
         return { error:true, message:'Erro, verifique seus dados', payment:null } 
@@ -60,14 +66,14 @@ const post = async (clientId, salonId, collaboratorId, serviceId, date)=>{
 }
 
 /** AULA **/
-const filters = async ( salonId, period, query={}, filters={}) => {
+const filters = async (salonId, period, query={}, filters={}) => {
     console.log('schedulingService::filters', salonId, period)
     const { schedules } = await SchedulingRepository.find(
         {
             salonId,
             date:{
-                $gte: moment(period.start).startOf('day'),  // >= primeiro min do dia
-                $lte: moment(period.end).endOf('day'),      // <= ultimo   min do dia
+                $gte: firstMinOfDay(period.start),
+                $lte: lastMinOfDay(period.end),
             },
             ...query
         }, 
@@ -82,11 +88,42 @@ const filters = async ( salonId, period, query={}, filters={}) => {
     return { error:false, message:'Agendamento por período.', periodo:period, schedules}
 }
 
+/*** AULA ***/
+const availableDays = async (salonId,  serviceId, date, query={}, filters='duration')=>{
+    console.log('SchedulingService::availableDays', salonId, serviceId)
+    
+    //BUSCAR AGENDAMENTOS, SERVIÇOS:
+    const { found:{schedules, service} } = await SchedulingRepository.findDays(salonId, serviceId) 
+    if( !schedules || !service){ return { error:true, message:'Erro ao buscar agendamentos', days:null } }
+    
+    //AUX:
+    const allMin          = await dateToMin(service.duration)           // Date_Hour_min => AllMin
+    const durationPlusMin = await datePlusMin(service.duration, allMin )// Date_Hour_min + minutes
+    //MARCACAO DO SERVIÇO:
+    const serviceSlots    = await sliceMinutes(service.duration, durationPlusMin, 30) 
+    let {
+        collaborators,
+        agenda
+    } = await findAvailableDays(schedules, date, serviceId, serviceSlots)
+    
+    const { collaborators:colls } = await CollaboratorRepository.find({_id:{ $in:collaborators }},'name photo')
+
+    collaborators = colls.map((coll)=>({
+        _id:    coll.id,
+        name:   coll.name.split(' ')[0],//primeiro_nome
+        photo:  coll.photo
+    }))
+    // console.log('SchedulingService:: ........ ', durationPlusMin, serviceSlots)
+
+    return { error:false, message:'Agenda disponível', collaborators, agenda }
+}
+
 
 module.exports = {
     
     get,
     post,
     filters,
+    availableDays,
 
 }

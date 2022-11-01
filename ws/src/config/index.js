@@ -11,6 +11,10 @@ dotenv.config({})
 //Tentativa de reconfiguracao (NAO DEU CERTO USAR O .env.test):
 dotenv.config({ patth: process.env.NODE_ENV || '.env' })
 
+//NODE TIMEZONE CONFIG:
+// process.env.TZ = "America/Sao_Paulo"
+// console.log(new Date().toString())
+// console.log(new Date().toLocaleString())
 
 module.exports = Object.freeze({
 

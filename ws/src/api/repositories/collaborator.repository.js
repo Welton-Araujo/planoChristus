@@ -5,7 +5,7 @@
 const CollaboratorModel = require('../models/collaborator.model')
 
 
-const find = async ( query={}, fields='' ) => {
+const find = async ( query={}, fields='', populate='' ) => {
     try {
         const collaborators = await CollaboratorModel.find(query).select(fields)
         return { error:false, collaborators }
