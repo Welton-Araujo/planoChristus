@@ -83,6 +83,28 @@
             }
         }
     },
+    "s03":{
+        "description":"Frontend",
+        "comment":["A maioria dos conceitos desta seção foram colocados nos proprios Arquivos ou no repo: linguagens/development.json"],
+        "lessons":{
+            "l04":{
+                "description":"PAINEL DE CONTROLE - REACT",
+                "comment":[""],
+                "contents":{}
+            }
+        },
+        "resources":{
+            "web":{
+                "explication":[
+                    "O Frontend ficará na pasta: web (Site)",
+                    "Observar o resumo das dependencies em: web/package.json"
+                ],                
+                "react":{
+                    "redux":{}
+                }
+            }
+        }
+    },
     "syy":{
         "description":"",
         "comment":["A maioria dos conceitos desta seção foram colocados nos proprios Arquivos ou no repo: linguagens/development.json"],
