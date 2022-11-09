@@ -6,7 +6,8 @@
 * HTTP Client based on promise: `axios`
 * Bindings for using React Router in web applications: `react-router-dom`
 * Manage application state: `redux react-redux redux-saga @redux-devtools/extension `
-* ...
+* Framework for building responsive, mobile-first sites (CDN): `bootstrap`
+* Icons: `materialdesignicons`
 
 **SETTINGS:**
 
