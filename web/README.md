@@ -5,7 +5,7 @@
 * Load environment variables: `dotenv`
 * HTTP Client based on promise: `axios`
 * Bindings for using React Router in web applications: `react-router-dom`
-* Manage application state: `redux react-redux @redux-devtools/extension `
+* Manage application state: `redux react-redux redux-saga @redux-devtools/extension `
 * ...
 
 **SETTINGS:**
@@ -13,6 +13,9 @@
 FRONTEND:
 
 * ...
+
+
+
 
 ---
 
