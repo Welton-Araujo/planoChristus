@@ -1,0 +1,16 @@
+:root{
+
+    /* CREATE VARS: */
+    --primary: #560bad;
+    --dark:#222233;
+    --success:#6BECB9;
+    --danger:#FC3638;
+    --white:#FFFDFF;
+
+    /* GLOBAL CONFIG */
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    /* background-color: blue; */
+}
+

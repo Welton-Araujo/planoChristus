@@ -1,0 +1,13 @@
+/* 
+ * AQUI, OS NOMES DAS CLASS SAO NORMAIS, 
+ * OU SEJA, NAO LEVAM O PADRAO REACT DE ACRESCENTAR O PREFIXO DO COMPONENT.
+ * EX: LAYOUT_.mdi_fdgtr4
+ */
+header span:not(.mdi){
+    margin-bottom: -10px;
+}
+
+header span.mdi{
+    font-size: 20px;
+    margin-left: 10px;
+}
