@@ -1,0 +1,12 @@
+/*
+ * MODULE:  O PADRAO REACT DE NOMEAR CLASS É: COMPONENT_CLASS_RAND
+ *          Ex: import styles from 'Layout.module.css'
+ *              <div classeName={styles.layout}> => Layout_layout_rthsk2 
+*/
+
+.layout{
+  background-color: chartreuse;
+}
+
+
+

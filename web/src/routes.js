@@ -1,6 +1,21 @@
-const Routes = ()=>{
-    return<h1>TESTE</h1>
+import { 
+    // BrowserRouter as Router, 
+    Routes, 
+    Route 
+} from 'react-router-dom'
 
+import Scheduling from './pages/Scheduling'
+import Client from './pages/Client'
+
+const MainRouter = ()=>{
+    return(
+        // <Router>
+            <Routes>
+                <Route path='/' exact element={<Scheduling/>}/>
+                <Route path='/clientes' element={<Client/>}/>
+            </Routes>
+        // </Router>
+    )
 }
 
-export default Routes
+export default MainRouter

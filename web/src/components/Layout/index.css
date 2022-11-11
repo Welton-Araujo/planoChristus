@@ -1,0 +1,85 @@
+/*
+ * MODULE:  O PADRAO REACT DE NOMEAR CLASS É: COMPONENT_CLASS_RAND
+ *          Ex: import styles from 'Layout.module.css'
+ *              <div classeName={styles.layout}> => Layout_layout_rthsk2 
+*/
+
+/* ID da div_root */
+#root{
+  /* GLOBAL CONFIG */
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
+/* CSS GRID*/
+* {
+  padding: 0;
+  margin: 0;
+}
+
+header {
+  /* display: flex; */
+  grid-area: header;
+}
+
+aside {
+  grid-area: navigation;
+}
+
+main {
+  grid-area: content;
+}
+
+footer {
+  grid-area: footer;
+}
+
+.layout {
+  display: grid;
+  min-height: 100vh;
+  /*vh: height of viewport(página)*/
+  grid-template-columns: 220px 1fr;
+  grid-template-rows: 100px 1fr 100px;
+  grid-template-areas:
+    'header header'
+    'navigation content'
+    'footer footer';
+}
+
+.layout {
+  background-color: antiquewhite;
+}
+
+
+/* CONPONENT QUERIES */
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+  .layout {
+    background-color: rgb(173, 230, 181);
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  .layout {
+    background-color: brown;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (max-width: 728px) {
+  .layout {
+    background-color: rgb(221, 24, 228);
+    grid-template-columns: 1fr;
+    grid-template-rows: 80px 1fr 100px;
+    grid-template-areas: 'header' 'content' 'footer';
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) {
+  .layout {
+    background-color: rgb(207, 173, 230);
+  }
+}

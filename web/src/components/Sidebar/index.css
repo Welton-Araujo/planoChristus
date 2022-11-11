@@ -1,0 +1,47 @@
+aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: burlywood;
+}
+.sideMenu{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+img {
+  /* height: 60px; */
+}
+
+/* CONPONENT QUERIES */
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+  aside {
+    background-color: aqua;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  aside {
+    background-color: chocolate
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (max-width: 728px) {
+  aside {
+    display: none !important;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) {
+  aside {
+    display: none !important;
+  }
+}
+
+/**/
