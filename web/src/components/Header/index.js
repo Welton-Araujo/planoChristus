@@ -1,11 +1,16 @@
 import './index.css'
 
+import logo from '../../assets/img/logo-small.png'
+
 const Header = (props)=>{
     const { style } = props
     console.log('Header',style)
     return (
-        <header className="d-flex container-fluid justify-content-end" >
-            <div className="secondaryMenu align-itens-center" style={style}>
+        <header className="" >
+            <div className="logo">
+                <img src={logo} alt="logo" className="img-fluid px-3 py-4"/>
+            </div>
+            <div className="secondaryMenu" style={style}>
                 <div className="">
                     <span className="d-block m-0 p-0 text-white">Barbaria Tal</span>
                     <small className="subtitle">Plano Gold</small>

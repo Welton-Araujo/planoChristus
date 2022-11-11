@@ -1,0 +1,38 @@
+.content{
+    background-color: cornflowerblue;
+    padding: 0 7px!important;
+  }
+  
+  .column{
+    background-color: whitesmoke;
+    margin: 5px;
+  }
+  
+  /* Extra large devices (large desktops, 1200px and up) */
+  @media only screen and (max-width: 1200px) {
+    .content {
+      background-color: rgb(173, 230, 181);
+    }
+  }
+  
+  /* Large devices (desktops, 992px and up) */
+  @media only screen and (max-width: 992px) {
+    .content {
+      background-color: rgb(230, 217, 173);
+    }
+  }
+  
+  /* Medium devices (tablets, 768px and up) */
+  @media only screen and (max-width: 728px) {
+    .content {
+      background-color: lightblue;
+    }
+  }
+  
+  /* Small devices (landscape phones, 576px and up) */
+  @media only screen and (max-width: 576px) {
+    .content {
+      background-color: rgb(207, 173, 230);
+    }
+  }
+  
