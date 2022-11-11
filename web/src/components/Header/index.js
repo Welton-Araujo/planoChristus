@@ -5,7 +5,8 @@ import avatar from '../../assets/img/avatar.png'
 
 const Header = (props)=>{
     const { style } = props
-    console.log('Header',style)
+    // console.log('Header',style)
+    
     return (
         <header className="" >
             <div className="logo">

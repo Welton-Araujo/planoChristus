@@ -5,7 +5,8 @@ import './index.css'
 
 const Sidebar = (props)=>{
     const { style } = props
-    console.log('Sidebar', style)
+    // console.log('Sidebar', style)
+    
     return (
         <aside className="sidebar h-100" style={style}>
             <img src={logo} alt="logo" className="img-fluid px-3 py-4"/>

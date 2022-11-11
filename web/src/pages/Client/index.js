@@ -1,6 +1,8 @@
 import './index.css'
 
-const Client = ()=>{
+const Client = (props)=>{
+    // const {  } = props
+
     return(
         <div className="content row h-100">
             <div className="column"> column 1</div>

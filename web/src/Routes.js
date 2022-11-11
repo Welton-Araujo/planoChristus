@@ -1,21 +1,24 @@
 import { 
-    // BrowserRouter as Router, 
-    Routes, 
+    BrowserRouter, 
+    Routes as AllRoutes, 
     Route 
 } from 'react-router-dom'
 
 import Scheduling from './pages/Scheduling'
 import Client from './pages/Client'
 
-const MainRouter = ()=>{
+const Routes = ()=>{
     return(
-        // <Router>
-            <Routes>
+        // <BrowserRouter>
+            <AllRoutes>
                 <Route path='/' exact element={<Scheduling/>}/>
                 <Route path='/clientes' element={<Client/>}/>
-            </Routes>
-        // </Router>
+            </AllRoutes>
+        // </BrowserRouter>
     )
 }
 
-export default MainRouter
+export {
+    BrowserRouter,
+    Routes
+}

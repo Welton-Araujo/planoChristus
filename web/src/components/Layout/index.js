@@ -4,12 +4,11 @@ import './index.css'
 import Header from "../Header"
 import Sidebar from "../Sidebar"
 
-const Layuot = (props)=>{
+const Layout = (props)=>{
     const { children:content, style } = props
-    console.log('Layout',  style)
+    // console.log('Layout',  style)
         
     return (
-        // <div className={'layout'}>
         <div className={'layout'} style={style.layout}>
             <Header style={style.header}/>
             <Sidebar style={style.aside}/>
@@ -21,4 +20,4 @@ const Layuot = (props)=>{
     )
 }
 
-export default Layuot
+export default Layout
