@@ -101,7 +101,8 @@
                 ],                
                 "react":{
                     "redux":{}
-                }
+                },
+                "bootstrap":{}
             }
         }
     },
