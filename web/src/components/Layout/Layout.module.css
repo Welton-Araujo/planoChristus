@@ -1,16 +1,12 @@
-:root{
+/*
+ * MODULE:  O PADRAO REACT DE NOMEAR CLASS É: COMPONENT_CLASS_RAND
+ *          Ex: import styles from 'Layout.module.css'
+ *              <div classeName={styles.layout}> => Layout_layout_rthsk2 
+*/
 
-    /* CREATE VARS: */
-    --primary: #560bad;
-    --dark:#222233;
-    --success:#6BECB9;
-    --danger:#FC3638;
-    --white:#FFFDFF;
-
-    /* GLOBAL CONFIG */
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    /* background-color: blue; */
+.layout{
+  background-color: chartreuse;
 }
+
+
 

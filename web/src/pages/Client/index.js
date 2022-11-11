@@ -1,6 +1,9 @@
+import './index.css'
 
-export default ()=>{
+const Client = ()=>{
     return(
         <>Cliente</>
     )
 }
+
+export default Client

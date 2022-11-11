@@ -1,20 +1,22 @@
-import Header from "../Header"
-import Sidebar from "../sidebar"
+import './index.css'
+// import styles from './Layout.module.css'
 
-import '../../style.css'
-import './Layout.module.css'
+import Header from "../Header"
+import Sidebar from "../Sidebar"
 
 const Layuot = (props)=>{
-    console.log('Laoyout', props.children)
+    const { children:content, style } = props
+    console.log('Layout',  style)
+        
     return (
-        <div>
-            <Header/>
-            <div className="container-fluid h-100">
-                <div className="row h-100">
-                    <Sidebar/>
-                    {props.children}
-                </div>
-            </div>
+        // <div className={'layout'}>
+        <div className={'layout'} style={style.layout}>
+            <Header style={style.header}/>
+            <Sidebar style={style.aside}/>
+            <main>
+                {content}
+            </main>
+            <footer> roda pé </footer>
         </div>
     )
 }
