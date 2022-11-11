@@ -1,6 +1,7 @@
 import './index.css'
 
 import logo from '../../assets/img/logo-small.png'
+import avatar from '../../assets/img/avatar.png'
 
 const Header = (props)=>{
     const { style } = props
@@ -15,7 +16,7 @@ const Header = (props)=>{
                     <span className="d-block m-0 p-0 text-white">Barbaria Tal</span>
                     <small className="subtitle">Plano Gold</small>
                 </div>
-                <img src="https://cdn-icons-png.flaticon.com/512/147/147142.png" alt='avatar'/>
+                <img src={avatar} alt='avatar'/>
                 <span className="mdi mdi-chevron-down text-white"></span>
             </div>
         </header>
