@@ -1,4 +1,4 @@
-import './index.css'
+import './Header.css'
 
 import logo from '../../assets/img/logo-small.png'
 import avatar from '../../assets/img/avatar.png'

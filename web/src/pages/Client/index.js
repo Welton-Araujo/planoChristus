@@ -1,10 +1,10 @@
-import './index.css'
+import './Client.css'
 
 const Client = (props)=>{
     // const {  } = props
 
     return(
-        <div className="content row h-100">
+        <div className="content clientContent row h-100">
             <div className="column"> column 1</div>
             <div className="column"> column 2</div>
             <div className="column"> column 3</div>

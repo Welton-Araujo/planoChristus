@@ -1,6 +1,7 @@
-.content {
+.clientContent {
+    background-color: transparent;
     background-color: cornflowerblue;
-    padding: 0 7px !important;
+    /* padding: 0 7px !important; */
 }
 
 .column {

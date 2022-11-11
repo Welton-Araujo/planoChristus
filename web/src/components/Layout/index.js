@@ -1,4 +1,4 @@
-import './index.css'
+import './Layout.css'
 // import styles from './Layout.module.css'
 
 import Header from "../Header"
@@ -12,7 +12,7 @@ const Layout = (props)=>{
         <div className={'layout'} style={style.layout}>
             <Header style={style.header}/>
             <Sidebar style={style.aside}/>
-            <main>
+            <main className='mainContent'>
                 {content}
             </main>
             <footer> roda pé </footer>

@@ -12,7 +12,7 @@
 */
 
 @import url('./vars.css');
-@import url('./common.css');
+@import url('./common');
 
 /*Navegação por #: scroll animate*/
 html {
@@ -28,7 +28,7 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--white);
   text-decoration: none;
   /*desativar click*/
   /* pointer-events: none;  */

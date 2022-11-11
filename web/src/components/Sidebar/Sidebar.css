@@ -1,18 +1,26 @@
+/*
+ * COMMON:  OS NOMES_DAS_CLASS SERAO COMUNS. 
+ *          Ex: import './index.css'
+ *              <div classeName="sideMenu"> => .sideMenu
+*/
+
 aside {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: burlywood;
+  background-color: var(--dark);
+  color: inherit;
 }
+
 .sideMenu{
   display: flex;
   flex-direction: column;
   width: 90%;
 }
 
-img {
-  /* height: 60px; */
+aside img {
+  height: 140px !important;
 }
 
 /* CONPONENT QUERIES */

@@ -1,8 +1,8 @@
-import './index.css'
+import './Scheduling.css'
 
 const Scheduling = ()=>{
     return(
-        <div className="content row h-100">
+        <div className="content schedulingContent row h-100">
             <div className="column"> column 1</div>
             <div className="column"> column 2</div>
             <div className="column"> column 3</div>
