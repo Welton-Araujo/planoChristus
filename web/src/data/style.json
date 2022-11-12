@@ -15,6 +15,14 @@
         },
         "aside":{
           "display":"none"
+        },
+        "footer":{
+          "main":{
+            "backgroundColor":"#7a3bc4"            
+          },
+          "button":{
+            "backgroundColor":"#560bad"
+          }
         }
     }
 }

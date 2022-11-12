@@ -27,14 +27,14 @@ aside img {
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
   aside {
-    background-color: aqua;
+    color: inherit;
   }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
   aside {
-    background-color: chocolate
+    display: none !important;
   }
 }
 
@@ -51,5 +51,3 @@ aside img {
     display: none !important;
   }
 }
-
-/**/

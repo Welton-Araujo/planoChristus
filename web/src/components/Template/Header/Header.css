@@ -69,14 +69,14 @@ header .logo{
 
 /* Large devices (desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
-
+    .secondaryMenu{
+        display: none!important;
+    }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
-    .secondaryMenu{
-      display: none!important;
-    }    
+
 }
 
 /* Small devices (landscape phones, 576px and up) */

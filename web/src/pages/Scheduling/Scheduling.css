@@ -4,10 +4,31 @@
   /* padding: 0 7px!important; */
 }
 
-.column{
+.schedulingHeader{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.schedulingHeader h1{
+  font-size: 1.5rem;
+  text-transform: uppercase;
+
+}
+
+.schedulingCalendar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 100%;
+  overflow: auto;
+}
+
+/* .column{
   background-color: whitesmoke;
   margin: 5px;
-}
+} */
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {

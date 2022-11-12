@@ -3,6 +3,8 @@ import './Layout.css'
 
 import Header from "../Header"
 import Sidebar from "../Sidebar"
+import Footer from '../Footer'
+
 
 const Layout = (props)=>{
     const { children:content, style } = props
@@ -15,7 +17,7 @@ const Layout = (props)=>{
             <main className='mainContent'>
                 {content}
             </main>
-            <footer> roda pé </footer>
+            <Footer style={style.footer}/>
         </div>
     )
 }

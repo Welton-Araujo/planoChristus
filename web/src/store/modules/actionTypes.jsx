@@ -1,0 +1,23 @@
+//CLIENT
+
+//COLLABORATOR
+
+//SALON
+
+//SCHEDULE
+
+//SCHEDULING
+const SCHEDULING_ALL    = '@scheduling/ALL'
+const SCHEDULING_FILTER = '@scheduling/FILTER'
+const SCHEDULING_UPDATE = '@scheduling/UPDATE'
+
+//SERVICE
+
+
+export {
+
+    SCHEDULING_ALL,
+    SCHEDULING_FILTER,
+    SCHEDULING_UPDATE,
+
+}

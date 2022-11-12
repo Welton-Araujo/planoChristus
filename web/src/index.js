@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 
 import { BrowserRouter, Routes } from './Routes'
-import Layout from './components/Layout'
+import Layout from './components/Template/Layout'
 import store from './store'
+// import storeConfig from './store/storeConfig'
 
 import './styles/global.css'
 import styleConfig from './data/style.json'

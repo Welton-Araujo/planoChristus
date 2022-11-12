@@ -1,0 +1,39 @@
+.calendar {
+    display: flex;
+    justify-content: center;
+    min-height: 490px;
+    max-height: 547px;
+    width: 100%;
+    background-color: aliceblue;
+    padding: 10px;
+    overflow: auto !important;
+}
+
+/* CLASS DA LIB: react-big-calendar*/
+.calendar > .rbc-time-view > .rbc-time-content > .rbc-time-column{
+    min-width: 105px!important;
+    background-color: blue;
+}
+
+/* CONPONENT QUERIES */
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (max-width: 728px) {
+    .calendar{
+        max-height: 490px;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) {
+    
+}

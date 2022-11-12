@@ -21,7 +21,7 @@ module.exports = async (app, express)=>{
     app.use(morgan('dev'))
     app.use(express.json())
     app.use(connectBusboy())
-    app.use(cors())
+    app.use(cors({origin:'*'}))
     app.use(busboyBodyParser({}))// Só ative se necessario: { multi: true }
 
 }

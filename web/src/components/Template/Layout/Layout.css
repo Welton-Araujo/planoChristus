@@ -39,8 +39,8 @@ footer {
   display: grid;
   min-height: 100vh;
   /*vh: height of viewport(página)*/
+  grid-template-rows: 100px 1fr 185px;
   grid-template-columns: 220px 1fr;
-  grid-template-rows: 100px 1fr 100px;
   grid-template-areas:
     'header header'
     'navigation content'
@@ -67,17 +67,17 @@ footer {
 /* Large devices (desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
   .layout {
-    background-color: brown;
+    background-color: rgb(221, 24, 228);
+    grid-template-rows: 80px 1fr 185px;
+    grid-template-columns: 100%;
+    grid-template-areas: 'header' 'content' 'footer';
   }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
   .layout {
-    background-color: rgb(221, 24, 228);
-    grid-template-columns: 1fr;
-    grid-template-rows: 80px 1fr 100px;
-    grid-template-areas: 'header' 'content' 'footer';
+    background-color: rgb(228, 24, 24);
   }
 }
 

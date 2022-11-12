@@ -1,7 +1,7 @@
 import './Header.css'
 
-import logo from '../../assets/img/logo-small.png'
-import avatar from '../../assets/img/avatar.png'
+import logo from '../../../assets/img/logo-small.png'
+import avatar from '../../../assets/img/avatar.png'
 
 const Header = (props)=>{
     const { style } = props

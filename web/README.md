@@ -1,22 +1,21 @@
-# WEB: CONTROL PANEL
+# REACT APP: CONTROL PANEL
 
 **DEPENDENCIES:**
 
-* Load environment variables: `dotenv`
 * HTTP Client based on promise: `axios`
 * Bindings for using React Router in web applications: `react-router-dom`
 * Manage application state: `redux react-redux redux-saga @redux-devtools/extension `
 * Framework for building responsive, mobile-first sites (CDN): `bootstrap`
 * Icons: `materialdesignicons`
+* Events calendar component:  `react-big-calendar`
+* Manipulating and formatting dates: `moment`
+* *Create the next immutable state tree by simply modifying the current tree*: `immer`
 
 **SETTINGS:**
 
 FRONTEND:
 
 * ...
-
-
-
 
 ---
 
