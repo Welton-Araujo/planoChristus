@@ -25,6 +25,6 @@ const SERVER = {
   PORT: SERVER_PORT,
 }
 
-console.log("API... CONFIG", { SERVER });
+// console.log("API... CONFIG", { SERVER })
 
-export { LOCALHOST, APP, SERVER };
+export { LOCALHOST, APP, SERVER }

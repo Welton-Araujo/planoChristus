@@ -42,7 +42,7 @@ const formatRange = (period) =>{
         end   = period.end
     }
     
-    console.log('Calendar::onRangeChange', start, end )
+    // console.log('Calendar::onRangeChange', start, end )
     return{ 
         start:  moment(start).format('YYYY-MM-DD'), 
         end:    moment( end ).format('YYYY-MM-DD') 

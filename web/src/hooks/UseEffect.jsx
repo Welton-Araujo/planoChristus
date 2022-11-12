@@ -9,8 +9,8 @@ const START =  moment().weekday(0).format('YYYY-MM-DD')
 const END   =  moment().weekday(6).format('YYYY-MM-DD')
 
 
-const useEffect = (action, start=START, end=END) => {
-    console.log('useEffect...s,e', start, end)
+const useEffectDispatch = (action, start=START, end=END) => {
+    // console.log('useEffect...s,e', start, end)
     const dispatch = useDispatch()
     //TODAS VEZ QUE O COMPONENT FOR CARREGADO:
     _useEffect(() => {
@@ -20,6 +20,6 @@ const useEffect = (action, start=START, end=END) => {
 
 
 export {
-    useEffect,
+    useEffectDispatch,
 }
 

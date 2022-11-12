@@ -6,7 +6,7 @@ import {
 
 import moment from 'moment' 
 
-import { useEffect } from '../../hooks/UseEffect'
+import { useEffectDispatch } from '../../hooks/UseEffect'
 
 import { filterScheduling } from '../../store/modules/scheduling/actions'
 import { dateToMin } from '../../utils/operations/time'
@@ -22,11 +22,11 @@ const Scheduling = (props)=>{
     const schedules       = useSelector((state)=>state[0].schedules)
     const formattedEvents = formatEvents(schedules)
     
-    console.log('Scheduling::formattedEvents', formattedEvents) 
+    // console.log('Scheduling::formattedEvents', formattedEvents) 
     
     const dispatch = useDispatch()
     // ATUALIZAR NO CARREGAMENTO:
-    useEffect(filterScheduling)
+    useEffectDispatch(filterScheduling)
 
     return(
         <div className="content schedulingContent h-100">
