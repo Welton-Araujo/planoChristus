@@ -1,0 +1,55 @@
+.footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #e1e1e1;
+    height: 185px;
+}
+
+/*Main Footer*/
+.mainFooter{
+    display: flex;
+    justify-content: space-between;
+    align-items: initial;
+    padding: 10px;
+    height: 143px;
+    background-color: #63b3ed;
+}
+.mainFooter h2{
+    font-size: .9em;
+}
+.mainFooter h6{
+    font-size: .52rem;
+    margin: 3.0px;
+}
+
+/*Main Footer Company*/
+.mainFooterCompany{
+    width: 35%;
+}
+.mainFooterCompany .info{
+    font-size: .510em;
+    height: inherit;
+}
+
+/*Main Footer Content*/
+.mainFooterContent{
+    display: flex;
+    justify-content: space-around;
+    align-items: initial;
+    width: 75%;
+}
+
+/*Button Footer*/
+.buttonFooter{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: #004bac;
+    /* position: relative;
+    bottom: -18px; */
+}
+.buttonFooter span{
+    padding: 7px 0;
+    font-size: 0.62em;
+}

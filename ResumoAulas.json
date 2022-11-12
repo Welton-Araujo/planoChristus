@@ -100,9 +100,16 @@
                     "Observar o resumo das dependencies em: web/package.json"
                 ],                
                 "react":{
-                    "redux":{}
+                    "redux":{},
+                    "store":{},
+                    "hook":{}
                 },
-                "bootstrap":{}
+                "libs":{
+                    "bootstrap":{},
+                    "react-big-calendar":{},
+                    "moment":{},
+                    "immer":{}
+                }
             }
         }
     },

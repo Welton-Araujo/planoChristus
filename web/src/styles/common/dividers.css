@@ -1,0 +1,44 @@
+/*CSS COMMON*/
+.hrBorderGradient {
+    position: relative;
+    height: 5px !important;
+    width: 100%;
+    background: linear-gradient(to right, #004bac, #46a5e9, #63b3ed,#9ccbec);
+    border-top: 0px solid #C5C5C57D;
+}
+
+.hrBorderGradientLight {
+    position: relative;
+    height: 2.2px !important;
+    width: 100%;
+    background: linear-gradient(to right, #004bacf0, #46a5e9, #63b3edab,#9ccbecb0);
+    border-top: 0px solid #C5C5C57D;
+}
+
+.hrBorderTransparent {
+    position: relative;
+    height: 5px!important;
+    width: 100%;
+    background-color: #424c5a33;
+    border-top: 0px solid #C5C5C57D;
+}
+
+.hrBorderTransparentLight {
+    position: relative;
+    height: 2.2px!important;
+    width: 100%;
+    background-color: #424c5a33;
+    border-top: 0px solid #C5C5C57D;
+}
+
+.hrLineTransparent{
+    background: linear-gradient(to right, #f0f8ff1a,#f0f8ff1a);
+    height: 2px!important;
+    border: none;
+}
+
+.hrLineTransparentLight{
+    background: linear-gradient(to right, #f0f8ff1a,#f0f8ff1a);
+    height: 1px!important;
+    border: none;
+}
