@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom'
 
 const mainMenu = (props) =>{
-    const { listMenu } = props
-    // console.log('mainMenu', listMenu)
+    const { menu, onClose } = props
+    console.log('MainMenu', menu)
 
     return(
-        <>
-            <Link to="/"><span className="mdi mdi-calendar-check"> Agendamentos</span></Link>
-            <Link to="/clientes"><span className="mdi mdi-account-multiple"> Clientes</span></Link>
-        </>
+        <>{
+            menu.map((item,i)=>(
+                <Link key={`item-${i}`} to={item.src} onClick={onClose}>
+                    <span className={item.icon}>{ item.description}</span>
+                </Link>
+            ))
+        }</>
     )
 }
 

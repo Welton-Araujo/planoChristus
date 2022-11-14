@@ -5,18 +5,19 @@ import Header from "../Header"
 import Sidebar from "../Sidebar"
 import Footer from '../Footer'
 
+import menus from '../../../constants/header'
 import companyInfo from '../../../data/componentTest/companyInfo.json'
 import avatarInfo from '../../../data/componentTest/avatarInfo.json'
 
 
 const Layout = (props)=>{
     const { children:content, style } = props
-    // console.log('Layout',  style)
+    // console.log('Layout',  menus)
         
     return (
         <div className={'layout'} style={style.layout}>
-            <Header companyInfo={companyInfo} avatarInfo={avatarInfo} style={style.header}/>
-            <Sidebar style={style.aside}/>
+            <Header  menus={menus} companyInfo={companyInfo} avatarInfo={avatarInfo} style={style.header}/>
+            <Sidebar menus={menus} style={style.aside}/>
             <main className='mainContent'>
                 {content}
             </main>

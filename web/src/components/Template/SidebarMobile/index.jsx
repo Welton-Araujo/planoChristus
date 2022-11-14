@@ -6,13 +6,14 @@ import styles from "./SideberMobile.module.css"
 
 
 const SidebarMobile = (props) => {
+    const { menus, companyInfo, style } = props
+    console.log('SidebarMobile', menus.itemsMainMenu, style)
+
     const [open, setOpen] = useState(false)
     const [openWithHeader, setOpenWithHeader] = useState(false)
-    const { companyInfo, style } = props
-    // console.log('SidebarMobile', companyInfo)
 
     return (
-        <div className={styles.sidebaModile}>
+        <div className={styles.sidebaModile} style={style}>
         <ButtonToolbar>
             {/* <Button onClick={() => setOpen(true)}>Open</Button> */}
             <Button onClick={() => setOpenWithHeader(true)} className={styles.button}>
@@ -42,7 +43,7 @@ const SidebarMobile = (props) => {
             <Drawer.Body>
                 {/* <Placeholder.Paragraph /> */}
                 <div className={styles.sideMenuMobile}>
-                    <MainMenu />
+                    <MainMenu menu={menus.itemsMainMenu} onClose={() => setOpenWithHeader(false)}/>
                 </div>
             </Drawer.Body>
         </Drawer>

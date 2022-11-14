@@ -15,7 +15,7 @@ import './Scheduling.css'
 import Calendar from '../../components/Calendar'
 
 //TEST STATIC:
-import schedules from '../../data/componentTest/scheduling.json' 
+// import schedules from '../../data/componentTest/scheduling.json' 
 
 
 const Scheduling = (props)=>{
