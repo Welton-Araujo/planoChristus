@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import MainMenu from '../../MainMenu'
 
 import logo from '../../../assets/img/logo.png'
 import './Sidebar.css'
@@ -12,8 +12,7 @@ const Sidebar = (props)=>{
             <img src={logo} alt="logo" className="img-fluid px-3 py-3"/>
             <hr className="hrBorderGradientLight mt-0" />
             <nav className="sideMenu">
-                <Link to="/"><span className="mdi mdi-calendar-check"> Agendamentos</span></Link>
-                <Link to="/clientes"><span className="mdi mdi-account-multiple"> Clientes</span></Link>                 
+               <MainMenu />  
             </nav>
         </aside>
     )

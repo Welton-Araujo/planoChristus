@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 
 
 const scheduling = (state=INITIAL_STATE, action) =>{
-    console.log('REDUCER scheduling', action)
+    // console.log('REDUCER scheduling', action)
     switch (action.type) {
         case UPDATE_SCHEDULING:
             return produce(state, (draft)=>{

@@ -5,7 +5,7 @@ import FooterButton from './FooterButton'
 
 const Footer = (props) => {
     const { companyInfo, style } = props
-    console.log('Footer props', companyInfo, style)
+    // console.log('Footer props', companyInfo, style)
 
     return(
         <footer style={{}}>

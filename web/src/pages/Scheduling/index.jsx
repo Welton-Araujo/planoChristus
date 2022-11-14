@@ -28,7 +28,7 @@ const Scheduling = (props)=>{
 
     const schedules       = useSelector((state)=>state.scheduling.payload)
     const formattedEvents = formatEvents(schedules)
-    console.log('formattedEvents', formattedEvents)
+    // console.log('formattedEvents', formattedEvents)
     
     const dispatch = useDispatch()
     // ATUALIZAR NO CARREGAMENTO:

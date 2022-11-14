@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 const useEffectDispatch = (action, params, events=[]) => {
     const dispatch = useDispatch()
     const firstLoading = checkPage(events)
-    console.log('useEffect... params $$$', firstLoading)
+    // console.log('useEffect... params $$$', firstLoading)
 
     //PRIMEIRA VEZ QUE O COMPONENT FOR CARREGADO:
     useEffect(() => {

@@ -3,11 +3,26 @@
     justify-content: center;
     align-items: center;
 }
+
 .button span.mdi{
     margin: 0px!important;
     background-color: blue;
 }
 
+.sideMenuMobile {
+    display: flex;
+    flex-direction: column;
+}
+.sideMenuMobile a {
+    padding: 12px 0;
+    /* width: 100%; */
+    border-bottom: 1px solid #e1e1e1; 
+    color: inherit;
+} 
+
+.sideMenuMobile a:last-child{
+    border-bottom: none;    
+}
 
 
 /* CONPONENT QUERIES */

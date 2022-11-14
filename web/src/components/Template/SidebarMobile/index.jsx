@@ -1,13 +1,15 @@
 import { useState } from "react"
 import { Drawer, ButtonToolbar, Button, Placeholder } from "rsuite"
 
+import MainMenu from "../../MainMenu"
 import styles from "./SideberMobile.module.css"
+
 
 const SidebarMobile = (props) => {
     const [open, setOpen] = useState(false)
     const [openWithHeader, setOpenWithHeader] = useState(false)
     const { companyInfo, style } = props
-    console.log('SidebarMobile', companyInfo)
+    // console.log('SidebarMobile', companyInfo)
 
     return (
         <div className={styles.sidebaModile}>
@@ -38,7 +40,10 @@ const SidebarMobile = (props) => {
                 </Drawer.Actions>
             </Drawer.Header>
             <Drawer.Body>
-                <Placeholder.Paragraph />
+                {/* <Placeholder.Paragraph /> */}
+                <div className={styles.sideMenuMobile}>
+                    <MainMenu />
+                </div>
             </Drawer.Body>
         </Drawer>
         </div>
