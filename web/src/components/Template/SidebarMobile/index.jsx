@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Drawer, ButtonToolbar, Button, Placeholder } from "rsuite"
 
-import MainMenu from "../../MainMenu"
+import MainMenu from "../MainMenu"
 import styles from "./SideberMobile.module.css"
 
 

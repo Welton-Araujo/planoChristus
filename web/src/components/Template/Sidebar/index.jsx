@@ -1,4 +1,4 @@
-import MainMenu from '../../MainMenu'
+import MainMenu from '../MainMenu'
 
 import logo from '../../../assets/img/logo.png'
 import './Sidebar.css'
