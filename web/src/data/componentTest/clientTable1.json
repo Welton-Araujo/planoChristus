@@ -1,0 +1,198 @@
+{
+  "config":{
+    "main":{
+      "style":{"height":247}
+    },
+    "header":[
+      {"label":"id", "fixed":true, "style":{"width":50,"align":"center"}},
+      {"label":"nome","fixed":true, "style":{"width":150,"align":"left"}},
+      {"label":"sobrenome","fixed":true, "style":{"align":"left"}},
+      {"label":"sexo", "fixed":true,"style":{"width":100,"align":"left"}},
+      {"label":"idade", "fixed":true, "style":{"width":100,"align":"left"}},
+      {"label":"cep", "fixed":true,"style":{"width":150,"align":"left"}},
+      {"label":"email", "fixed":true,"style":{"width":300,"align":"left"}}
+    ]
+  },
+  "data": [
+    {
+      "id": "1",
+      "nome": "Cargdfdhdghgçl,rçwe,r,",
+      "sobrenome": "Popgdfgfdhyhjyuk5ui34k65",
+      "sexo": "male",
+      "idade": 40,
+      "cep": 123,
+      "email": "email@email.com"
+    },
+    {
+      "id": "2",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "3",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "4",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "5",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "6",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "7",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "8",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "9",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "10",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "11",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "12",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "13",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "14",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "15",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "16",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "17",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "18",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "19",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    },
+    {
+      "id": "20",
+      "nome": "Moto",
+      "sobrenome": "Pop",
+      "sexo": "female",
+      "idade": 41,
+      "cep": 1235,      
+      "email": "email@email2.com"
+    }
+  ]
+}

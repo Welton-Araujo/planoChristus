@@ -1,0 +1,13 @@
+{
+    "get":{
+        "salonId":"634c3a349592125facfe6a83"
+    },
+    "put":{
+        "bondId":"634c3a349592125facfe6a83",
+        "status":"I",
+        "services":[
+            "634d75078544ede7dfcc5956",
+            "634d739910870d4af9ec1109"
+        ]
+    }
+}

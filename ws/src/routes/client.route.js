@@ -10,43 +10,33 @@ router.get('/cliente', async (req, res)=>{
     clientController.get(req, res)
 })
 
-/*** AULA ***
- * 
- */
+/*** AULA ***/
  router.get('/cliente/salao/:salonId', async (req, res)=>{
     console.log('Client:: /cliente/salao/id')
     clientController.getSalonClients(req, res)
 })
 
-/*** AULA PAGAR.ME ***
- * 
- */
+/*** AULA PAGAR.ME ***/
 router.post('/cliente', async (req, res)=>{
     console.log('Client:: /cliente')
     clientController.post(req, res)
 })
 
-/*** AULA ***
- * 
- */
- router.put('/cliente/:collaboratorId', async (req, res)=>{
-    console.log('Client:: /cliente/collaboratorId')
+/*** AULA ***/
+ router.put('/cliente/:clientId', async (req, res)=>{
+    console.log('Client:: /cliente/clientId')
     clientController.put(req, res)
 })
 
 
-/*** AULA ***
- * 
- */
+/*** AULA ***/
  router.delete('/cliente/servico/:id', async (req, res)=>{
     console.log('Client:: /cliente/servico/rel_id')
     clientController.deleteById(req, res)
 })
 
 
-/*** AULA REMOVER: EH IGUAL AO get()::find(query)***
- * 
- */
+/*** AULA REMOVER: EH IGUAL AO get()::find(query) ***/
  router.post('/cliente/filters', async (req, res)=>{
     console.log('Client:: /cliente/filters')
     clientController.filters(req, res)

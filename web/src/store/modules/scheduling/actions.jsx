@@ -5,19 +5,14 @@ import {
 } from '../actionTypes'
 
 
-const filterScheduling = (start, end) =>{
-    return{
-        type: SCHEDULING_FILTER,
-        start,
-        end
-    }
+const filterScheduling = (payload) =>{
+    // console.log('filterScheduling', payload,  )
+    return{ type:SCHEDULING_FILTER, payload }
 }
 
-const updateScheduling = ( schedules ) =>{
-    return{
-        type: SCHEDULING_UPDATE,
-        schedules
-    }
+const updateScheduling = ( payload ) =>{
+    // console.log('updateScheduling', payload,  )
+    return{ type:SCHEDULING_UPDATE, payload }
 }
 
 export {

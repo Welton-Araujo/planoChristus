@@ -108,7 +108,8 @@
                     "bootstrap":{},
                     "react-big-calendar":{},
                     "moment":{},
-                    "immer":{}
+                    "immer":{},
+                    "rsuite":{}
                 }
             }
         }

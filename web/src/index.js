@@ -8,7 +8,7 @@ import store from './store'
 // import storeConfig from './store/storeConfig'
 
 import './styles/global.css'
-import styleConfig from './data/style.json'
+import styleConfig from './data/customize/style.json'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

@@ -5,9 +5,14 @@
 
 //MW de libs:
 const morgan            = require('morgan')
-const cors              = require('cors')
 const connectBusboy     = require('connect-busboy')
 const busboyBodyParser  = require('busboy-body-parser')
+const cors              = require('cors')
+
+//CONFIG:
+const corsConfig = {
+    origin:'*'
+}
 
 //MW de Autorais:
 // const fileUpload        = require('./copyright/fileUpload.middleware')
@@ -21,7 +26,7 @@ module.exports = async (app, express)=>{
     app.use(morgan('dev'))
     app.use(express.json())
     app.use(connectBusboy())
-    app.use(cors({origin:'*'}))
+    app.use(cors())
     app.use(busboyBodyParser({}))// Só ative se necessario: { multi: true }
 
 }

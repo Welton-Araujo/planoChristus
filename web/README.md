@@ -9,7 +9,8 @@
 * Icons: `materialdesignicons`
 * Events calendar component:  `react-big-calendar`
 * Manipulating and formatting dates: `moment`
-* *Create the next immutable state tree by simply modifying the current tree*: `immer`
+* Create the next immutable state tree by simply modifying the currenttree: `immer`
+* UI design (similar to bootstrap): `rsuitejs`
 
 **SETTINGS:**
 

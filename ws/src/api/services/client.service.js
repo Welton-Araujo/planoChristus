@@ -27,18 +27,22 @@ const getSalonClients = async ( salonId, fields='clientId status dateRegistratio
         fields, 
         { path:'clientId', select:'-passwd -customertId' }//populate
     )
+    // console.log('ClientService::salonClients', salonClients.clientId, salonClients )
     if( isEmpty(salonClients) ){ return {error:true, message:'Salão sem cliente(s).', clients:[] } }
 
-    return { 
-        error:false, 
-        message:'Cliente(s) encontrado.', 
-        clients:salonClients.map((salCli)=>({
-            ...salCli.clientId._doc,
-            salonClientId: salCli._id,
-            status: salCli.status,
-            dateRegistration: salCli.dateRegistration
+    // FORMATAR CLIENTES
+    const formattedClients = salonClients.map((salCli) =>{ 
+        return salCli.clientId.map(cli=>({
+            ...cli._doc,
+            salonClient:{
+                salonClientId: salCli._id,
+                status: salCli.status,
+                clidateRegistration: salCli.dateRegistration
+            }
         }))
-    }
+    }).flat()
+
+    return {  error:false,  message:'Cliente(s) encontrado.',  clients:formattedClients }
 }
 
 /*** AULA API Pagar.me ***
@@ -95,8 +99,8 @@ const post = async ( salonId, clientCandidate )=>{
 /*** ***
  * 
  * @param {*} clientId 
- * @param {*} bond 
- * @param {*} bondId salonId
+ * @param {*} status 
+ * @param {*} salonId
  * @param {*} services 
  * @returns 
  */
@@ -107,26 +111,29 @@ const put = async ( clientId, status, salColId , services )=>{
     session.startTransaction()
 
     //BUSCAR CLIENTE:
-    const { oldCollaborator } = await ClientRepository.findOne({_id: clientId})
-    if( !oldCollaborator ){ return{ error:true, message:'Colaborador não existe.' } }
+    const { oldClient } = await ClientRepository.findOne({_id: clientId})
+    if( !oldClient ){ return{ error:true, message:'Cliente não existe.' } }
     
     //ATUALIZA RELACIONAMENTO: (UPDATE STATUS)
-    await SalonClientRepository.findByIdAndUpdate(salColId, { status })
+    const { upSalonClient } = await SalonClientRepository.findByIdAndUpdate(salColId, { status })
+    // if( !upSalonClient ){ return{ error:true, message:'Cliente não tem serviços neste salão.' } }
 
     //DELETAR RELACIONAMENTO: (DEL SERVICES)
-    const { delCollaboratorServices } = await SalonClientRepository.deleteMany({clientId})
-    console.log('delCollaboratorServices', delCollaboratorServices)
+    const { delSalonClients } = await SalonClientRepository.deleteMany({clientId})
+    console.log('delSalonClients', delSalonClients)
 
     //INSERIR RELACIONAMENTO: (INSERT SERVICES) 
-    await SalonClientRepository.insertMany(
-        services.map((serviceId)=>({ serviceId, clientId }))
+    const ser = services.map((serviceId)=>({ serviceId, clientId }))
+    console.log('insertMany', ser)
+    const { newSalonClients } = await SalonClientRepository.insertMany(
+        ser
     )
 
     await session.commitTransaction()
     session.endSession()
 
-    return { error: true, message: 'Atualizado com sucesso.' }
- }
+    return { error: true, message: 'Serviços do cliente atualizados com sucesso.', services: newSalonClients }
+}
 
 /** AULA **/
 const deleteById = async (id) => {

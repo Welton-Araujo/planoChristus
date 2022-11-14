@@ -1,25 +1,25 @@
 import { 
-    useEffect as _useEffect 
+    useEffect 
 }   from 'react'
 import { useDispatch } from 'react-redux'
 
-import moment from 'moment'
 
-const START =  moment().weekday(0).format('YYYY-MM-DD')
-const END   =  moment().weekday(6).format('YYYY-MM-DD')
-
-
-const useEffect = (action, start=START, end=END) => {
-    console.log('useEffect...s,e', start, end)
+const useEffectDispatch = (action, params, events=[]) => {
     const dispatch = useDispatch()
-    //TODAS VEZ QUE O COMPONENT FOR CARREGADO:
-    _useEffect(() => {
-        dispatch(action(start, end))
-    },[dispatch, action])
+    const firstLoading = checkPage(events)
+    console.log('useEffect... params $$$', firstLoading)
+
+    //PRIMEIRA VEZ QUE O COMPONENT FOR CARREGADO:
+    useEffect(() => {
+        if(firstLoading){ dispatch(action(params)) }
+    },[dispatch, action, params, firstLoading])
 }
 
+const checkPage = (events)=>{
+    const firstLoading = Object.keys(events).length === 0
+    return firstLoading
+} 
 
-export {
-    useEffect,
-}
+
+export default useEffectDispatch
 

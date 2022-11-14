@@ -4,12 +4,13 @@ import { SCHEDULING_FILTER } from '../actionTypes'
 import { updateScheduling } from './actions'
 
 import api   from '../../../utils/external/api' 
-import login from '../../../data/loginTest.json'
+import login from '../../../data/fakeReq/schedulingTest.json'
 
 const endPoint = '/agendamento/filters'
 
 
-export function* filterScheduling ({ start, end }){
+export function* filterScheduling ({ payload: { start, end } }){
+    // console.log('filterScheduling sagas', start, end )
     try {
         const { data } = yield call(api.post, endPoint, {
             salonId:  login.salonId,
