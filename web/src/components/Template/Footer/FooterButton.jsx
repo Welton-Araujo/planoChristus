@@ -4,11 +4,9 @@ import {
     buttonFooterInfo as bf 
 } from '../../../constants/footer'
 
-import companyInfo from '../../../data/companyInfo.json'
-
 
 export default function FooterButton(props){
-    const { style } = props
+    const { companyInfo, style } = props
     const button    = style ? style.button : {}
     const date      = new Date().getFullYear()
     // console.log('Footer button', button)

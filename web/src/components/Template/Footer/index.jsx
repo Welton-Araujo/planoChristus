@@ -4,13 +4,13 @@ import FooterButton from './FooterButton'
 
 
 const Footer = (props) => {
-    const { style } = props
-    // console.log('Footer props', style)
+    const { companyInfo, style } = props
+    console.log('Footer props', companyInfo, style)
 
     return(
         <footer style={{}}>
-            <FooterMain style={style}/>
-            <FooterButton style={style}/>
+            <FooterMain companyInfo={companyInfo} style={style}/>
+            <FooterButton companyInfo={companyInfo} style={style}/>
         </footer>
     )
 }

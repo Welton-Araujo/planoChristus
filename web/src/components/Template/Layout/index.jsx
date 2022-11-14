@@ -5,6 +5,9 @@ import Header from "../Header"
 import Sidebar from "../Sidebar"
 import Footer from '../Footer'
 
+import companyInfo from '../../../data/componentTest/companyInfo.json'
+import avatarInfo from '../../../data/componentTest/avatarInfo.json'
+
 
 const Layout = (props)=>{
     const { children:content, style } = props
@@ -12,12 +15,12 @@ const Layout = (props)=>{
         
     return (
         <div className={'layout'} style={style.layout}>
-            <Header style={style.header}/>
+            <Header companyInfo={companyInfo} avatarInfo={avatarInfo} style={style.header}/>
             <Sidebar style={style.aside}/>
             <main className='mainContent'>
                 {content}
             </main>
-            <Footer style={style.footer}/>
+            <Footer companyInfo={companyInfo} style={style.footer}/>
         </div>
     )
 }

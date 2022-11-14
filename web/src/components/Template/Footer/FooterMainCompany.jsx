@@ -4,10 +4,9 @@ import {
     mainFooter1 as f1,
 } from '../../../constants/footer'
 
-import companyInfo from '../../../data/companyInfo.json'
 
-
-export default function Footer(){
+export default function Footer(props){
+    const { companyInfo } = props
     
     return(
         <div className={styles.mainFooterCompany} style={{
