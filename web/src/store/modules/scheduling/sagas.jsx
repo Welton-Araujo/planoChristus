@@ -1,6 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects'
 
-import { SCHEDULING_FILTER } from '../actionTypes'
+import { FILTER_SCHEDULING } from '../actionTypes'
 import { updateScheduling } from './actions'
 
 import api   from '../../../utils/external/api' 
@@ -33,4 +33,4 @@ export function* filterScheduling ({ payload: { start, end } }){
     }
 }
 
-export default all([takeLatest(SCHEDULING_FILTER, filterScheduling)])
+export default all([takeLatest(FILTER_SCHEDULING, filterScheduling)])

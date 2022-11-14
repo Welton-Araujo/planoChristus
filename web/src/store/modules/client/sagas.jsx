@@ -1,6 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects'
 
-import { CLIENT_ALL } from '../actionTypes'
+import { ALL_CLIENT } from '../actionTypes'
 import { updateClient } from './actions'
 
 import api   from '../../../utils/external/api' 
@@ -28,4 +28,4 @@ export function* allClient(){
     }
 }
 
-export default all([takeLatest(CLIENT_ALL, allClient)])
+export default all([takeLatest(ALL_CLIENT, allClient)])
