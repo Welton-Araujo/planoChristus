@@ -68,7 +68,7 @@ footer {
 @media only screen and (max-width: 992px) {
   .layout {
     background-color: rgb(221, 24, 228);
-    grid-template-rows: 80px 1fr 185px;
+    grid-template-rows: 100px 1fr 185px;
     grid-template-columns: 100%;
     grid-template-areas: 'header' 'content' 'footer';
   }

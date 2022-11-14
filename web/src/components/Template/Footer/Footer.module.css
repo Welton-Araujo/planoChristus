@@ -1,39 +1,42 @@
-.footer{
+footer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: #e1e1e1;
+    /* color: #e1e1e1; */
     height: 185px;
 }
 
 /*Main Footer*/
-.mainFooter{
+.mainFooter {
     display: flex;
     justify-content: space-between;
     align-items: initial;
     padding: 10px;
-    height: 143px;
-    background-color: #63b3ed;
+    height: 79%;
+    background-color: var(--dark-gray2);
 }
-.mainFooter h2{
+
+.mainFooter h2 {
     font-size: .9em;
 }
-.mainFooter h6{
+
+.mainFooter h6 {
     font-size: .52rem;
     margin: 3.0px;
 }
 
 /*Main Footer Company*/
-.mainFooterCompany{
+.mainFooterCompany {
     width: 35%;
 }
-.mainFooterCompany .info{
+
+.mainFooterCompany .info {
     font-size: .510em;
     height: inherit;
 }
 
 /*Main Footer Content*/
-.mainFooterContent{
+.mainFooterContent {
     display: flex;
     justify-content: space-around;
     align-items: initial;
@@ -41,15 +44,38 @@
 }
 
 /*Button Footer*/
-.buttonFooter{
+.buttonFooter {
     display: flex;
     justify-content: center;
     text-align: center;
-    background-color: #004bac;
+    background-color: var(--dark-purple);
+    color: var(--white);
     /* position: relative;
     bottom: -18px; */
 }
-.buttonFooter span{
+
+.buttonFooter span {
     padding: 7px 0;
     font-size: 0.62em;
+}
+
+/* CONPONENT QUERIES */
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+    
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (max-width: 728px) {
+    .mainFooter h6{
+        margin: 0;
+    }    
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) {
+    
 }

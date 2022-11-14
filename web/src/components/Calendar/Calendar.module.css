@@ -1,8 +1,8 @@
 .calendar {
     display: flex;
     justify-content: center;
-    min-height: 490px;
-    max-height: 547px;
+    min-height: 500px;
+    max-height: 540px;
     width: 100%;
     background-color: aliceblue;
     padding: 10px;
@@ -29,7 +29,8 @@
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
     .calendar{
-        max-height: 490px;
+        min-height: 410px;
+        max-height: 455px;
     }
 }
 
