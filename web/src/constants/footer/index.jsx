@@ -34,7 +34,6 @@ const mainFooter4 = {
         {src:'/', description:'item4.3'},
         {src:'/', description:'item4.4'},
         {src:'/', description:'item4.5'},
-        {src:'/', description:'item4.6'},
     ]
 }
 

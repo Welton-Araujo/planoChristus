@@ -18,8 +18,9 @@ const Client = (props)=>{
     const { style } = props
     // console.log('Client', clientTable)
 
-    const clients  = useSelector((state)=>state.client.payload)
-    console.log('clients[]', clients)
+    const { payload, form } = useSelector((state)=>state.client)
+    console.log('payload[] ', payload)
+    console.log('fomr', form)
     
     useEffectDispatch(allClient)
 
@@ -32,7 +33,14 @@ const Client = (props)=>{
                 </button>
             </div>
             <div className="clientBody" style={style}>
-                <Table data={clients} config={clientTable.config} onRowClick={onRowClick} actions={actions} style={{}}/>
+                <Table 
+                loading={form.filtering}
+                data={clientTable.data} 
+                config={clientTable.config} 
+                onRowClick={onRowClick} 
+                actions={actions} 
+                style={{color:"green"}}
+                />
             </div>
         </div>   
     )

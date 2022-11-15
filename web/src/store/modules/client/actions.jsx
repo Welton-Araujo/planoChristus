@@ -6,18 +6,27 @@ import {
 
 
 const allClient = () =>{
-    // console.log('allClient', )
-    return{ type: ALL_CLIENT }
+    console.log('ACTIONS allClient', )
+    return {
+        type:ALL_CLIENT 
+    }
 }
 
 const filterClient = (payload) =>{
-    // console.log('filterClient', payload,  )
-    return{ type: FILTER_CLIENT, payload }
+    console.log('ACTIONS filterClient', payload,  )
+    return {
+        type:FILTER_CLIENT, 
+        payload 
+    }
 }
 
-const updateClient = (payload) =>{
-    // console.log('updateClient', payload,  )
-    return{ type: UPDATE_CLIENT, payload }
+const updateClient = ({ payload, form }) =>{
+    console.log('ACTIONS updateClient', payload,  form)
+    return { 
+        type:UPDATE_CLIENT, 
+        payload,
+        form, 
+    }
 }
 
 export {

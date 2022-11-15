@@ -4,19 +4,21 @@
     width: 100%!important;
     /* min-width: 920px; */
     /* max-width: 1070px; */
-    max-height: 530px !important;
+    /* height: 100%; */
     margin: 0px;
     /* padding: 10px;  */
     overflow-y: auto;
 }
 
-
+.table .rs-table-body-row-wrapper{
+    height: 90%;
+} 
 
 /* CONPONENT QUERIES */
 /* Extra large devices (large desktops, 992px and up) */
 @media only screen and (min-width: 990px) {
     .table{
-        min-width: 920px;
+        /* min-width: 920px; */
     }
 }
 
@@ -28,15 +30,15 @@
 /* Large devices (desktops, 992px and down) */
 @media only screen and (max-width: 992px) {
     .table{
-        width: 100%!important;
-        max-height: 455px!important;
+        /* width: 100%!important;
+        height: 455px!important; */
     }
 }
 
 /* Medium devices (tablets, 768px and down) */
 @media only screen and (max-width: 728px) {
     .table{
-        max-height: 330px!important;
+        /* height: 330px!important; */
     }
 }
 

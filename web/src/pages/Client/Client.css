@@ -1,14 +1,16 @@
 .clientContent {
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+    /* padding: 0 7px !important; */
     background-color: transparent;
     background-color: cornflowerblue;
-    /* padding: 0 7px !important; */
 }
 .clientHeader{
     display: flex;
     justify-content: space-between;
     padding: 5px;
-}
-  
+}  
 .clientHeader h1{
     margin: 0 5px;
     font-size: 1.5rem;
@@ -22,9 +24,10 @@
     display: flex;
     justify-content: center;
     /* align-items: center; */
-    /* height: auto;
-    width: 100%; */
-    padding: 2px;
+    /* height: 100%; */
+    /* width: 100%; */
+    padding: 10px;
+    background-color: aqua;
 }
 
 .column {
@@ -32,30 +35,33 @@
     margin: 5px;
 }
 
+
+
+/* CONPONENT QUERIES */
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
     .content {
-        background-color: rgb(173, 230, 181);
+        /* background-color: rgb(173, 230, 181); */
     }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
     .content {
-        background-color: rgb(230, 217, 173);
+        /* background-color: rgb(230, 217, 173); */
     }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
     .content {
-        background-color: lightblue;
+        /* background-color: lightblue; */
     }
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media only screen and (max-width: 576px) {
     .content {
-        background-color: rgb(207, 173, 230);
+        /* background-color: rgb(207, 173, 230); */
     }
 }

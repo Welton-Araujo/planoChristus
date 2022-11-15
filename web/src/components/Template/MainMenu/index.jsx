@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 const mainMenu = (props) =>{
     const { menu, onClose } = props
-    console.log('MainMenu', menu)
+    // console.log('MainMenu', menu)
 
     return(
         <>{

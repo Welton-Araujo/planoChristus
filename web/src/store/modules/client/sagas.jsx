@@ -1,4 +1,4 @@
-import { all, takeLatest, call, put } from 'redux-saga/effects'
+import { all, takeLatest, call, put, select } from 'redux-saga/effects'
 
 import { ALL_CLIENT } from '../actionTypes'
 import { updateClient } from './actions'
@@ -11,20 +11,33 @@ const endPoint = `/cliente/salao/${client.get.salonId}`
 
 export function* allClient(){
     // console.log('allClient', )
+        
+    //BUSCAR STATE.CLIENT: PAYLOAD, FORM
+    const { payload,form } = yield select(state=>state.client) 
+    console.log('####################', payload, form)
     try {
+
+        //ATUALIZAR FORM: TRUE:
+        yield put(updateClient({ payload, form:{...form, filtering: true}}))
+
+        //REQUEST CLIENTES PARA API:
         const { data } = yield call(api.get, endPoint)
+        
+        //ATUALIZAR FORM: FALSE:
+        yield put(updateClient({ payload, form:{...form, filtering: false}}))
 
         // console.log('allClient ...',data)
         if( data.error ){
-            alert('Saga erro ... ' + data.message)
+            alert('SAGA CLIENT erro ... ' + data.message)
             return false
         }
 
-        //DISPARAR ACTION:
-        yield put(updateClient( data.clients ))
+        //ATUALIZAR CLIENTS: (ORIUNDOS API)
+        yield put(updateClient({ payload:data.clients, form }))
 
     } catch (error) {
-        alert('Saga erro ... ' + error)
+        alert('SAGA CLIENT erro ... ' + error)
+        yield put(updateClient({ payload, form:{...form, filterring: false}}))
     }
 }
 

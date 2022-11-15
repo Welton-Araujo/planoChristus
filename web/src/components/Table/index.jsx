@@ -7,8 +7,9 @@ const { Column, HeaderCell, Cell } = Table
 
 
 const MyTable = (props) => {
-    let { data, config, actions, onRowClick, style } = props
-    // console.log('MyTable ... ', data, config)
+    let { loading, data, config, actions, onRowClick, style } = props
+    console.log('MyTable ... #### ', loading, data, style)
+
     //MUDAR DE _ID PARA ID:
     data = data.map((item)=>({ ...item, id:(item._id||item.id) }))
 
@@ -16,9 +17,11 @@ const MyTable = (props) => {
 
     return (
         <Table className={"table"} style={style} 
-        // minHeight={'auto'||config.main.style.height}
+        loading={loading}
+        height={config.main.style.height}
         data={data}
         // autoHeight={autoHeight}
+        rowExpandedHeight={440}
         onRowClick={onRowClick}>
         {   
             config.header.map(({label, fixed, style},i) => (

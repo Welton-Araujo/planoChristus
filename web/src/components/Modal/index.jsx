@@ -6,7 +6,7 @@ let closeModal = null
 
 const MyModal = (props) => {
     const { title, nameButton, content, children, style } = props
-    console.log("Modal", content, children, style)
+    // console.log("Modal", content, children, style)
 
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
