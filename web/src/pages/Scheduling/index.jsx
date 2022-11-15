@@ -35,18 +35,16 @@ const Scheduling = (props)=>{
     useEffectDispatch(filterScheduling, {start, end}, schedules)
     
     return(
-        <div className="content schedulingContent h-100">
+        <div className="content schedulingContent">
             <div className="schedulingHeader">
                 <h1>Agendamentos</h1>
             </div>
-            <div className="row">
-                <div className="schedulingCalendar overflow-auto" style={style}>
-                    <Calendar style={{padding:'5px'}} 
-                        events={formattedEvents} 
-                        // events={[]} 
-                        dispatch={({start, end})=>dispatch(filterScheduling({start, end}))}
-                    />
-                </div>
+            <div className="schedulingCalendar" style={style}>
+                <Calendar style={{padding:'5px'}} 
+                    events={formattedEvents} 
+                    // events={[]} 
+                    dispatch={({start, end})=>dispatch(filterScheduling({start, end}))}
+                />
             </div>
         </div>    
     )

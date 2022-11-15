@@ -6,21 +6,25 @@
 .clientHeader{
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 5px;
 }
   
 .clientHeader h1{
+    margin: 0 5px;
     font-size: 1.5rem;
     text-transform: uppercase;
     color: var(--white);
 }
-
-.clients{
+.clientHeader > button{
+    margin: 5px 0;
+}
+.clientBody{
     display: flex;
     justify-content: center;
     /* align-items: center; */
     /* height: auto;
     width: 100%; */
+    padding: 2px;
 }
 
 .column {

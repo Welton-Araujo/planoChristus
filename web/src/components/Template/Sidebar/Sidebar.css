@@ -9,6 +9,7 @@ aside {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  height: auto;
   background-color: var(--dark);
   color: inherit;
 }

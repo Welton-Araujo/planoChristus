@@ -8,7 +8,7 @@ const Sidebar = (props)=>{
     // console.log('Sidebar', style)
     
     return (
-        <aside className="sidebar h-100" style={style}>
+        <aside className="sidebar" style={style}>
             <img src={logo} alt="logo" className="img-fluid px-3 py-3"/>
             <hr className="hrBorderGradientLight mt-0" />
             <nav className="sideMenu">

@@ -1,0 +1,24 @@
+.tableOneRow{
+    display: inline-flex; 
+    padding: 10px;
+}
+
+.tableCell{
+    display: inline-flex;
+    flex-direction: column; 
+    height: auto;
+    margin: 0 9px 0 0;
+}
+
+.cellTitle{
+    background-color: lightgray;  
+    height: 45px; 
+    padding: 10px; 
+    margin-bottom: 5px;
+}
+
+.cellValue{
+    background-color: whitesmoke;
+    height: 100%;
+    padding: 10px;
+}
