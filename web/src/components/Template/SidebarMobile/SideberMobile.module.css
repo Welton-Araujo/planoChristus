@@ -1,0 +1,49 @@
+.sidebaModile{
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.button span.mdi{
+    margin: 0px!important;
+    background-color: blue;
+}
+
+.sideMenuMobile {
+    display: flex;
+    flex-direction: column;
+}
+.sideMenuMobile a {
+    padding: 12px 0;
+    /* width: 100%; */
+    border-bottom: 1px solid #e1e1e1; 
+    color: inherit;
+} 
+
+.sideMenuMobile a:last-child{
+    border-bottom: none;    
+}
+
+
+/* CONPONENT QUERIES */
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+  
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+    .sidebaModile{
+        display: flex!important;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (max-width: 728px) {
+
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) {
+            
+}

@@ -1,6 +1,6 @@
 import produce from 'immer'
 import { 
-    CLIENT_UPDATE
+    UPDATE_CLIENT
 } from '../actionTypes'
 
 
@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 const client = (state=INITIAL_STATE, action) => {
     // console.log('REDUCER CLIENT', state)
     switch (action.type) {
-        case CLIENT_UPDATE:
+        case UPDATE_CLIENT:
             return produce(state, (draft)=>{
                 // draft.payload = [ ...draft.payload, ...action.payload ]
                 draft.payload = action.payload 

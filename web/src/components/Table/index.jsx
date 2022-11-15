@@ -1,3 +1,4 @@
+// import { useState } from "react"
 import { Table } from "rsuite"
 import "./Table.css"
 // import styles from "./Table.module.css"
@@ -11,22 +12,25 @@ const MyTable = (props) => {
     //MUDAR DE _ID PARA ID:
     data = data.map((item)=>({ ...item, id:(item._id||item.id) }))
 
+    // const [autoHeight, setAutoHeight] = useState(true)
+
     return (
         <Table className={"table"} style={style} 
-        height={config.main.style.height}
+        // minHeight={'auto'||config.main.style.height}
         data={data}
+        // autoHeight={autoHeight}
         onRowClick={onRowClick}>
         {   
             config.header.map(({label, fixed, style},i) => (
-                <Column key={`${i}`} flexGrow={style.width ? 1:0} width={style.width} align={style.align} fixed={fixed}>
+                <Column key={`${i}`} flexGrow={style.width ? 0:1} width={style.width} align={style.align} fixed={fixed}>
                     <HeaderCell >{label.toLocaleUpperCase()}</HeaderCell>
                     <Cell dataKey={label} />
                 </Column>
             ))       
         }
-            <Column width={80} fixed="right" >
-                <HeaderCell>AÇÕES</HeaderCell>
-                <Cell style={{padding:'4px'}}>{actions}</Cell>
+            <Column width={100} fixed="right" >
+                <HeaderCell>...</HeaderCell>
+                <Cell style={{padding:'0px'}}>{actions}</Cell>
             </Column>
         </Table>
     )

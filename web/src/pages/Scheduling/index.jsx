@@ -15,7 +15,7 @@ import './Scheduling.css'
 import Calendar from '../../components/Calendar'
 
 //TEST STATIC:
-import schedules from '../../data/componentTest/scheduling.json' 
+// import schedules from '../../data/componentTest/scheduling.json' 
 
 
 const Scheduling = (props)=>{
@@ -28,25 +28,23 @@ const Scheduling = (props)=>{
 
     const schedules       = useSelector((state)=>state.scheduling.payload)
     const formattedEvents = formatEvents(schedules)
-    console.log('formattedEvents', formattedEvents)
+    // console.log('formattedEvents', formattedEvents)
     
     const dispatch = useDispatch()
     // ATUALIZAR NO CARREGAMENTO:
     useEffectDispatch(filterScheduling, {start, end}, schedules)
     
     return(
-        <div className="content schedulingContent h-100">
+        <div className="content schedulingContent">
             <div className="schedulingHeader">
                 <h1>Agendamentos</h1>
             </div>
-            <div className="row">
-                <div className="schedulingCalendar overflow-auto" style={style}>
-                    <Calendar style={{padding:'5px'}} 
-                        events={formattedEvents} 
-                        // events={[]} 
-                        dispatch={({start, end})=>dispatch(filterScheduling({start, end}))}
-                    />
-                </div>
+            <div className="schedulingCalendar" style={style}>
+                <Calendar style={{padding:'5px'}} 
+                    events={formattedEvents} 
+                    // events={[]} 
+                    dispatch={({start, end})=>dispatch(filterScheduling({start, end}))}
+                />
             </div>
         </div>    
     )

@@ -2,18 +2,20 @@
   background-color: transparent;
   /* background-color: #bb9898; */
   /* padding: 0 7px!important; */
+  height: 100%;
+  padding: 5px;
 }
 
 .schedulingHeader{
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 5px;
 }
 
 .schedulingHeader h1{
   font-size: 1.5rem;
   text-transform: uppercase;
-
+  color: var(--white);
 }
 
 .schedulingCalendar{
@@ -22,7 +24,7 @@
   align-items: center;
   height: auto;
   width: 100%;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 /* .column{

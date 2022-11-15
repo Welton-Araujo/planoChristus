@@ -1,17 +1,14 @@
 @import "rsuite/dist/rsuite.css";
 
 .table {    
-    /* width: 980px!important; */
+    width: 100%!important;
     /* min-width: 920px; */
-    max-width: 1070px;
-    /* height: 100% !important; */
-    margin: 5px;
+    /* max-width: 1070px; */
+    max-height: 530px !important;
+    margin: 0px;
     /* padding: 10px;  */
+    overflow-y: auto;
 }
-
-/* .table .rs-table-row {
-    background-color: var(--rs-bg-card);
-} */
 
 
 
@@ -32,12 +29,15 @@
 @media only screen and (max-width: 992px) {
     .table{
         width: 100%!important;
+        max-height: 455px!important;
     }
 }
 
 /* Medium devices (tablets, 768px and down) */
 @media only screen and (max-width: 728px) {
-
+    .table{
+        max-height: 330px!important;
+    }
 }
 
 /* Small devices (landscape phones, 576px and down) */

@@ -1,0 +1,15 @@
+{
+    "userName":"@anonimo",
+    "firstName":"Anônimo",
+    "lastName":"fulano",
+    "img":{
+        "src": "",
+        "alt": "",
+        "width":"",
+        "height":"",
+        "margin": "",
+        "padding":"",
+        "radius": ""
+    },
+    "style":{ }
+}

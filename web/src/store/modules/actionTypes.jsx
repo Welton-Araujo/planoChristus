@@ -1,7 +1,7 @@
 //CLIENT
-const CLIENT_ALL    = '@client/ALL'
-const CLIENT_FILTER = '@client/FILTER'
-const CLIENT_UPDATE = '@client/UPDATE'
+const ALL_CLIENT    = '@client/ALL'
+const FILTER_CLIENT = '@client/FILTER'
+const UPDATE_CLIENT = '@client/UPDATE'
 
 //COLLABORATOR
 
@@ -10,21 +10,21 @@ const CLIENT_UPDATE = '@client/UPDATE'
 //SCHEDULE
 
 //SCHEDULING
-const SCHEDULING_ALL    = '@scheduling/ALL'
-const SCHEDULING_FILTER = '@scheduling/FILTER'
-const SCHEDULING_UPDATE = '@scheduling/UPDATE'
+const ALL_SCHEDULING    = '@scheduling/ALL'
+const FILTER_SCHEDULING = '@scheduling/FILTER'
+const UPDATE_SCHEDULING = '@scheduling/UPDATE'
 
 //SERVICE
 
 
 export {
 
-    CLIENT_ALL,
-    CLIENT_FILTER,
-    CLIENT_UPDATE,
+    ALL_CLIENT,
+    FILTER_CLIENT,
+    UPDATE_CLIENT,
 
-    SCHEDULING_ALL,
-    SCHEDULING_FILTER,
-    SCHEDULING_UPDATE,
+    ALL_SCHEDULING,
+    FILTER_SCHEDULING,
+    UPDATE_SCHEDULING,
 
 }

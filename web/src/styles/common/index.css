@@ -6,7 +6,7 @@
     --bs-gutter-x: 0;/*anulando espaco-a-esquerda do: row (bootstrap)*/
     /* justify-content: space-between; */
     /* margin: 0 5px; */
-    padding: 5px;
+    /* padding: 5px; */
 }
 
 .column {

@@ -7,14 +7,14 @@ import FooterMainContent from './FooterMainContent'
 
 
 export default function FooterMain(props){
-    const { style } = props
+    const { companyInfo, style } = props
     const main      = style ? style.main : {}
     // console.log('Footer main', main)    
 
     return(
         <div className={styles.mainFooter} style={main}>
-            <FooterMainCompany />
-            <FooterMainContent />
+            <FooterMainCompany companyInfo={companyInfo}/>
+            <FooterMainContent companyInfo={companyInfo}/>
         </div>
     )
 }
