@@ -1,7 +1,7 @@
 // import { useState } from "react"
 import { Table } from "rsuite"
 import "./Table.css"
-// import styles from "./Table.module.css"
+import styles from "./Table.module.css"
 
 const { Column, HeaderCell, Cell } = Table
 
@@ -16,7 +16,7 @@ const MyTable = (props) => {
     // const [autoHeight, setAutoHeight] = useState(true)
 
     return (
-        <Table className={"table"} style={style} 
+        <Table className={styles.table} style={style} 
         loading={loading}
         height={config.main.style.height}
         data={data}

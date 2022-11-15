@@ -1,4 +1,3 @@
-import './Footer.css'
 import FooterMain from './FooterMain'
 import FooterButton from './FooterButton'
 

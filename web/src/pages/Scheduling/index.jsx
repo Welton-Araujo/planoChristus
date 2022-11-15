@@ -11,7 +11,7 @@ import useEffectDispatch from '../../hooks/UseEffect'
 import { filterScheduling } from '../../store/modules/scheduling/actions'
 import { dateToMin } from '../../utils/operations/time'
 
-import './Scheduling.css'
+import styles from './Scheduling.module.css'
 import Calendar from '../../components/Calendar'
 
 //TEST STATIC:
@@ -35,11 +35,11 @@ const Scheduling = (props)=>{
     useEffectDispatch(filterScheduling, {start, end}, schedules)
     
     return(
-        <div className="content schedulingContent">
-            <div className="schedulingHeader">
+        <div className={`content ${styles.schedulingContent}`}>
+            <div className={styles.schedulingHeader}>
                 <h1>Agendamentos</h1>
             </div>
-            <div className="schedulingCalendar" style={style}>
+            <div className={styles.schedulingBody} style={style}>
                 <Calendar style={{padding:'5px'}} 
                     events={formattedEvents} 
                     // events={[]} 

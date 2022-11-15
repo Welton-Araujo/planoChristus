@@ -1,7 +1,7 @@
 {
     "config":{
         "main":{
-          "style":{"height":400}
+          "style":{"height":447}
         },
         "header":[
           {"label":"id", "fixed":true, "style":{"width":80,"align":"center"}},
