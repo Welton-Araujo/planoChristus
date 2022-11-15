@@ -12,19 +12,20 @@ const endPoint = `/cliente/salao/${client.get.salonId}`
 export function* allClient(){
     // console.log('allClient', )
         
-    //BUSCAR STATE.CLIENT: PAYLOAD, FORM
-    const { payload,form } = yield select(state=>state.client) 
-    console.log('####################', payload, form)
+    //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
+    const { payload, form, components, behavior, client } = yield select(state=>state.client) 
+    console.log('SAGAS STATE #######', payload, form)
+    
     try {
 
         //ATUALIZAR FORM: TRUE:
-        yield put(updateClient({ payload, form:{...form, filtering: true}}))
+        yield put(updateClient({ payload, form:{...form, filtering: true}, components, behavior, client}))
 
         //REQUEST CLIENTES PARA API:
         const { data } = yield call(api.get, endPoint)
         
         //ATUALIZAR FORM: FALSE:
-        yield put(updateClient({ payload, form:{...form, filtering: false}}))
+        yield put(updateClient({ payload, form:{...form, filtering: false}}, components, behavior, client))
 
         // console.log('allClient ...',data)
         if( data.error ){
@@ -33,11 +34,11 @@ export function* allClient(){
         }
 
         //ATUALIZAR CLIENTS: (ORIUNDOS API)
-        yield put(updateClient({ payload:data.clients, form }))
+        yield put(updateClient({ payload:data.clients, form, components, behavior, client }))
 
     } catch (error) {
         alert('SAGA CLIENT erro ... ' + error)
-        yield put(updateClient({ payload, form:{...form, filterring: false}}))
+        yield put(updateClient({ payload, form:{...form, filterring: false}, components, behavior, client}))
     }
 }
 

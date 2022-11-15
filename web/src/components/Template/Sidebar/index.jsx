@@ -4,7 +4,7 @@ import logo from '../../../assets/img/logo.png'
 import styles from './Sidebar.module.css'
 
 const Sidebar = (props)=>{
-    const { menus, style } = props
+    const { menus={}, style={} } = props
     // console.log('Sidebar', style)
     
     return (

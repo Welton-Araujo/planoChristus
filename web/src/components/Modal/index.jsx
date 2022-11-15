@@ -1,12 +1,15 @@
 import { useState } from "react"
 import { Modal, Button, ButtonToolbar } from 'rsuite'
 
+import styles from './Modal.module.css'
+
 let openModal  = null
 let closeModal = null
 
+
 const MyModal = (props) => {
-    const { title, nameButton, content, children, style } = props
-    // console.log("Modal", content, children, style)
+    const { config={}, children, style } = props
+    // console.log("Modal ... ", children, style)
 
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
@@ -15,17 +18,17 @@ const MyModal = (props) => {
     closeModal = handleClose
 
     return (
-        <div className="">
+        <div className={styles.modal} style={style}>
             <ButtonToolbar>
-                <Button onClick={handleOpen}>{nameButton||'Ver'}</Button>
+                <Button onClick={handleOpen}>{config.nameButton||'Ver'}</Button>
             </ButtonToolbar>
 
             <Modal open={open} onClose={handleClose} >
                 <Modal.Header>
-                    <Modal.Title>{title||'Detalhes'}</Modal.Title>
+                    <Modal.Title>{config.title||'Detalhes'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {content}
+                    {children}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleClose} appearance="primary">

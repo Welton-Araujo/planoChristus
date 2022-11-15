@@ -7,7 +7,7 @@ import avatar from '../../../assets/img/avatar.png'
 
 
 const Header = (props)=>{
-    const { menus, companyInfo, avatarInfo, style } = props
+    const { menus={}, companyInfo={}, avatarInfo={}, style={} } = props
     // console.log('Header', avatarInfo,style)
     
     return (

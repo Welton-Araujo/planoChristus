@@ -6,8 +6,8 @@ import styles from "./SideberMobile.module.css"
 
 
 const SidebarMobile = (props) => {
-    const { menus, companyInfo, style } = props
-    console.log('SidebarMobile', menus.itemsMainMenu, style)
+    const { menus={}, companyInfo={}, style={} } = props
+    // console.log('SidebarMobile', menus.itemsMainMenu, style)
 
     const [open, setOpen] = useState(false)
     const [openWithHeader, setOpenWithHeader] = useState(false)

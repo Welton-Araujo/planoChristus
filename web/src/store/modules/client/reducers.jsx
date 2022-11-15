@@ -47,7 +47,7 @@ const INITIAL_STATE = {
 }
 
 const client = (state=INITIAL_STATE, action) => {
-    console.log('REDUCER CLIENT', state, action)
+    // console.log('REDUCER CLIENT', state, action)
     switch (action.type) {
         case UPDATE_CLIENT:
             return produce(state, (draft)=>{

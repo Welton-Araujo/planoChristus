@@ -7,7 +7,7 @@ import FooterMainContent from './FooterMainContent'
 
 
 export default function FooterMain(props){
-    const { companyInfo, style } = props
+    const { companyInfo={}, style={} } = props
     const main      = style ? style.main : {}
     // console.log('Footer main', main)    
 
