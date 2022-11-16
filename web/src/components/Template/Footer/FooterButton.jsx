@@ -2,7 +2,7 @@ import styles from './Footer.module.css'
 
 import { 
     buttonFooterInfo as bf 
-} from '../../../constants/footer'
+} from '../../../constants/templates/footer'
 
 
 export default function FooterButton(props){

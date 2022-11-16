@@ -7,7 +7,15 @@ const { Column, HeaderCell, Cell } = Table
 
 
 const MyTable = (props) => {
-    const { loading=false, data=[{}], config={}, actions, onRowClick } = props
+    const { 
+        loading=false, 
+        data=[{}], 
+        config={}, 
+        actions=undefined, 
+        onRowClick=undefined,
+        // setComponent=undefined, 
+        children=undefined
+    } = props
     const { main:{style={}}, header=[] } = config
     // console.log('MyTable ... #### ', loading, data)
     
@@ -32,10 +40,22 @@ const MyTable = (props) => {
                 </Column>
             ))       
         }
-            <Column width={100} fixed="right" >
+            <Column width={100} fixed={"right"} style={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>
                 <HeaderCell>...</HeaderCell>
-                <Cell style={{padding:'0px'}}>{actions}</Cell>
+                <Cell style={{padding:'0px'}}>
+                    {actions}
+                </Cell>
             </Column>
+
+            { children ?
+                <Column width={50} fixed="right" >
+                    <HeaderCell>{children && '...'}</HeaderCell>
+                    <Cell style={{padding:'0px'}}>
+                       {children}
+                    </Cell>
+                </Column>            
+                : false
+            }
         </Table>
     )
 }

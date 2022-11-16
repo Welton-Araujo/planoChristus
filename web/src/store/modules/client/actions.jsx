@@ -1,8 +1,8 @@
 import { 
     ALL_CLIENT,
-    FILTER_CLIENT,
+    FILTER_CLIENTS,
     UPDATE_CLIENT,
-} from '../actionTypes'
+} from '../../../constants/store/actionTypes'
 
 
 const allClient = () =>{
@@ -15,8 +15,8 @@ const allClient = () =>{
 const filterClient = (payload) =>{
     // console.log('ACTIONS filterClient', payload,  )
     return {
-        type:FILTER_CLIENT, 
-        payload 
+        type:FILTER_CLIENTS, 
+        // payload 
     }
 }
 

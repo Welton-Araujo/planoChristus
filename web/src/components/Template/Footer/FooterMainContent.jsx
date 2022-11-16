@@ -4,7 +4,7 @@ import {
     mainFooter2 as f2,
     mainFooter3 as f3,
     mainFooter4 as f4, 
-} from '../../../constants/footer'
+} from '../../../constants/templates/footer'
 
 
 export default function Footer(props){

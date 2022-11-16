@@ -2,7 +2,7 @@ import {
     // ALL_SCHEDULING,
     FILTER_SCHEDULING,
     UPDATE_SCHEDULING, 
-} from '../actionTypes'
+} from '../../../constants/store/actionTypes'
 
 
 const filterScheduling = (payload) =>{

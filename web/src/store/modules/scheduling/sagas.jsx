@@ -1,6 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects'
 
-import { FILTER_SCHEDULING } from '../actionTypes'
+import { FILTER_SCHEDULING } from '../../../constants/store/actionTypes'
 import { updateScheduling } from './actions'
 
 import api   from '../../../utils/external/api' 

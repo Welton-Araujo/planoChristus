@@ -9,5 +9,9 @@
             "634d75078544ede7dfcc5956",
             "634d739910870d4af9ec1109"
         ]
+    },
+    "post":{
+        "email":"roberto@email.com",
+        "status":"I"        
     }
 }
