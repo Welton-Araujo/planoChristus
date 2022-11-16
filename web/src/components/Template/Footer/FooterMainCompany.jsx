@@ -2,7 +2,7 @@ import styles from './Footer.module.css'
 
 import { 
     mainFooter1 as f1,
-} from '../../../constants/footer'
+} from '../../../constants/templates/footer'
 
 
 export default function Footer(props){

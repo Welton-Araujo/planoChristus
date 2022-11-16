@@ -1,10 +1,7 @@
 import produce from 'immer'
 
-import { UPDATE_SCHEDULING } from '../actionTypes'
-
-const INITIAL_STATE = {
-    payload:[]
-}
+import { UPDATE_SCHEDULING } from '../../../constants/store/actionTypes'
+import { INITIAL_STATE } from '../../../constants/store/scheduling'
 
 
 const scheduling = (state=INITIAL_STATE, action) =>{
@@ -12,6 +9,7 @@ const scheduling = (state=INITIAL_STATE, action) =>{
     switch (action.type) {
         case UPDATE_SCHEDULING:
             return produce(state, (draft)=>{
+                // draft = { ...draft, ...action.payload }
                 draft.payload = action.payload
                 return draft
             })

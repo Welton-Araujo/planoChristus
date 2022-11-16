@@ -5,7 +5,7 @@ import Header from "../Header"
 import Sidebar from "../Sidebar"
 import Footer from '../Footer'
 
-import menus from '../../../constants/header'
+import menus from '../../../constants/templates/header'
 import companyInfo from '../../../data/componentTest/companyInfo.json'
 import avatarInfo from '../../../data/componentTest/avatarInfo.json'
 

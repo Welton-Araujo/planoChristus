@@ -2,8 +2,8 @@ import styles from './TableOneRow.module.css'
 
 
 const TableOneRow = (props) =>{
-    const { objData, style } = props
-    console.log('TableOneRow ....', objData, style)
+    const { objData={}, style={} } = props
+    // console.log('TableOneRow ....', objData, style)
 
     return formatTable(objData)
 }

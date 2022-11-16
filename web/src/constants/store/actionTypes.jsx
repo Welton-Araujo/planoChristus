@@ -1,7 +1,7 @@
 //CLIENT
-const ALL_CLIENT    = '@client/ALL'
-const FILTER_CLIENT = '@client/FILTER'
-const UPDATE_CLIENT = '@client/UPDATE'
+const ALL_CLIENT     = '@client/ALL'
+const FILTER_CLIENTS = '@client/FILTER'
+const UPDATE_CLIENT  = '@client/UPDATE'
 
 //COLLABORATOR
 
@@ -20,7 +20,7 @@ const UPDATE_SCHEDULING = '@scheduling/UPDATE'
 export {
 
     ALL_CLIENT,
-    FILTER_CLIENT,
+    FILTER_CLIENTS,
     UPDATE_CLIENT,
 
     ALL_SCHEDULING,

@@ -4,7 +4,7 @@ import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import styles from './Calendar.module.css'
 
-import { events as initEvents } from '../../constants/scheduling'
+import { events as initEvents } from '../../constants/pages/scheduling'
 import { 
     // useEffect,
 } from '../../hooks/UseEffect'
