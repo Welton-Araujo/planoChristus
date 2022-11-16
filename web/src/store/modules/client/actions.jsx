@@ -20,17 +20,14 @@ const filterClient = (payload) =>{
     }
 }
 
-const updateClient = ({ payload, form, components, behavior, client }) =>{
-    // console.log('ACTIONS updateClient', payload,  form)
+const updateClient = (payload) =>{
+    // console.log('ACTIONS updateClient', payload)
     return { 
         type:UPDATE_CLIENT, 
         payload,
-        form, 
-        components,
-        behavior,
-        client,
     }
 }
+
 
 export {
 

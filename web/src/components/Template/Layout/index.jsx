@@ -12,7 +12,7 @@ import avatarInfo from '../../../data/componentTest/avatarInfo.json'
 
 const Layout = (props)=>{
     const { children:content, style={} } = props
-    console.log('Layout',  menus, style)
+    // console.log('Layout',  menus, style)
         
     return (
         <div className={'layout'} style={style.layout}>

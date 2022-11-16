@@ -5,12 +5,7 @@ import {
 
 
 const INITIAL_STATE = {
-    payload: [],
-    form:{
-        filtering: false,
-        disabled: true,
-        saving: false
-    },
+    clients: [],
     client:{
         name: "",
         phone: "",
@@ -39,6 +34,11 @@ const INITIAL_STATE = {
         },
         customerId:""
     },
+    form:{
+        filtering: false,
+        disabled: true,
+        saving: false
+    },
     behavior: "create",
     components:{
         drawer: false,
@@ -51,9 +51,8 @@ const client = (state=INITIAL_STATE, action) => {
     switch (action.type) {
         case UPDATE_CLIENT:
             return produce(state, (draft)=>{
-                // draft.payload = [ ...draft.payload, ...action.payload ]
-                draft.payload = action.payload 
-                // return draft
+                draft = { ...draft, ...action.payload }
+                return draft
             })
         default:
             return state

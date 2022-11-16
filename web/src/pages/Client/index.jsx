@@ -7,7 +7,7 @@ import useEffectDispatch from '../../hooks/UseEffect'
 import { allClient, updateClient } from '../../store/modules/client/actions'
 
 import styles from './Client.module.css'
-import { Drawer } from 'rsuite'
+import Drawer from "../../components/Drawer"
 import Table from '../../components/Table'
 import TableOneRow from '../../components/TableOneRow'
 import Modal from '../../components/Modal'
@@ -19,46 +19,46 @@ const Client = (props)=>{
     const { style } = props
     // console.log('Client', clientTable)
 
-    const { payload, form, components, behavior, client } = useSelector((state)=>state.client)
-    console.log('CLIENT state: ', payload)
-    
-    const dispatch = useDispatch()
-    const setComponent = ( component, state) =>{
-        dispatch({...components,[component]: state})
+    const { clients, client, form, components, behavior } = useSelector((state)=>state.client)
+    // console.log('CLIENT ############', clients, components, client)
+        
+    const dispatch     = useDispatch()
+    const setComponent = (component, state) =>{
+        dispatch(updateClient({ components:{ ...components, [component]:state } }))
     }
 
-    useEffectDispatch(allClient)
+    useEffectDispatch(allClient, null, clients)
 
     return(
         <div className={`content ${styles.clientContent}`}>
-            <Drawer 
-            show={components.drawer}
-            onHide={()=>setComponent('drawer',false)}
+            <Drawer title={'Clientes'} style={{with:"80%"}}
+            behavior={behavior}
+            components={components}
+            setComponent={setComponent}
             >
-                <Drawer.Body>{}</Drawer.Body>
+                <div className={""}>
+                    <h3>{behavior==='create' ? "Criar...":"Atualizar..."}</h3>
+                </div>     
             </Drawer>
-            <div>
-                <div className={styles.clientHeader}>
-                    <h1>Clientes</h1>
-                    <button className="btn btn-primary btn-lg"
-                    onClick={()=>{
-                        dispatch(updateClient({ payload, form,  components, behavior, client}))
-                        setComponent('drawer',true)
-                    }}
-                    >
-                        <span className="mdi mdi-account-plus"></span>
-                    </button>
-                </div>
-                <div className={styles.clientBody} style={style}>
-                    <Table 
-                    loading={form.filtering}
-                    data={payload} 
-                    config={clientTable.config} 
-                    onRowClick={onRowClick} 
-                    actions={actions} 
-                    style={{}}
-                    />
-                </div>
+            <div className={styles.clientHeader}>
+                <h1>Clientes</h1>
+                <button className="btn btn-primary btn-lg"
+                onClick={()=>{
+                    dispatch(updateClient({ behavior:'create' }))
+                    setComponent('drawer',true)
+                }}
+                >
+                    <span className="mdi mdi-account-plus"></span>
+                </button>
+            </div>
+            <div className={styles.clientBody} style={style}>
+                <Table 
+                loading={form.filtering}
+                data={clients} 
+                config={clientTable.config} 
+                onRowClick={onRowClick} 
+                actions={actions} 
+                />
             </div>
         </div>   
     )

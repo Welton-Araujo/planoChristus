@@ -13,7 +13,7 @@ const scheduling = (state=INITIAL_STATE, action) =>{
         case UPDATE_SCHEDULING:
             return produce(state, (draft)=>{
                 draft.payload = action.payload
-                // return draft
+                return draft
             })
         default:
             return state
