@@ -1,10 +1,9 @@
-import './Footer.css'
 import FooterMain from './FooterMain'
 import FooterButton from './FooterButton'
 
 
 const Footer = (props) => {
-    const { companyInfo, style } = props
+    const { companyInfo={}, style } = props
     // console.log('Footer props', companyInfo, style)
 
     return(

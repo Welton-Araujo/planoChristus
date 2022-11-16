@@ -1,12 +1,13 @@
 import { 
-    // useDispatch, 
+    useDispatch, 
     useSelector,
 } from 'react-redux'
 
 import useEffectDispatch from '../../hooks/UseEffect'
-import { allClient } from '../../store/modules/client/actions'
+import { allClient, updateClient } from '../../store/modules/client/actions'
 
-import './Client.css'
+import styles from './Client.module.css'
+import Drawer from "../../components/Drawer"
 import Table from '../../components/Table'
 import TableOneRow from '../../components/TableOneRow'
 import Modal from '../../components/Modal'
@@ -18,21 +19,46 @@ const Client = (props)=>{
     const { style } = props
     // console.log('Client', clientTable)
 
-    const clients  = useSelector((state)=>state.client.payload)
-    console.log('clients[]', clients)
-    
-    useEffectDispatch(allClient)
+    const { clients, client, form, components, behavior } = useSelector((state)=>state.client)
+    // console.log('CLIENT ############', clients, components, client)
+        
+    const dispatch     = useDispatch()
+    const setComponent = (component, state) =>{
+        dispatch(updateClient({ components:{ ...components, [component]:state } }))
+    }
+
+    useEffectDispatch(allClient, null, clients)
 
     return(
-        <div className="content clientContent h-100">
-            <div className="clientHeader">
+        <div className={`content ${styles.clientContent}`}>
+            <Drawer title={'Clientes'} style={{with:"80%"}}
+            behavior={behavior}
+            components={components}
+            setComponent={setComponent}
+            >
+                <div className={""}>
+                    <h3>{behavior==='create' ? "Criar...":"Atualizar..."}</h3>
+                </div>     
+            </Drawer>
+            <div className={styles.clientHeader}>
                 <h1>Clientes</h1>
-                <button className="btn btn-primary btn-lg">
+                <button className="btn btn-primary btn-lg"
+                onClick={()=>{
+                    dispatch(updateClient({ behavior:'create' }))
+                    setComponent('drawer',true)
+                }}
+                >
                     <span className="mdi mdi-account-plus"></span>
                 </button>
             </div>
-            <div className="clientBody" style={style}>
-                <Table data={clients} config={clientTable.config} onRowClick={onRowClick} actions={actions} style={{}}/>
+            <div className={styles.clientBody} style={style}>
+                <Table 
+                loading={form.filtering}
+                data={clients} 
+                config={clientTable.config} 
+                onRowClick={onRowClick} 
+                actions={actions} 
+                />
             </div>
         </div>   
     )
@@ -49,7 +75,9 @@ const actions = (rowData) => {
             <a href={"/"} onClick={() => alert(`id:${rowData.id||rowData._id}`)} style={{color:'var(--rs-text-link-hover)', marginRight:"5px"}}>
                 <span className="mdi mdi-account-edit" style={{fontSize:"21px"}}> </span>
             </a>
-            <Modal content={ <TableOneRow objData={rowData}/> }/>
+            <Modal config={{title:'DETALHES', nameButton:"VER"}} style={{}}>
+                <TableOneRow objData={rowData}/>
+            </Modal>
         </div>
         
     )

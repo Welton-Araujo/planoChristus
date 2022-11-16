@@ -6,8 +6,8 @@ import {
 
 
 export default function Footer(props){
-    const { companyInfo } = props
-    
+    const { companyInfo={} } = props
+    const { address={} } = companyInfo
     return(
         <div className={styles.mainFooterCompany} style={{
             // backgroundColor:'inherit'
@@ -15,17 +15,17 @@ export default function Footer(props){
             <h2>{companyInfo.fantasyName}</h2>
             <div className={styles.info}>
                 <div className={styles.address}>
-                    <span>{companyInfo.address.street} </span>
-                    <span>nº {companyInfo.address.number}, </span>
-                    <span>{companyInfo.address.district} - </span>
-                    <span>{companyInfo.address.zipCode} </span><br/>
-                    <span>{companyInfo.address.city}-</span>
-                    <span>{companyInfo.address.state}, </span>
-                    <span>{companyInfo.address.country}.</span>
+                    <span>{address.street} </span>
+                    <span>nº {address.number}, </span>
+                    <span>{address.district} - </span>
+                    <span>{address.zipCode} </span><br/>
+                    <span>{address.city}-</span>
+                    <span>{address.state}, </span>
+                    <span>{address.country}.</span>
                 </div>
                 <div className={styles.contact}>
-                    <span>{companyInfo.address.phone} </span>
-                    <span>{companyInfo.address.email} </span>
+                    <span>{address.phone} </span>
+                    <span>{address.email} </span>
                 </div>
             </div>
             { f1.items.map( (item, index) =>{

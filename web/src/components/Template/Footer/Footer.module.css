@@ -3,16 +3,17 @@ footer {
     flex-direction: column;
     justify-content: space-between;
     /* color: #e1e1e1; */
-    height: 185px;
+    /* height: 185px; */
 }
 
 /*Main Footer*/
 .mainFooter {
     display: flex;
-    justify-content: space-between;
+    flex: none;
+    justify-content: space-evenly;
     align-items: initial;
     padding: 10px;
-    height: 79%;
+    /* height: 79%; */
     background-color: var(--dark-gray2);
 }
 
@@ -21,17 +22,17 @@ footer {
 }
 
 .mainFooter h6 {
-    font-size: .52rem;
-    margin: 3.0px;
+    font-size: .67rem;
+    margin: 1.0px;
 }
 
 /*Main Footer Company*/
 .mainFooterCompany {
-    width: 35%;
+    width: auto;
 }
 
 .mainFooterCompany .info {
-    font-size: .510em;
+    font-size: .67em;
     height: inherit;
 }
 
@@ -40,12 +41,13 @@ footer {
     display: flex;
     justify-content: space-around;
     align-items: initial;
-    width: 75%;
+    width: 65%;
 }
 
 /*Button Footer*/
 .buttonFooter {
     display: flex;
+    flex: none;
     justify-content: center;
     text-align: center;
     background-color: var(--dark-purple);

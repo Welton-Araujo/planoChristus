@@ -6,7 +6,7 @@ import {
 
 
 export default function FooterButton(props){
-    const { companyInfo, style } = props
+    const { companyInfo={}, style={} } = props
     const button    = style ? style.button : {}
     const date      = new Date().getFullYear()
     // console.log('Footer button', button)

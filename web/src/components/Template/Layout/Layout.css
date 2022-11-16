@@ -5,12 +5,12 @@
 */
 
 /* ID da div_root */
-#root{
-  /* GLOBAL CONFIG */
+/* #root{
+  /*AULA: GLOBAL CONFIG *
   height: 100%;
   width: 100%;
   position: fixed;
-}
+} */
 
 /* CSS GRID*/
 * {
@@ -19,26 +19,22 @@
 }
 
 header {
-  /* display: flex; */
   grid-area: header;
 }
-
 aside {
   grid-area: navigation;
 }
-
 main {
   grid-area: content;
 }
-
 footer {
   grid-area: footer;
 }
 
 .layout {
   display: grid;
-  min-height: 100vh;
-  /*vh: height of viewport(página)*/
+  min-height: 100vh; /*vh: height of viewport(página)*/
+  overflow: auto;
   grid-template-rows: 100px 1fr 185px;
   grid-template-columns: 220px 1fr;
   grid-template-areas:

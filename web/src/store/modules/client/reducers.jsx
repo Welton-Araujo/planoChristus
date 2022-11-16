@@ -5,17 +5,54 @@ import {
 
 
 const INITIAL_STATE = {
-    payload: []
+    clients: [],
+    client:{
+        name: "",
+        phone: "",
+        email: "",
+        passwd: "",
+        photo: "",
+        dateBirth: "",
+        sex:"",
+        status:"",
+        document:{
+            type:"",
+            number:""
+        },
+        address: {
+            street: "",
+            number: "",
+            district: "",
+            zipCode: "",
+            city: "",
+            state: "",
+            country: ""
+        },
+        geo:{
+            type: "",
+            coordinates: []
+        },
+        customerId:""
+    },
+    form:{
+        filtering: false,
+        disabled: true,
+        saving: false
+    },
+    behavior: "create",
+    components:{
+        drawer: false,
+        confirmDelete: false
+    }
 }
 
 const client = (state=INITIAL_STATE, action) => {
-    // console.log('REDUCER CLIENT', state)
+    // console.log('REDUCER CLIENT', state, action)
     switch (action.type) {
         case UPDATE_CLIENT:
             return produce(state, (draft)=>{
-                // draft.payload = [ ...draft.payload, ...action.payload ]
-                draft.payload = action.payload 
-                // return draft
+                draft = { ...draft, ...action.payload }
+                return draft
             })
         default:
             return state

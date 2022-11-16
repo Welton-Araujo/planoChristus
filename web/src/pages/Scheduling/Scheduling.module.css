@@ -1,9 +1,12 @@
 .schedulingContent{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
   background-color: transparent;
   /* background-color: #bb9898; */
   /* padding: 0 7px!important; */
-  height: 100%;
-  padding: 5px;
 }
 
 .schedulingHeader{
@@ -18,44 +21,41 @@
   color: var(--white);
 }
 
-.schedulingCalendar{
+.schedulingBody{
   display: flex;
   justify-content: center;
   align-items: center;
   height: auto;
   width: 100%;
-  /* overflow: auto; */
+  padding: 10px;
 }
 
-/* .column{
-  background-color: whitesmoke;
-  margin: 5px;
-} */
 
+/* COMPONENT QUERIES */
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
-  .content {
+  .schedulingContent {
     background-color: rgb(173, 230, 181);
   }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
-  .content {
+  .schedulingContent {
     background-color: rgb(230, 217, 173);
   }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
-  .content {
+  .schedulingContent {
     background-color: lightblue;
   }
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media only screen and (max-width: 576px) {
-  .content {
+  .schedulingContent {
     background-color: rgb(207, 173, 230);
   }
 }

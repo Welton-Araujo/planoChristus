@@ -1,14 +1,17 @@
 .clientContent {
-    background-color: transparent;
-    background-color: cornflowerblue;
-    /* padding: 0 7px !important; */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0px;
+    padding: 0px ;
+    /* background-color: transparent;
+    background-color: cornflowerblue; */
 }
 .clientHeader{
     display: flex;
     justify-content: space-between;
-    padding: 5px;
-}
-  
+    padding: 5px 10px;
+}  
 .clientHeader h1{
     margin: 0 5px;
     font-size: 1.5rem;
@@ -21,41 +24,39 @@
 .clientBody{
     display: flex;
     justify-content: center;
-    /* align-items: center; */
-    /* height: auto;
-    width: 100%; */
-    padding: 2px;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
 }
 
-.column {
-    background-color: whitesmoke;
-    margin: 5px;
-}
 
+
+/* COMPONENT QUERIES */
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
-    .content {
-        background-color: rgb(173, 230, 181);
+    .clientContent {
+        background-color: rgb(230, 217, 173);
     }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
-    .content {
-        background-color: rgb(230, 217, 173);
+    .clientContent {
+        background-color: rgb(173, 230, 181);
     }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
-    .content {
-        background-color: lightblue;
+    .clientContent {
+        background-color: rgb(207, 173, 230);
     }
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media only screen and (max-width: 576px) {
-    .content {
-        background-color: rgb(207, 173, 230);
+    .clientContent {
+        background-color: lightblue;
     }
 }

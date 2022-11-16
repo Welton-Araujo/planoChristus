@@ -8,7 +8,7 @@ import {
 
 
 export default function Footer(props){
-    const { companyInfo } = props
+    const { companyInfo={} } = props
     
     return(
         <div className={styles.mainFooterContent} style={{
@@ -30,7 +30,7 @@ export default function Footer(props){
     )
 }
 
-const footerItemCreator = (footerItems)=>{
+const footerItemCreator = (footerItems=[])=>{
     return footerItems.map( (item, index) =>{
         return <h6 key={index}><a href={item.src}>{item.description}</a></h6>    
     })

@@ -4,7 +4,7 @@ import {
 import { useDispatch } from 'react-redux'
 
 
-const useEffectDispatch = (action, params, events=[]) => {
+const useEffectDispatch = (action, params=null, events=[]) => {
     const dispatch = useDispatch()
     const firstLoading = checkPage(events)
     // console.log('useEffect... params $$$', firstLoading)
