@@ -1,3 +1,8 @@
 .clientDrawer{
     color: inherit;
 }
+
+.buttonSubmit{
+    width: 100%;
+    margin: 20px 0;
+}

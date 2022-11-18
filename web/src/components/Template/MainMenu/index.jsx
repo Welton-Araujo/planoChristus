@@ -8,7 +8,7 @@ const mainMenu = (props) =>{
         <>{
             menu.map((item,i)=>(
                 <Link key={`item-${i}`} to={item.src} onClick={onClose}>
-                    <span className={item.icon}>{ item.description}</span>
+                    <span className={item.icon}> {item.description}</span>
                 </Link>
             ))
         }</>

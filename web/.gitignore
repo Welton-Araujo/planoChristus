@@ -8,7 +8,7 @@
 ## IGNORAR 'FILE' (EM QUALQUER LUGAR): qualquerNomePasta.nogitf.[ext]/
 *.nogit.*
 *off.*
-*copy.*
+*copy*
 
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.

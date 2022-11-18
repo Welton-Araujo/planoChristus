@@ -12,12 +12,15 @@
     --light-dark:#2F3347;
     --light-white:#FDFEFF;    
     --light-gray: #e4e5e8;
-    --light-gray2: #CACCCE;
+    --light-gray2: #CACCCE;    
     --light-purple: #7a3bc4;
     /* DARK */
     --dark-purple: #693bbd;
     --dark-gray: #d5d6d9;
     --dark-gray2: #c8c9cc;
+    
+    /* OUTROS */
+    --form-gray: #e9ecef;
     
     /* PLANOCHRISTUS */
     --pc-primary: #004BAC;

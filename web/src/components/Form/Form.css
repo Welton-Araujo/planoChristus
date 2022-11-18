@@ -1,0 +1,33 @@
+.formBuilder{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.formBuilderItem{
+    width: 48%;
+    margin-bottom: 10px;
+}
+
+
+/* COMPONENT QUERIES */
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {    
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (max-width: 728px) {
+    .formBuilderItem{
+        width: 100%!important;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) {
+    .clientContent {
+        background-color: lightblue;
+    }
+}

@@ -101,6 +101,7 @@
                 ],                
                 "react":{
                     "redux":{},
+                    "redux-saga":{},
                     "store":{},
                     "hook":{}
                 },

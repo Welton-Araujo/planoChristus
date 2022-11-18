@@ -9,18 +9,24 @@ const MyModal = (props) => {
         components={},
         setComponent=undefined,
         children=undefined, 
-        buttonOpen=undefined,
+        buttonOpen={},
+        buttonSubmit={},
         style={} 
     } = props
-    // console.log("Modal ... ", components, setComponent)
+    console.log("Modal ... ", components, buttonOpen)
 
+    const handleOpen  = ()=>setComponent('modal', true)
+    const handleClose = ()=>setComponent('modal', false)
 
     return (
         <div className={styles.modal} style={style}>
             <ButtonToolbar>
-                {buttonOpen}
+                <Button onClick={buttonOpen.onClick || handleOpen}>
+                    {buttonOpen.title||'Open'}
+                </Button>
             </ButtonToolbar>
-            <Modal open={components.modal} onClose={() => setComponent('modal',false)} >
+
+            <Modal open={components.modal} onClose={handleClose} >
                 <Modal.Header>
                     <Modal.Title>{config.title||'Detalhes'}</Modal.Title>
                 </Modal.Header>
@@ -28,8 +34,11 @@ const MyModal = (props) => {
                     {children}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => setComponent('modal',false)} appearance="primary">
-                        Ok
+                    <Button 
+                    loading={buttonSubmit.loading||false}
+                    onClick={buttonSubmit.onClick||handleClose} 
+                    appearance={buttonSubmit.appearance||"primary"}>
+                        {buttonSubmit.title||'Close'}
                     </Button>
                 </Modal.Footer>
             </Modal>

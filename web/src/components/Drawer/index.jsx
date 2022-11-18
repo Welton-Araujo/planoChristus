@@ -1,36 +1,45 @@
 import { Drawer,Button } from "rsuite"
 
+import './Drawer.css'
 import styles from './Drawer.module.css'
 
 
 const MyDrawer = (props)=>{
     const { 
+        className="DrawerDefault",
         title='Cadastro', 
         placement='left', 
+        buttonSubmit={},
         components={}, 
-        setComponent, 
+        setComponent=()=>{}, 
         children=undefined, 
         style={} 
     } = props
-    // console.log('MyDrawer ... ', style)
-
+    // console.log('MyDrawer ... ', buttonSubmit, style)
+    
+    // const handleOpen  = ()=>setComponent('drawer', true)
+    const handleClose = ()=>setComponent('drawer', false)
+    
     return(
         <div className={styles.clientDrawer} >
-            <Drawer style={style} 
+            <Drawer className={className} style={style} 
             placement={placement}
-            // size={"sm"}
+            size={"sm"}
             open={components.drawer} 
-            onClose={()=>setComponent('drawer', false)} >
+            onClose={handleClose} >
                 <Drawer.Header>
                     <Drawer.Title>{title}</Drawer.Title>
-                    <Drawer.Actions>
-                        <Button onClick={()=>setComponent('drawer', false)} appearance="primary" >
-                            Fechar
-                        </Button>
-                    </Drawer.Actions>
                 </Drawer.Header>
                 <Drawer.Body>
                     {children}                    
+                    <Drawer.Actions>
+                        <Button className={styles.buttonSubmit} style={buttonSubmit.style}
+                        loading={buttonSubmit.loading||false}
+                        onClick={buttonSubmit.onClick||handleClose} 
+                        appearance={buttonSubmit.appearance||"primary"}>
+                            {buttonSubmit.title||'Close'}
+                        </Button>
+                    </Drawer.Actions>
                 </Drawer.Body>
             </Drawer>
         </div>
