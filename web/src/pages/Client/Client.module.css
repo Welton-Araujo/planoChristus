@@ -25,10 +25,21 @@
 .clientBody{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 100%;
     width: 100%;
     padding: 10px;
+}
+
+/* CLIENTPANEL */
+.clientPanel{
+    color: inherit;
+}
+.clientSearch{
+    padding: 15px;
+    border-radius: 5px;
+    background-color: var(--form-gray);
+    margin-bottom: 20px;
 }
 
 
@@ -46,12 +57,18 @@
     .clientContent {
         background-color: rgb(173, 230, 181);
     }
+    .clientHeader .rs-drawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+        width: 100%!important;
+    }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
     .clientContent {
         background-color: rgb(207, 173, 230);
+    }
+    .drawerClient{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+        width: 100%!important;
     }
 }
 

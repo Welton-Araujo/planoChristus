@@ -7,20 +7,23 @@ import styles from './Modal.module.css'
 const MyModal = (props) => {
     const { 
         config={}, 
-        children=undefined, 
+        children=undefined,
+        buttonOpen={},
+        buttonSubmit={},
         style={} 
     } = props
-    // console.log("Modal ... ", children, style)
-
+    
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false)
-
+    const handleClose = () => setOpen(false)    
+    // console.log("ModalState ##### ", buttonOpen, buttonOpen.onClick)
 
     return (
         <div className={styles.modal} style={style}>
             <ButtonToolbar>
-                <Button onClick={handleOpen}>{config.buttonOpen||'Ver'}</Button>
+                <Button onClick={buttonOpen.onClick || handleOpen}>
+                    {buttonOpen.title||'Open'}
+                </Button>
             </ButtonToolbar>
 
             <Modal open={open} onClose={handleClose} >
@@ -31,8 +34,11 @@ const MyModal = (props) => {
                     {children}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={handleClose} appearance="primary">
-                        {config.buttonClose||'Fechar'}
+                    <Button 
+                    loading={buttonSubmit.loading||false}
+                    onClick={buttonSubmit.onClick||handleClose} 
+                    appearance={buttonSubmit.appearance||"primary"}>
+                        {buttonSubmit.title||'Close'}
                     </Button>
                 </Modal.Footer>
             </Modal>

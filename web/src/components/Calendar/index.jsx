@@ -12,7 +12,7 @@ const localizer = momentLocalizer(moment)
 
 
 const MyCalendar = (props) => {
-    const { dispatch, events, style } = props
+    const { dispatch, events, style={} } = props
     const eventsList = events ? events : initEvents
     // console.log('MyCalender', style, eventsList)
 
