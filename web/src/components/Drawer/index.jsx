@@ -21,8 +21,8 @@ const MyDrawer = (props)=>{
     const handleClose = ()=>setComponent('drawer', false)
     
     return(
-        <div className={styles.clientDrawer} >
-            <Drawer className={className} style={style} 
+        <div className={styles.myDrawer} style={style}>
+            <Drawer className={className}  
             placement={placement}
             size={"sm"}
             open={components.drawer} 

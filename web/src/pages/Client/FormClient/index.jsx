@@ -1,5 +1,7 @@
 import './Form.css'
 // USANDO CLASS DO BOOTSTRAP:
+import { isPrimitive } from '../../../utils/validation'
+import { formInfo } from '../../../constants/pages/client'
 
 
 const MyForm = (props) =>{
@@ -7,13 +9,13 @@ const MyForm = (props) =>{
         page={}, 
         form={}, 
         setPage=()=>{}, 
-        formInfo=[] 
     } = props
     // console.log("MyForm #####", fields)
 
     const fields = formInfo.map((component, i)=>{
         const fields = []
-        if(component['field']==='input') { fields.push(getInput(component, form, page, setPage) )}
+        if(component['field']==='input'     ){  fields.push(getInput(component,     form, page, setPage) )}
+        if(component['field']==='inputMany' ){  fields.push(getInputMany(component, form, page, setPage) )}
         if(component['field']==='select'){ fields.push(getSelect(component, form, page, setPage) )}
         return fields
     })
@@ -25,7 +27,15 @@ const MyForm = (props) =>{
     )  
 }
 
+const getInputMany = ({title, key, many}, form, page, setPage )=>{
+    // console.log('GET INPUT_MANY ### ', title, key, many)
+    const pageObj = page[key]
+    return many.map((component)=> getInput(component, form, pageObj, setPage))
+}
+
 const getInput = ({title, type, placeholder, key}, form, page, setPage )=>{
+    // console.log('GET INPUT ### ', title, key)
+    const pageValue = page[key]
     return(
         <div key={`${key}-${Math.random()}`} className={`formBuilderItem form-group`}>
             <b>{title}</b>
@@ -34,18 +44,17 @@ const getInput = ({title, type, placeholder, key}, form, page, setPage )=>{
             type={type}
             placeholder={placeholder}
             disabled={form.disabled}
-            value={page[key]}
-            onChange={(e)=>{
-                setPage(key, e.target.value)
-            }}
+            value={pageValue}
+            onChange={(e)=>setPage(key, e.target.value)}
             />                
         </div>
     )    
 }
 
+
 const getSelect = ({title, key, options}, form, page, setPage) =>{
     const [defaultValue, optionResults] = getSelOptions({key, options}, page)
-    
+    // console.log('GET SELECT ### ', defaultValue)
     return(
         <div key={`${key}-${Math.random()}`} className={`formBuilderItem form-group`}>
             <b>{title}</b>
@@ -65,7 +74,7 @@ const getSelOptions = ({ key, options=[] }, page) =>{
     let defaultValue = null
 
     const optionResults = options.map(({value, description}, i)=>{
-        defaultValue = getSelDefaultValue(value,page[key])
+        defaultValue = getSelDefaultValue(value, page[key])
         return( 
             <option 
             key={`${key}-${value}`} 
@@ -79,14 +88,14 @@ const getSelOptions = ({ key, options=[] }, page) =>{
 
 const getSelDefaultValue = (value, pageValue)=>{
     //STRING === pageValue(STRING)
-    if(typeof(pageValue)==='string'){ return  value===pageValue ? value : "" }
+    if(isPrimitive(pageValue)){ return  value===pageValue ? value : "" }
     
     //STRING === pageValue(OBJ)
-    if(typeof(pageValue)==='object'){
+    // if(typeof(pageValue)==='object'){
         for (const key in pageValue) {
             return value===pageValue[key] ? value : ""
         }
-    }
+    // }
     return ""
 }
 

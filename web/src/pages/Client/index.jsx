@@ -11,16 +11,15 @@ import {
     filterClient 
 } from '../../store/modules/client/actions'
 
-import styles from './Client.module.css'
-import Table from '../../components/Table'
+import styles      from './Client.module.css'
+import FormClient  from './FormClient'
+import Table       from '../../components/Table'
 import TableOneRow from '../../components/TableOneRow'
-import MyDrawer from '../../components/Drawer'
-import ModalState from '../../components/Modal/ModalUseState'
+import MyDrawer    from '../../components/Drawer'
+import ModalState  from '../../components/Modal/ModalUseState'
 // import Modal from '../../components/Modal'
-import MyForm from '../../components/Form'
 
 import clientTable from '../../data/componentTest/clientTable.json' 
-import { formInfo } from '../../constants/pages/client'
 
 
 const Client = (props)=>{
@@ -96,11 +95,10 @@ const Client = (props)=>{
                             </div>
                         </div>
                         {/* {formBuilder(client, form, setClient, formInfo)} */}
-                        <MyForm
+                        <FormClient
                             page={client}
                             form={form}
                             setPage={setClient}
-                            formInfo={formInfo}
                         />
                     </MyDrawer>
                 </div>
