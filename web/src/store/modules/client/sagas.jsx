@@ -1,14 +1,22 @@
 import { all, takeLatest, call, put, select } from 'redux-saga/effects'
 
-import { ALL_CLIENT, FILTER_CLIENTS } from '../../../constants/store/actionTypes'
-import { updateClient } from './actions'
+import { 
+    ALL_CLIENT, 
+    ADD_CLIENT,
+    FILTER_CLIENTS,
+} from '../../../constants/store/actionTypes'
+import { 
+    allClient as allClientAction,
+    updateClient,
+    resetClient,
+} from './actions'
 
 import api   from '../../../utils/external/api' 
 import clientTest from '../../../data/fakeReq/clientTest.json'
 
 const endPointClients = `/cliente/salao/${clientTest.get.salonId}`
-const endPointFilters = `/cliente/filters`
-
+const endPointFilters = `/cliente/filtro`
+const endPointAdd     = `/cliente`
 
 export function* allClient(){
     // console.log('allClient', )
@@ -20,13 +28,13 @@ export function* allClient(){
     try {
 
         //ATUALIZAR FORM: TRUE:
-        yield put(updateClient({form:{...form, filtering: true}}))
+        yield put(updateClient({ form:{ ...form, filtering:true } }))
 
         //REQUEST CLIENTES PARA API:
         const { data } = yield call(api.get, endPointClients)
         
         //ATUALIZAR FORM: FALSE:
-        yield put(updateClient({ form:{...form, filtering: false}}))
+        yield put(updateClient({ form:{ ...form, filtering:false } }))
 
         // console.log('allClient ...',data)
         if( data.error ){
@@ -39,12 +47,52 @@ export function* allClient(){
 
     } catch (error) {
         alert('SAGA CLIENT erro ... ' + error)
-        yield put(updateClient({ form:{...form, filterring: false} }))
+        yield put(updateClient({ form:{ ...form, filterring:false } }))
+    }
+}
+
+export function* addClient(){
+    // console.log('addClients', )
+        
+    //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
+    const { client, form, components } = yield select(state=>state.client) 
+    // console.log('SAGAS STATE #######', client, form )
+
+    try {
+
+        //ATUALIZAR FORM: TRUE:
+        yield put(updateClient({ form:{ ...form, saving:true } }))
+
+        //REQUEST CLIENTES PARA API:
+        const { data } = yield call(api.post, endPointAdd,{
+            salonId: clientTest.get.salonId,
+            client
+        })
+        
+        //ATUALIZAR FORM: FALSE:
+        yield put(updateClient({ form:{ ...form, saving:false } }))
+
+        // console.log('addClients ...',data)
+        if( data.error ){
+            alert('SAGA CLIENT erro ... ' + data.message)
+            return false
+        }
+        
+        //RECARREGAR A TABLE:
+        yield put(allClientAction())
+        //FECHAR O COMPONENTE:
+        yield put(updateClient({ components:{ ...components, drawer:false } }))
+        //LIMPAR FORM:
+        yield put(resetClient())
+
+    } catch (error) {
+        alert('SAGA CLIENT erro ... ' + error)
+        yield put(updateClient({ form:{ ...form, saving:false } }))
     }
 }
 
 export function* filterClients(){
-    // console.log('allClient', )
+    // console.log('filterClients', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
     const { client, form } = yield select(state=>state.client) 
@@ -53,15 +101,18 @@ export function* filterClients(){
     try {
 
         //ATUALIZAR FORM: TRUE:
-        yield put(updateClient({form:{...form, filtering: true}}))
+        yield put(updateClient({ form:{ ...form, filtering:true }}))
 
         //REQUEST CLIENTES PARA API:
-        const { data } = yield call(api.post, endPointFilters,{email: client && client.email})
+        const { data } = yield call(api.post, endPointFilters,{
+            email: client.email,
+            status:"A"
+        })
         
         //ATUALIZAR FORM: FALSE:
-        yield put(updateClient({ form:{...form, filtering: false}}))
+        yield put(updateClient({ form:{ ...form, filtering:false }}))
 
-        // console.log('allClient ...',data)
+        // console.log('filterClients ...',data)
         if( data.error ){
             alert('SAGA CLIENT erro ... ' + data.message)
             return false
@@ -80,11 +131,13 @@ export function* filterClients(){
 
     } catch (error) {
         alert('SAGA CLIENT erro ... ' + error)
-        yield put(updateClient({ form:{...form, filterring: false} }))
+        yield put(updateClient({ form:{ ...form, filterring:false } }))
     }
 }
 
+
 export default all([
     takeLatest(ALL_CLIENT, allClient),
+    takeLatest(ADD_CLIENT, addClient),
     takeLatest(FILTER_CLIENTS, filterClients)
 ])

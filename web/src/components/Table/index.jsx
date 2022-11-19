@@ -14,7 +14,6 @@ const MyTable = (props) => {
         actions=undefined, 
         onRowClick=undefined,
         // setComponent=undefined, 
-        children=undefined
     } = props
     const { main:{style={}}, header=[] } = config
     // console.log('MyTable ... #### ', loading, data)
@@ -46,16 +45,6 @@ const MyTable = (props) => {
                     {actions}
                 </Cell>
             </Column>
-
-            { children ?
-                <Column width={50} fixed="right" >
-                    <HeaderCell>{children && '...'}</HeaderCell>
-                    <Cell style={{padding:'0px'}}>
-                       {children}
-                    </Cell>
-                </Column>            
-                : false
-            }
         </Table>
     )
 }

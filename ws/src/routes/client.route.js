@@ -37,8 +37,8 @@ router.post('/cliente', async (req, res)=>{
 
 
 /*** AULA REMOVER: EH IGUAL AO get()::find(query) ***/
- router.post('/cliente/filters', async (req, res)=>{
-    console.log('Client:: /cliente/filters')
+ router.post('/cliente/filtro', async (req, res)=>{
+    console.log('Client:: /cliente/filtro')
     clientController.filters(req, res)
 })
 
