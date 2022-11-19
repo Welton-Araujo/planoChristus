@@ -7,16 +7,18 @@ import { Button } from 'rsuite'
 import useEffectDispatch from '../../hooks/UseEffect'
 import { 
     allClient, 
+    addClient,
+    filterClient,
     updateClient, 
-    filterClient 
+    resetClient, 
 } from '../../store/modules/client/actions'
 
 import styles      from './Client.module.css'
 import FormClient  from './FormClient'
 import Table       from '../../components/Table'
-import TableOneRow from '../../components/TableOneRow'
+// import TableOneRow from '../../components/TableOneRow'
 import MyDrawer    from '../../components/Drawer'
-import ModalState  from '../../components/Modal/ModalUseState'
+// import ModalState  from '../../components/Modal/ModalUseState'
 // import Modal from '../../components/Modal'
 
 import clientTable from '../../data/componentTest/clientTable.json' 
@@ -39,47 +41,53 @@ const Client = (props)=>{
     }
     const save = () =>{
         console.log('save...')
+        dispatch(addClient())
     }
     useEffectDispatch(allClient, null, clients)
 
     return(
-        <div className={`content ${styles.clientContent}`}>            
+        <div className={`content ${styles.clientContent}`}>  
+            {/* CLIENT HEADER */}
             <div className={styles.clientHeader}>
                 <h1>Clientes</h1>
+                {/* Client Panel */}
                 <div className={styles.clientPanel}>
-                    <button className="btn btn-primary btn-lg"
+                    {/* DrawerButton */}
+                    <button className={`${styles.clientBtnDrawer} btn btn-lg`}
                     onClick={()=>{
                         dispatch(updateClient({ behavior:'create' }))
+                        dispatch(resetClient())
                         setComponent('drawer',true)
                     }}
                     >
                         <span className="mdi mdi-account-plus"></span>
                     </button>
-
+                    {/* Drawer */}
                     <MyDrawer className={styles.drawerClient} style={{}}
                     title={behavior==='create'?"Novo cliente":"Atualizar cliente"} 
                     placement={'left'}
                     buttonSubmit={{
-                        title:<span className="mdi mdi-zip-disk">Salvar</span>,
-                        // loading:true,
-                        onClick:save,
-                        appearance:"",
-                        // style:{with:"100%"}
+                        disabled: false,
+                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,
                     }}
                     behavior={behavior}
                     components={components}
                     setComponent={setComponent}
                     >
+                        {/* DrawerContent::Search */}
                         <div className={`${styles.clientSearch}`}>
                             <div className={"form-group"}>
                                 <b>E-mail</b>
                                 <div className="input-group">
                                     <input
                                     className="form-control"
-                                    type={'email'}
+                                    name={"search"}
+                                    type={'search'}
                                     placeholder="E-mail"
                                     defaultValue={client.email}
+                                    autoFocus={true}
                                     onChange={(e)=>setClient('email', e.target.value)}
+                                    onKeyUp={(e)=>{(e.key==="Enter") && dispatch(filterClient())}}
                                     />
                                     <div className="input-group-append ">
                                         <Button
@@ -94,64 +102,86 @@ const Client = (props)=>{
                                 </div>
                             </div>
                         </div>
-                        {/* {formBuilder(client, form, setClient, formInfo)} */}
+                        {/* DrawerContent::Form */}
                         <FormClient
-                            page={client}
-                            form={form}
-                            setPage={setClient}
+                        page={client}
+                        form={form}
+                        setPage={setClient}
+                        buttonSubmit={{
+                            title:<span className="mdi mdi-zip-disk"> Salvar</span>,
+                            loading: form.saving,
+                            onClick: ()=>{
+                                if(behavior==='create'){
+                                    save()
+                                }else{
+                                    // 
+                                }
+                            },
+                            style:{backgroundColor: behavior==="create" ? "var(--success)":"var(--warning)"}
+                        }}  
                         />
                     </MyDrawer>
                 </div>
             </div>
+            {/* CLIENT BODY */}
             <div className={styles.clientBody} style={style}>
                 <Table 
                 loading={form.filtering}
-                data={clients} 
-                config={clientTable.config} 
-                onRowClick={onRowClick} 
-                actions={actions(components, setComponent)} 
-                // setComponent={setComponent}
-                >
-                
-                </Table>
+                data={clients}
+                config={clientTable.config}
+                onRowClick={(rowData)=>{
+                    dispatch(updateClient({ behavior:'update', form:{ ...form, disabled:false} }))
+                    setComponent('drawer', true)
+                    dispatch(updateClient({ client:rowData }))
+                }}
+                actions={(rowData)=>{
+                    // console.log('Client actions ...',rowData)
+                    return(
+                        <>
+                            <a href={"#"} style={{display:"flex", width:"100%", textDdecoration:"none"}}>
+                                <span className="mdi mdi-account-edit" 
+                                style={{
+                                    display:"flex", 
+                                    justifyContent:"center",
+                                    width:"100%", 
+                                    marginRight:"5px", 
+                                    borderRadius:"6px",
+                                    fontSize:"21px",
+                                    color:'var(--rs-text-link-hover)', 
+                                    backgroundColor:"var(--light-gray)"
+                                }}
+                                onClick={() =>{                                 
+                                    // console.log(`id:${rowData.id||rowData._id}`)
+                                    dispatch(updateClient({ behavior:'update', form:{ ...form, disabled:false} }))
+                                    dispatch(setClient({ client:rowData }))
+                                    setComponent('drawer', true)
+                                    return{}                            
+                                }}                                
+                                ></span>                                
+                            </a>
+                            {/* <ModalState 
+                            config={{title:'DETALHES'}} 
+                            buttonOpen={{
+                                title:<span className="mdi mdi-eye"></span>,
+                                onClick:null
+                            }}
+                            buttonSubmit={{
+                                title:<span className="mdi mdi-exit-to-app"></span>,
+                                // loading:true,
+                                onClick:null,
+                                appearance:""
+                            }}
+                            components={components}
+                            setComponent={setComponent} 
+                            style={{}}>
+                                <TableOneRow objData={rowData}/>
+                            </ModalState> */}
+                        </>                         
+                    )                    
+                }}/>
             </div>
         </div>   
     )
-}
-
-const onRowClick = (rowData) => {
-    console.log('Client onRowClick ...',rowData)
-    return 
-}
-
-const actions = (components, setComponent=undefined)=>{
-    return (rowData) => {
-        // console.log('Client actions ...',rowData)
-        return(
-            <div style={{display:"flex"}}>
-                <a href={"/"} onClick={() => alert(`id:${rowData.id||rowData._id}`)} style={{color:'var(--rs-text-link-hover)', marginRight:"5px"}}>
-                    <span className="mdi mdi-account-edit" style={{fontSize:"21px"}}> </span>
-                </a>
-                <ModalState 
-                config={{title:'DETALHES'}} 
-                buttonOpen={{
-                    title:<span className="mdi mdi-eye"></span>,
-                    onClick:null
-                }}
-                buttonSubmit={{
-                    title:<span className="mdi mdi-exit-to-app"></span>,
-                    // loading:true,
-                    onClick:null,
-                    appearance:""
-                }}
-                components={components}
-                setComponent={setComponent} 
-                style={{}}>
-                    <TableOneRow objData={rowData}/>
-                </ModalState>
-            </div>        
-        )
-    }
 }
 
 

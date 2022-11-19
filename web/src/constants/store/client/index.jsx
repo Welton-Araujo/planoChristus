@@ -23,7 +23,7 @@ export const INITIAL_STATE = {
             country: ""
         },
         geo:{
-            type: "",
+            type: "Point",
             coordinates: []
         },
         customerId:""

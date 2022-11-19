@@ -3,6 +3,6 @@
 }
 
 .buttonSubmit{
-    width: 100%;
-    margin: 20px 0;
+    width: inherit;
+    /* margin: 20px 0; */
 }

@@ -29,11 +29,12 @@ body {
 
 a {
   color: var(--white);
-  text-decoration: none;
   /*desativar click*/
   /* pointer-events: none;  */
 }
-
+a,a:hover{
+  text-decoration: none;
+}
 * {
   box-sizing: border-box;
 }
