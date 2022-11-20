@@ -22,7 +22,7 @@ export function* allClient(){
     // console.log('allClient', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
-    const { form } = yield select(state=>state.client) 
+    const { form } = yield select(state=>state.CLIENT) 
     // console.log('SAGAS STATE #######', form)
 
     try {
@@ -55,7 +55,7 @@ export function* addClient(){
     // console.log('addClients', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
-    const { client, form, components } = yield select(state=>state.client) 
+    const { client, form, components } = yield select(state=>state.CLIENT) 
     // console.log('SAGAS STATE #######', client, form )
 
     try {
@@ -95,7 +95,7 @@ export function* filterClients(){
     // console.log('filterClients', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
-    const { client, form } = yield select(state=>state.client) 
+    const { client, form } = yield select(state=>state.CLIENT) 
     // console.log('SAGAS STATE #######', client, form )
 
     try {

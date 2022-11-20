@@ -13,7 +13,6 @@ const MyTable = (props) => {
         config={}, 
         actions=undefined, 
         onRowClick=undefined,
-        // setComponent=undefined, 
     } = props
     const { main:{style={}}, header=[] } = config
     // console.log('MyTable #### ', data)
@@ -28,7 +27,8 @@ const MyTable = (props) => {
         data={newData}
         // autoHeight={autoHeight}
         rowExpandedHeight={440}
-        onRowClick={onRowClick}>
+        // onRowClick={onRowClick}
+        >
         {   
             header.map(({label, fixed, style},i) => (
                 <Column key={`${i}`} flexGrow={style.width ? 0:1} width={style.width} align={style.align} fixed={fixed}>
@@ -50,7 +50,6 @@ const MyTable = (props) => {
 const getFormattedLabel = (label='FIELD') =>{
     const slicedLabel   = label.toLocaleUpperCase().split('.')
     const formatedLabel = (slicedLabel.length === 1) ? slicedLabel[0] : slicedLabel[1]
-    console.log('FOMART....', formatedLabel)
     return formatedLabel
 }
 

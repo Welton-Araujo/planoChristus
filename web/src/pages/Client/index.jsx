@@ -28,7 +28,7 @@ const Client = (props)=>{
     const { style } = props
     // console.log('Client', clientTable)
 
-    const { clients, client, form, components, behavior } = useSelector((state)=>state.client)
+    const { clients, client, form, components, behavior } = useSelector((state)=>state.CLIENT)
     // console.log('CLIENT ############',  styles)
         
     //FUNCOES:
@@ -131,8 +131,8 @@ const Client = (props)=>{
                 config={clientTable.config}
                 onRowClick={(rowData)=>{
                     dispatch(updateClient({ behavior:'update', form:{ ...form, disabled:false} }))
-                    setComponent('drawer', true)
                     dispatch(updateClient({ client:rowData }))
+                    setComponent('drawer', true)
                 }}
                 actions={(rowData)=>{
                     // console.log('Client actions ...',rowData)
@@ -150,14 +150,15 @@ const Client = (props)=>{
                                     color:'var(--rs-text-link-hover)', 
                                     backgroundColor:"var(--light-gray)"
                                 }}
-                                onClick={() =>{                                 
-                                    // console.log(`id:${rowData.id||rowData._id}`)
+                                onClick={(e) =>{
+                                    // alert(`Editar: ${rowData.name} `)
+                                    console.log('a onclick #### .....', rowData)
                                     dispatch(updateClient({ behavior:'update', form:{ ...form, disabled:false} }))
-                                    dispatch(setClient({ client:rowData }))
+                                    setClient({ client:rowData })
                                     setComponent('drawer', true)
                                     return{}                            
                                 }}                                
-                                ></span>                                
+                                >{rowData.address.state}</span>                                
                             </a>
                             {/* <ModalState 
                             config={{title:'DETALHES'}} 

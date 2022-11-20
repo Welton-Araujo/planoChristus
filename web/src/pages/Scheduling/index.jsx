@@ -25,7 +25,7 @@ const Scheduling = (props)=>{
     const { style } = props
     // console.log('Scheduling', style) 
 
-    const schedules       = useSelector((state)=>state.scheduling.payload)
+    const schedules       = useSelector((state)=>state.SCHEDULING.payload)
     const formattedEvents = formatEvents(schedules)
     // console.log('formattedEvents', formattedEvents)
     
