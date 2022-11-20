@@ -33,7 +33,21 @@ const getSalonClients = async ( salonId, fields='clientId status dateRegistratio
     // FORMATAR CLIENTES
     const formattedClients = salonClients.map((salCli) =>{ 
         return salCli.clientId.map(cli=>({
-            ...cli._doc,
+            // ...cli._doc,
+            id: cli._id,
+            name: cli.name,
+			phone: cli.phone,
+			email: cli.email,
+			passwd: cli.passwd,
+			photo: cli.photo,
+			dateBirth: cli.dateBirth,
+			sex: cli.sex,
+			status: cli.status,
+			customerId: cli.customerId,
+			dateRegistration: cli.dateRegistration,
+            document: cli.document,
+            address: cli.address,
+			geo: cli.geo,
             salonClient:{
                 salonClientId: salCli._id,
                 status: salCli.status,

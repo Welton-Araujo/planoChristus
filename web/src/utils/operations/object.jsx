@@ -4,37 +4,44 @@
  * 
  */
 
+import { isPrimitive } from '../validation'
+
 
 /**
- * @Info Declare a flatten function that takes
- *       object as parameter and returns the
- *       flatten object 
- * @param {*} ob 
- * @param {*} doubleLabel True,  permite key com nome composto: { pai.filho:"" }
+ * @Info Transformar um Object multi-nivel em um Object flat.
+ * @param {*} obj 
+ * @param {*} rootLabel True,  permite key com nome composto: { pai.filho:"" }
  *                        False, permite key com nome simples:  { filho:"" } 
  * @param {*} carac Caractere da uniao entre a key pai e filho
+ * @param {*} ignore Uma lista_com_keys que serão ignoradas no object_result.
  * @returns 
  */
-export const flattenObj = (ob={}, doubleLabel=true, carac='.') => {
+export const flattenObj = (obj={}, rootLabel=true, char='.', ignore=[]) => {
      
-    let doubleLabelResult = {}
-    let singleLabelResult = {}
- 
-    for (const i in ob) { 
-        // Verificamos o tipo do i usando
-        // função typeof() e recursivamente
-        // chama a função novamente
-        if ( typeof(ob[i])==='object' && !Array.isArray(ob[i])) {
-            const temp = flattenObj(ob[i])
-            for (const j in temp) { 
-                // Store temp in result
-                doubleLabelResult[i + carac + j] = temp[j]
-                singleLabelResult[j] = temp[j]
+    let rootLabelResult = {}
+    let result = {}
+
+    for (const key1 in obj) {
+        //IGNORAR ITEM PRESENTE NO ARRAY: ignore 
+        if(ignore.includes(key1)){ continue }
+        
+        // SER FOR DADO PRIMITIVO: STRING, NUMBER...
+        if( isPrimitive(obj[key1])) {
+            rootLabelResult[key1] = obj[key1]
+            result[key1] = obj[key1]
+
+        }else if ( typeof(obj[key1])==='object' ) {
+            //CHAMADA RECURSIVA PARA: {} ou []
+            const temp = flattenObj(obj[key1])
+
+            for (const key2 in temp) { 
+                //IGNORAR ITEM PRESENTE NO ARRAY: ignore 
+                if(ignore.includes(`${key1}${char}${key2}`)){ continue }
+
+                rootLabelResult[`${key1}${char}${key2}`] = temp[key2]
+                result[key2] = temp[key2]
             }
-        }else {
-            doubleLabelResult[i] = ob[i]
-            singleLabelResult[i] = ob[i]
         }
     }
-    return doubleLabel ? doubleLabelResult : singleLabelResult
+    return rootLabel ? rootLabelResult : result
 }

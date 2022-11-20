@@ -27,8 +27,7 @@ const MyTable = (props) => {
         data={newData}
         // autoHeight={autoHeight}
         rowExpandedHeight={440}
-        // onRowClick={onRowClick}
-        >
+        onRowClick={onRowClick}>
         {   
             header.map(({label, fixed, style},i) => (
                 <Column key={`${i}`} flexGrow={style.width ? 0:1} width={style.width} align={style.align} fixed={fixed}>

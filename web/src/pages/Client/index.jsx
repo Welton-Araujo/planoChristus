@@ -16,9 +16,9 @@ import {
 import styles      from './Client.module.css'
 import FormClient  from './FormClient'
 import Table       from '../../components/Table'
-// import TableOneRow from '../../components/TableOneRow'
+import TableOneRow from '../../components/TableOneRow'
 import MyDrawer    from '../../components/Drawer'
-// import ModalState  from '../../components/Modal/ModalUseState'
+import ModalState  from '../../components/Modal/ModalUseState'
 // import Modal from '../../components/Modal'
 
 import clientTable from '../../data/componentTest/clientTable.json' 
@@ -53,13 +53,12 @@ const Client = (props)=>{
                 {/* Client Panel */}
                 <div className={styles.clientPanel}>
                     {/* DrawerButton */}
-                    <button className={`${styles.clientBtnDrawer} btn btn-lg`}
+                    <button className={`${styles.clientBtnDrawer}`}
                     onClick={()=>{
                         dispatch(updateClient({ behavior:'create' }))
                         dispatch(resetClient())
                         setComponent('drawer',true)
-                    }}
-                    >
+                    }}>
                         <span className="mdi mdi-account-plus"></span>
                     </button>
                     {/* Drawer */}
@@ -130,9 +129,9 @@ const Client = (props)=>{
                 data={clients}
                 config={clientTable.config}
                 onRowClick={(rowData)=>{
-                    dispatch(updateClient({ behavior:'update', form:{ ...form, disabled:false} }))
-                    dispatch(updateClient({ client:rowData }))
-                    setComponent('drawer', true)
+                    // dispatch(updateClient({ behavior:'update', form:{ ...form, disabled:false} }))
+                    // dispatch(updateClient({ client:rowData }))
+                    // setComponent('drawer', true)
                 }}
                 actions={(rowData)=>{
                     // console.log('Client actions ...',rowData)
@@ -151,16 +150,12 @@ const Client = (props)=>{
                                     backgroundColor:"var(--light-gray)"
                                 }}
                                 onClick={(e) =>{
-                                    // alert(`Editar: ${rowData.name} `)
-                                    console.log('a onclick #### .....', rowData)
-                                    dispatch(updateClient({ behavior:'update', form:{ ...form, disabled:false} }))
-                                    setClient({ client:rowData })
-                                    setComponent('drawer', true)
-                                    return{}                            
-                                }}                                
-                                >{rowData.address.state}</span>                                
+                                    dispatch(updateClient({ client:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                                    setComponent('drawer', true)                                                              
+                                }}>
+                                </span>                                
                             </a>
-                            {/* <ModalState 
+                            <ModalState 
                             config={{title:'DETALHES'}} 
                             buttonOpen={{
                                 title:<span className="mdi mdi-eye"></span>,
@@ -175,8 +170,15 @@ const Client = (props)=>{
                             components={components}
                             setComponent={setComponent} 
                             style={{}}>
-                                <TableOneRow objData={rowData}/>
-                            </ModalState> */}
+                                <TableOneRow objData={rowData}
+                                config={{
+                                    uppercase: false, 
+                                    rootLabel: true,
+                                    char: '.',
+                                    ignore:[ '_id', '__v', 'salonClient', 'geo.type'] 
+                                }} 
+                                />
+                            </ModalState>
                         </>                         
                     )                    
                 }}/>

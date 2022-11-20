@@ -1,33 +1,51 @@
 import styles from './TableOneRow.module.css'
 
+import { flattenObj } from '../../utils/operations/object'
+
 
 const TableOneRow = (props) =>{
-    const { objData={}, style={} } = props
-    // console.log('TableOneRow ....', objData, style)
+    const { 
+        config={},
+        objData={}, 
+        style={} 
+    } = props
+    
+    const {
+        uppercase=false,
+        rootLabel=false, 
+        char='.', 
+        ignore=[] 
+    } = config
 
-    return formatTable(objData)
-}
+    // console.log('TableOneRow ....', objData, config)
 
-export const formatTable = (obj)=>{
-    let items = []
-    for(const key in obj) {
-        if(typeof(obj[key]) ==='object') continue
-        items.push(formatContent(key, obj[key]))
-    }
+    const flatData = flattenObj(objData, rootLabel, char, ignore)
+
     return(
-        <div className={styles.tableOneRow}>
-            {items}
+        <div className={styles.tableOneRow} style={style}>
+            {formatCells(flatData, uppercase)}
         </div>
     ) 
 }
 
-const formatContent = (key, value)=>{
+export const formatCells = (obj, uppercase)=>{
+    // console.log('formatTable ######## ', obj)
+    let items = []
+    for(const key in obj) {
+        const label = uppercase ? key.toUpperCase() : key
+        items.push(formatContent(label, obj[key]))
+    }
+    return [ ...items ]     
+}
+
+const formatContent = (label="FIELD", value)=>{
     return(
         <div className={styles.tableCell} key={Math.random()}>
-            <span className={styles.cellTitle}  >{key}</span>
+            <span className={styles.cellTitle}  >{label}</span>
             <small className={styles.cellValue} >{value} </small>
         </div>
     )
 }
+
 
 export default TableOneRow
