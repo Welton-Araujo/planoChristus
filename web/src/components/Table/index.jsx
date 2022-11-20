@@ -16,12 +16,10 @@ const MyTable = (props) => {
         // setComponent=undefined, 
     } = props
     const { main:{style={}}, header=[] } = config
-    // console.log('MyTable ... #### ', loading, data)
+    // console.log('MyTable #### ', data)
     
     //MUDAR DE _ID PARA ID:
-    const newData = data.map((item)=>({ ...item, id:(item._id||item.id) }))
-
-    // const [autoHeight, setAutoHeight] = useState(true)
+    const newData  = data.map((item)=>({ ...item, id:(item._id||item.id) }))
 
     return (
         <Table className={styles.table} style={style} 
@@ -34,7 +32,7 @@ const MyTable = (props) => {
         {   
             header.map(({label, fixed, style},i) => (
                 <Column key={`${i}`} flexGrow={style.width ? 0:1} width={style.width} align={style.align} fixed={fixed}>
-                    <HeaderCell >{label.toLocaleUpperCase()}</HeaderCell>
+                    <HeaderCell >{getFormattedLabel(label)}</HeaderCell>
                     <Cell dataKey={label} />
                 </Column>
             ))       
@@ -47,6 +45,13 @@ const MyTable = (props) => {
             </Column>
         </Table>
     )
+}
+
+const getFormattedLabel = (label='FIELD') =>{
+    const slicedLabel   = label.toLocaleUpperCase().split('.')
+    const formatedLabel = (slicedLabel.length === 1) ? slicedLabel[0] : slicedLabel[1]
+    console.log('FOMART....', formatedLabel)
+    return formatedLabel
 }
 
 

@@ -162,7 +162,7 @@ const MyForm = (props) =>{
                         setPage("document", { ...page.document, type:e.target.value})
                     }}>
                         <option value={"cpf"}>{"CPF"}</option>
-                        <option value={"CNPJ"}>{"CNPJ"}</option>
+                        <option value={"cnpj"}>{"CNPJ"}</option>
                     </select>
                 </div>
                 <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
@@ -285,9 +285,9 @@ const MyForm = (props) =>{
                         focus="state"
                         setPage("address", { ...page.address, state:e.target.value})
                     }}>
-                        <option value={"SP"}>{"São Paulo"}</option>
-                        <option value={"RJ"}>{"Rio de janeiro"}</option>
-                        <option value={"CE"}>{"Ceará"}</option>
+                        <option value={"ce"}>{"Ceará"}</option>
+                        <option value={"rj"}>{"Rio de janeiro"}</option>
+                        <option value={"sp"}>{"São Paulo"}</option>
                     </select>
                 </div>
                 <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
@@ -302,9 +302,9 @@ const MyForm = (props) =>{
                         focus="country"
                         setPage("address", {...page.address, country:e.target.value})
                     }}>
-                        <option value={"BRA"}>{"Brasil"}</option>
-                        <option value={"USA"}>{"Estados Unidos"}</option>
-                        <option value={"ISR"}>{"Israel"}</option>
+                        <option value={"br"}>{"Brasil"}</option>
+                        <option value={"isr"}>{"Israel"}</option>
+                        <option value={"usa"}>{"Estados Unidos"}</option>
                     </select>
                 </div>
                 

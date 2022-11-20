@@ -7,10 +7,10 @@ export const INITIAL_STATE = {
         passwd: "",
         photo: "",
         dateBirth: "",
-        sex:"",
-        status:"",
+        sex:"m",
+        status:"a",
         document:{
-            type:"",
+            type:"cpf",
             number:""
         },
         address: {
@@ -19,8 +19,8 @@ export const INITIAL_STATE = {
             district: "",
             zipCode: "",
             city: "",
-            state: "",
-            country: ""
+            state: "sp",
+            country: "br"
         },
         geo:{
             type: "Point",

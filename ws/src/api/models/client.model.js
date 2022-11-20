@@ -32,12 +32,12 @@ const client = new Schema({
     },
     sex:{
         type: String,
-        enum:['M','F'],
+        enum:['m','f'],
         required: true
     },
     status:{
         type: String,
-        enum:['A','I'],
+        enum:['a','i'],
         required: true,
         default: 'A'
     },

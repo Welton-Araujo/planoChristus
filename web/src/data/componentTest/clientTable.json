@@ -13,7 +13,21 @@
           {"label":"sex", "fixed":false,"style":{"width":100,"align":"left"}},
           {"label":"status", "fixed":false,"style":{"width":100,"align":"left"}},
           {"label":"customerId", "fixed":false,"style":{"width":100,"align":"left"}},
-          {"label":"dateRegistration", "fixed":false,"style":{"width":240,"align":"left"}}
+          {"label":"dateRegistration", "fixed":false,"style":{"width":240,"align":"left"}},
+
+          {"label":"address.street", "fixed":false,"style":{"width":240,"align":"left"}},
+          {"label":"address.number", "fixed":false,"style":{"width":100,"align":"left"}},
+          {"label":"address.zipCode", "fixed":false,"style":{"width":90,"align":"left"}},
+          {"label":"address.district", "fixed":false,"style":{"width":240,"align":"left"}},
+          {"label":"address.city", "fixed":false,"style":{"width":240,"align":"left"}},
+          {"label":"address.state", "fixed":false,"style":{"width":80,"align":"left"}},
+          {"label":"address.country", "fixed":false,"style":{"width":140,"align":"left"}},
+
+          {"label":"document.type", "fixed":false,"style":{"width":80,"align":"left"}},
+          {"label":"document.number", "fixed":false,"style":{"width":140,"align":"left"}},
+
+          {"label":"geo.coordinates.0", "fixed":false,"style":{"width":120,"align":"left"}},
+          {"label":"geo.coordinates.1", "fixed":false,"style":{"width":120,"align":"left"}}
         ]
     },
     "data":[
