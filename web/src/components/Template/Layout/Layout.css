@@ -34,7 +34,7 @@ footer {
 .layout {
   display: grid;
   min-height: 100vh; /*vh: height of viewport(página)*/
-  overflow: auto;
+  /* overflow: auto; */
   grid-template-rows: 100px 1fr 185px;
   grid-template-columns: 220px 1fr;
   grid-template-areas:

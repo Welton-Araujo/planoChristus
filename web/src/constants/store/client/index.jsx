@@ -36,7 +36,7 @@ export const INITIAL_STATE = {
     behavior: "create",
     components:{
         drawer: false,
-        modal: false,
+        modal: { id:0, open:false },
         confirmDelete: false
     }
 }

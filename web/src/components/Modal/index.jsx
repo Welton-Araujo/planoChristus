@@ -6,27 +6,32 @@ import styles from './Modal.module.css'
 const MyModal = (props) => {
     const { 
         config={}, 
-        components={},
+        id=null,
+        components=undefined,
         setComponent=undefined,
         children=undefined, 
         buttonOpen={},
         buttonSubmit={},
         style={} 
     } = props
-    console.log("Modal ... ", components, buttonOpen)
 
-    const handleOpen  = ()=>setComponent('modal', true)
-    const handleClose = ()=>setComponent('modal', false)
+    const { modal=[] } = components    
+    // console.log("Modal ... ", id, modal, )
+
+    const handleOpen  = ()=>setComponent('modal', { id:id, open:true  })
+    const handleClose = ()=>setComponent('modal', { id:0 , open:false })
 
     return (
         <div className={styles.modal} style={style}>
             <ButtonToolbar>
-                <Button onClick={buttonOpen.onClick || handleOpen}>
+                <Button style={{color:"inherit"}}
+                    appearance={buttonOpen.appearance||"default"}
+                    onClick={buttonOpen.onClick || handleOpen}>
                     {buttonOpen.title||'Open'}
                 </Button>
             </ButtonToolbar>
 
-            <Modal open={components.modal} onClose={handleClose} >
+            <Modal open={modal.id===id} onClose={handleClose} >
                 <Modal.Header>
                     <Modal.Title>{config.title||'Detalhes'}</Modal.Title>
                 </Modal.Header>
@@ -34,11 +39,11 @@ const MyModal = (props) => {
                     {children}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button 
+                    <Button style={{marginTop:"10px"}}
                     loading={buttonSubmit.loading||false}
                     onClick={buttonSubmit.onClick||handleClose} 
                     appearance={buttonSubmit.appearance||"primary"}>
-                        {buttonSubmit.title||'Close'}
+                        {buttonSubmit.title||"Close"}
                     </Button>
                 </Modal.Footer>
             </Modal>

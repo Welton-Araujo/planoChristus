@@ -18,8 +18,7 @@ import FormClient  from './FormClient'
 import Table       from '../../components/Table'
 import TableOneRow from '../../components/TableOneRow'
 import MyDrawer    from '../../components/Drawer'
-import ModalState  from '../../components/Modal/ModalUseState'
-// import Modal from '../../components/Modal'
+import Modal       from '../../components/Modal'
 
 import clientTable from '../../data/componentTest/clientTable.json' 
 
@@ -134,53 +133,54 @@ const Client = (props)=>{
                     // setComponent('drawer', true)
                 }}
                 actions={(rowData)=>{
-                    // console.log('Client actions ...',rowData)
                     return(
                         <>
-                            <a href={"#"} style={{display:"flex", width:"100%", textDdecoration:"none"}}>
-                                <span className="mdi mdi-account-edit" 
-                                style={{
-                                    display:"flex", 
-                                    justifyContent:"center",
-                                    width:"100%", 
-                                    marginRight:"5px", 
-                                    borderRadius:"6px",
-                                    fontSize:"21px",
-                                    color:'var(--rs-text-link-hover)', 
-                                    backgroundColor:"var(--light-gray)"
-                                }}
-                                onClick={(e) =>{
-                                    dispatch(updateClient({ client:rowData, behavior:'update', form:{ ...form, disabled:false} }))
-                                    setComponent('drawer', true)                                                              
-                                }}>
-                                </span>                                
-                            </a>
-                            <ModalState 
-                            config={{title:'DETALHES'}} 
-                            buttonOpen={{
-                                title:<span className="mdi mdi-eye"></span>,
-                                onClick:null
+                        <a href={"#"} style={{display:"flex", width:"100%", textDecoration:"none"}}>
+                            <span className="mdi mdi-account-edit" 
+                            style={{
+                                display:"flex", 
+                                justifyContent:"center",
+                                width:"100%", 
+                                marginRight:"5px", 
+                                borderRadius:"6px",
+                                fontSize:"21px",
+                                color:'var(--rs-text-link-hover)', 
+                                backgroundColor:"var(--light-gray)"
                             }}
-                            buttonSubmit={{
-                                title:<span className="mdi mdi-exit-to-app"></span>,
-                                // loading:true,
-                                onClick:null,
-                                appearance:""
+                            onClick={(e) =>{
+                                dispatch(updateClient({ client:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                                setComponent('drawer', true)                                                              
+                            }}>
+                            </span>                                
+                        </a>
+                        <Modal 
+                        config={{title:'DETALHES'}}
+                        id={rowData.id}
+                        components={components}
+                        setComponent={setComponent} 
+                        buttonOpen={{
+                            title:<span className="mdi mdi-eye"></span>,
+                            // appearance:"primary",
+                            // onClick:()=>{},
+                        }}
+                        buttonSubmit={{
+                            title:<span className="mdi mdi-exit-to-app"></span>,
+                            loading:false,
+                            // appearance:"ghost",
+                            // onClick:()=>{},
+                        }}
+                        style={{}}>
+                            <TableOneRow objData={rowData}
+                            config={{
+                                uppercase: false, 
+                                rootLabel: true,
+                                char: '.',
+                                ignore:[ '_id', '__v', 'salonClient', 'geo.type'] 
                             }}
-                            components={components}
-                            setComponent={setComponent} 
-                            style={{}}>
-                                <TableOneRow objData={rowData}
-                                config={{
-                                    uppercase: false, 
-                                    rootLabel: true,
-                                    char: '.',
-                                    ignore:[ '_id', '__v', 'salonClient', 'geo.type'] 
-                                }} 
-                                />
-                            </ModalState>
-                        </>                         
-                    )                    
+                            />
+                        </Modal>
+                        </>
+                    )
                 }}/>
             </div>
         </div>   
