@@ -1,7 +1,11 @@
-.myDrawer{
+.myDrawerPanel{
     color: inherit;
 }
-
+.buttonOpen{
+    display: inline-block;
+    padding: 11px 12.9px;
+    font-size: 1rem;
+}
 .buttonSubmit{
     width: inherit;
     /* margin: 20px 0; */

@@ -7,7 +7,12 @@ import avatar from '../../../assets/img/avatar.png'
 
 
 const Header = (props)=>{
-    const { menus={}, companyInfo={}, avatarInfo={}, style={} } = props
+    const { 
+        menus={}, 
+        companyInfo={}, 
+        avatarInfo={}, 
+        style={} 
+    } = props
     // console.log('Header', avatarInfo,style)
     
     return (
@@ -27,7 +32,11 @@ const Header = (props)=>{
                     <img src={avatar} alt='avatar'/>
                     <span className="mdi mdi-chevron-down text-white"></span>
                 </div>            
-                <SidebarMobile menus={menus} companyInfo={companyInfo} style={style}/>
+                <SidebarMobile 
+                menus={menus}
+                companyInfo={companyInfo}
+                style={style}
+                />
             </div>
         </header>
     )

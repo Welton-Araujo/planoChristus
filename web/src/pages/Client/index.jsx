@@ -51,26 +51,27 @@ const Client = (props)=>{
                 <h1>Clientes</h1>
                 {/* Client Panel */}
                 <div className={styles.clientPanel}>
-                    {/* DrawerButton */}
-                    <button className={`${styles.clientBtnDrawer}`}
-                    onClick={()=>{
-                        dispatch(updateClient({ behavior:'create' }))
-                        dispatch(resetClient())
-                        setComponent('drawer',true)
-                    }}>
-                        <span className="mdi mdi-account-plus"></span>
-                    </button>
                     {/* Drawer */}
-                    <MyDrawer className={styles.drawerClient} style={{}}
+                    <MyDrawer className={styles.clientDrawer} style={{}}
+                    id={'drawer-client'}
                     title={behavior==='create'?"Novo cliente":"Atualizar cliente"} 
                     placement={'left'}
+                    buttonOpen={{
+                        title: <span className="mdi mdi-account-plus"></span>,                        
+                    }}
                     buttonSubmit={{
                         disabled: false,
-                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,
-                    }}
-                    behavior={behavior}
-                    components={components}
-                    setComponent={setComponent}
+                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,                        
+                    }} 
+                    customState={{
+                        component: components.drawer,
+                        handleOpen:()=>{
+                            dispatch(updateClient({ behavior:'create' }))
+                            dispatch(resetClient())
+                            setComponent('drawer',{id:'drawer-client', open:true})
+                        },
+                        handleClose:()=>setComponent('drawer',{id:null, open:false})
+                    }} 
                     >
                         {/* DrawerContent::Search */}
                         <div className={`${styles.clientSearch}`}>
@@ -149,27 +150,27 @@ const Client = (props)=>{
                             }}
                             onClick={(e) =>{
                                 dispatch(updateClient({ client:rowData, behavior:'update', form:{ ...form, disabled:false} }))
-                                setComponent('drawer', true)                                                              
+                                setComponent('drawer',{id:'drawer-client',open:true})                                                              
                             }}>
                             </span>                                
                         </a>
-                        <Modal 
+                        <Modal style={{}}
+                        id={rowData.id}                        
                         config={{title:'DETALHES'}}
-                        id={rowData.id}
-                        components={components}
-                        setComponent={setComponent} 
                         buttonOpen={{
                             title:<span className="mdi mdi-eye"></span>,
-                            // appearance:"primary",
-                            // onClick:()=>{},
                         }}
                         buttonSubmit={{
                             title:<span className="mdi mdi-exit-to-app"></span>,
-                            loading:false,
-                            // appearance:"ghost",
-                            // onClick:()=>{},
                         }}
-                        style={{}}>
+                        // customState={{
+                        //     component: components.modal,
+                        //     handleOpen:()=>{
+                        //         setComponent('modal',{id:rowData.id, open:true})
+                        //     },
+                        //     handleClose:()=>setComponent('modal',{id:null, open:false})
+                        // }}
+                        >
                             <TableOneRow objData={rowData}
                             config={{
                                 uppercase: false, 

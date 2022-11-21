@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Modal, Button, ButtonToolbar } from 'rsuite'
 
 import styles from './Modal.module.css'
@@ -5,33 +6,46 @@ import styles from './Modal.module.css'
 
 const MyModal = (props) => {
     const { 
-        config={}, 
         id=null,
-        components=undefined,
-        setComponent=undefined,
-        children=undefined, 
+        config={}, 
         buttonOpen={},
         buttonSubmit={},
+        customState={
+            component:{ id:null, open:false },
+            handleOpen:undefined, 
+            handleClose:undefined,
+        },
+        children=undefined, 
         style={} 
     } = props
 
-    const { modal=[] } = components    
-    // console.log("Modal ... ", id, modal, )
+    //STATE VIA SAGAS:
+    const { 
+        component, 
+        handleOpen,
+        handleClose, 
+    } = customState
+    // console.log("Modal ... ", id, component, )
 
-    const handleOpen  = ()=>setComponent('modal', { id:id, open:true  })
-    const handleClose = ()=>setComponent('modal', { id:0 , open:false })
+    //STATE PADRAO:
+    const [open, setOpen] = useState(false)
+    const _handleOpen     = ()=>setOpen(true)
+    const _handleClose    = ()=>setOpen(false)
 
     return (
         <div className={styles.modal} style={style}>
+        {   buttonOpen.disabled ? false :
             <ButtonToolbar>
                 <Button style={{color:"inherit"}}
-                    appearance={buttonOpen.appearance||"default"}
-                    onClick={buttonOpen.onClick || handleOpen}>
+                    onClick={handleOpen || _handleOpen}
+                    appearance={buttonOpen.appearance||"default"}>
                     {buttonOpen.title||'Open'}
                 </Button>
             </ButtonToolbar>
-
-            <Modal open={modal.id===id} onClose={handleClose} >
+        }
+            <Modal 
+            open    = {component.id===id || open} 
+            onClose = {handleClose       || _handleClose} >
                 <Modal.Header>
                     <Modal.Title>{config.title||'Detalhes'}</Modal.Title>
                 </Modal.Header>
@@ -40,10 +54,10 @@ const MyModal = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button style={{marginTop:"10px"}}
-                    loading={buttonSubmit.loading||false}
-                    onClick={buttonSubmit.onClick||handleClose} 
-                    appearance={buttonSubmit.appearance||"primary"}>
-                        {buttonSubmit.title||"Close"}
+                    onClick    = {handleClose || _handleClose} 
+                    loading    = {buttonSubmit.loading || false}
+                    appearance = {buttonSubmit.appearance || "primary"}>
+                        {buttonSubmit.title || "Close"}
                     </Button>
                 </Modal.Footer>
             </Modal>

@@ -30,7 +30,7 @@ const filterClient = () =>{
 }
 
 const updateClient = (payload) =>{
-    console.log('ACTIONS updateClient', payload)
+    // console.log('ACTIONS updateClient', payload)
     return { 
         type:UPDATE_CLIENT, 
         payload,

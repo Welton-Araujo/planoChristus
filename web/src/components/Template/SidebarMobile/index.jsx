@@ -1,52 +1,46 @@
 import { useState } from "react"
-import { Drawer, ButtonToolbar, Button, Placeholder } from "rsuite"
+import MyDrawer from "../../Drawer"
 
 import MainMenu from "../MainMenu"
 import styles from "./SideberMobile.module.css"
 
 
 const SidebarMobile = (props) => {
-    const { menus={}, companyInfo={}, style={} } = props
-    // console.log('SidebarMobile', menus.itemsMainMenu, style)
-
-    const [open, setOpen] = useState(false)
-    const [openWithHeader, setOpenWithHeader] = useState(false)
+    const { 
+        menus={}, 
+        companyInfo={}, 
+        style={} 
+    } = props
+    
+    //STATE PADRAO:
+    const [open, setOpen] = useState({id:null, open:false})
+    const handleOpen      = ()=>setOpen({id:"drawer-mobile", open:true})
+    const handleClose     = ()=>setOpen({id:null, open:false})
+    // console.log('SidebarMobile ### ...', )
 
     return (
         <div className={styles.sidebaModile} style={style}>
-        <ButtonToolbar>
-            {/* <Button onClick={() => setOpen(true)}>Open</Button> */}
-            <Button onClick={() => setOpenWithHeader(true)} className={styles.button}>
-            <span className="mdi mdi-menu"></span>
-            </Button>
-        </ButtonToolbar>
-
-        <Drawer open={open} onClose={() => setOpen(false)}>
-            <Drawer.Body>
-                <Placeholder.Paragraph />
-            </Drawer.Body>
-        </Drawer>
-
-        <Drawer open={openWithHeader} onClose={() => setOpenWithHeader(false)} style={{width:"80%"}} >
-            <Drawer.Header>
-                <Drawer.Title>{companyInfo.fantasyName || 'Menu'}</Drawer.Title>
-                <Drawer.Actions>
-                    {/* <Button onClick={() => setOpenWithHeader(false)}>Cancelar</Button> */}
-                    <Button
-                    onClick={() => setOpenWithHeader(false)}
-                    appearance="primary"
-                    >
-                    Fechar
-                    </Button>
-                </Drawer.Actions>
-            </Drawer.Header>
-            <Drawer.Body>
-                {/* <Placeholder.Paragraph /> */}
-                <div className={styles.sideMenuMobile}>
-                    <MainMenu menu={menus.itemsMainMenu} onClose={() => setOpenWithHeader(false)}/>
+            <MyDrawer className={styles.sideMobileDrawer} style={{with:"80%"}}
+            id={'drawer-mobile'}
+            title={companyInfo.fantasyName || "Menu"} 
+            placement={'right'}
+            buttonOpen={{
+                title: <span className="mdi mdi-menu"></span>,
+                appearance:"default",
+            }}
+            buttonSubmit={{
+                title:<span className="mdi mdi-exit-to-app"> Sair</span>,
+            }} 
+            customState={{
+                component: open,
+                handleOpen,
+                handleClose
+            }} 
+            >
+                <div className={styles.sideMobileMenu}>
+                    <MainMenu menu={menus.itemsMainMenu} onClose={handleClose}/>
                 </div>
-            </Drawer.Body>
-        </Drawer>
+            </MyDrawer>
         </div>
     )
 }

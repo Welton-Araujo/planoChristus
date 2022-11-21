@@ -19,16 +19,6 @@
     text-transform: uppercase;
     color: var(--white);
 }
-.clientBtnDrawer{
-    display: inline-block;
-    border: 1px solid transparent;
-    padding: 10px 11px;
-    font-size: 1rem;
-    border-radius: 0.25rem;
-    /* margin: 5px 0; */
-    background-color: var(--secondary);
-    color: var(--white);
-}
 .clientBody{
     display: flex;
     justify-content: center;
@@ -76,7 +66,7 @@
     .clientContent {
         background-color: rgb(207, 173, 230);
     }
-    .drawerClient{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+    .clientDrawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
         width: 100%!important;
     }
 }
