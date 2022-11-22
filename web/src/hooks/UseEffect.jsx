@@ -4,21 +4,15 @@ import {
 import { useDispatch } from 'react-redux'
 
 
-const useEffectDispatch = (action, params=null, events=[]) => {
+const useEffectDispatch = (action, params=null, load) => {
     const dispatch = useDispatch()
-    const firstLoading = checkPage(events)
-    // console.log('useEffect... params $$$', firstLoading)
+    // console.log('useEffect ### params...', )
 
-    //PRIMEIRA VEZ QUE O COMPONENT FOR CARREGADO:
+    //NO CARREGAMENTO DO COMPONENT:
     useEffect(() => {
-        if(firstLoading){ dispatch(action(params)) }
-    },[dispatch, action, params, firstLoading])
+        if(load){ dispatch(action(params)) }
+    },[dispatch, action, params, load])
 }
-
-const checkPage = (events)=>{
-    const firstLoading = Object.keys(events).length === 0
-    return firstLoading
-} 
 
 
 export default useEffectDispatch
