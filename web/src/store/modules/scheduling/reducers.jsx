@@ -5,7 +5,7 @@ import { INITIAL_STATE } from '../../../constants/store/scheduling'
 
 
 const scheduling = (state=INITIAL_STATE, action) =>{
-    // console.log('REDUCER scheduling', action)
+    // console.log('REDUCER scheduling', state, action)
     switch (action.type) {
         case UPDATE_SCHEDULING:
             return produce(state, (draft)=>{

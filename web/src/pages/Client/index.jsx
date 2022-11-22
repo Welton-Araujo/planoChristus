@@ -22,13 +22,16 @@ import Modal       from '../../components/Modal'
 
 import clientTable from '../../data/componentTest/clientTable.json' 
 
+let stap = 0
+
 
 const Client = (props)=>{
     const { style } = props
     // console.log('Client', clientTable)
-
+    
+    //STATE: inicial=[] e atualizado=[...]
     const { clients, client, form, components, behavior } = useSelector((state)=>state.CLIENT)
-    // console.log('CLIENT ############',  styles)
+    console.log('CLIENT ############', clients)
         
     //FUNCOES:
     const dispatch     = useDispatch()
@@ -42,7 +45,8 @@ const Client = (props)=>{
         console.log('save...')
         dispatch(addClient())
     }
-    useEffectDispatch(allClient, null, clients)
+    // ATUALIZAR STATE NO LOAD DA PAGE: API
+    useEffectDispatch(allClient, null, load(clients))
 
     return(
         <div className={`content ${styles.clientContent}`}>  
@@ -186,6 +190,15 @@ const Client = (props)=>{
             </div>
         </div>   
     )
+}
+
+const load = (clients=[], qtd=0, attempts=0)=>{
+    let ok = false
+    //AUTORIZAR ENQUANTO VAZIO/MIN:
+    if( clients.length <= qtd ){ ok=true  }
+    //PARA DEPOIS DO MAX DE PASSOS:
+    if(  stap++ > attempts   ){ ok=false }
+    return ok
 }
 
 

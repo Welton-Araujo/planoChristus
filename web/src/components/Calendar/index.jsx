@@ -12,15 +12,18 @@ const localizer = momentLocalizer(moment)
 
 
 const MyCalendar = (props) => {
-    const { dispatch, events, style={} } = props
-    const eventsList = events ? events : initEvents
-    // console.log('MyCalender', style, eventsList)
+    const { 
+        onRangeChange=()=>{}, 
+        events=initEvents, 
+        style={} 
+    } = props
+    console.log('MyCalender', events)
 
     return(
         <Calendar className={styles.calendar} style={style}
         localizer={localizer}
-        onRangeChange={(period)=>dispatch(formatRange(period))}
-        events={eventsList}
+        onRangeChange={(period)=>onRangeChange(formatRange(period))}
+        events={events}
         defaultView="week"
         selectable={true}
         popup={true}

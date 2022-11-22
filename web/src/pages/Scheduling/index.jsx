@@ -17,22 +17,25 @@ import Calendar from '../../components/Calendar'
 //TEST STATIC:
 // import schedules from '../../data/componentTest/scheduling.json' 
 //DATA DE HOJE: (AO CARREGAR A PAGINA)
-const start =  moment().weekday(0).format('YYYY-MM-DD')
-const end   =  moment().weekday(6).format('YYYY-MM-DD')
+const firstWeekday =  moment().weekday(0).format('YYYY-MM-DD')//"2022-11-09"
+const lastweekday  =  moment().weekday(6).format('YYYY-MM-DD')//"2022-12-29"
+
+let stap = 0
 
 
 const Scheduling = (props)=>{
     const { style } = props
     // console.log('Scheduling', style) 
 
+    //STATE: inicial=[] e atualizado=[...] 
     const schedules       = useSelector((state)=>state.SCHEDULING.payload)
     const formattedEvents = formatEvents(schedules)
     // console.log('formattedEvents', formattedEvents)
     
     const dispatch = useDispatch()
-    // ATUALIZAR NO CARREGAMENTO:
-    useEffectDispatch(filterScheduling, {start, end}, schedules)
-    
+    // ATUALIZAR STATE NO LOAD DA PAGE: API
+    useEffectDispatch(filterScheduling, {firstWeekday, lastweekday}, load())
+
     return(
         <div className={`content ${styles.schedulingContent}`}>
             <div className={styles.schedulingHeader}>
@@ -41,7 +44,7 @@ const Scheduling = (props)=>{
             <div className={styles.schedulingBody} style={style}>
                 <Calendar style={{padding:'5px'}} 
                     events={formattedEvents}
-                    dispatch={({start, end})=>dispatch(filterScheduling({start, end}))}
+                    onRangeChange={ ({start, end})=>dispatch(filterScheduling({start, end})) }
                 />
             </div>
         </div>    
@@ -60,5 +63,10 @@ const formatEvents = (schedules) =>{
         }
     })
 }
+
+const load = (attempts=1) =>{
+    return (stap++ <= attempts)
+}
+
 
 export default Scheduling
