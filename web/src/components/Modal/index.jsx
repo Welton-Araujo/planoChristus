@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Modal, Button, ButtonToolbar } from 'rsuite'
 
-import styles from './Modal.module.css'
+import styles from './MyModal.module.css'
 
 
 const MyModal = (props) => {
     const { 
-        id=null,
+        id="myModal",
         config={}, 
         buttonOpen={},
         buttonSubmit={},
@@ -18,6 +18,7 @@ const MyModal = (props) => {
         children=undefined, 
         style={} 
     } = props
+    // console.log("Modal ... ", id,)
 
     //STATE VIA SAGAS:
     const { 
@@ -25,7 +26,6 @@ const MyModal = (props) => {
         handleOpen,
         handleClose, 
     } = customState
-    // console.log("Modal ... ", id, component, )
 
     //STATE PADRAO:
     const [open, setOpen] = useState(false)
@@ -33,7 +33,7 @@ const MyModal = (props) => {
     const _handleClose    = ()=>setOpen(false)
 
     return (
-        <div className={styles.modal} style={style}>
+        <div className={styles.myModal} style={style}>
         {   buttonOpen.disabled ? false :
             <ButtonToolbar>
                 <Button style={{color:"inherit"}}
@@ -49,16 +49,18 @@ const MyModal = (props) => {
                 <Modal.Header>
                     <Modal.Title>{config.title||'Detalhes'}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className={styles.myModalBody}>
                     {children}
                 </Modal.Body>
                 <Modal.Footer>
+                {   buttonSubmit.disabled ? false :
                     <Button style={{marginTop:"10px"}}
                     onClick    = {handleClose || _handleClose} 
-                    loading    = {buttonSubmit.loading || false}
+                    loading    = {buttonSubmit.loading    || false}
                     appearance = {buttonSubmit.appearance || "primary"}>
                         {buttonSubmit.title || "Close"}
                     </Button>
+                }
                 </Modal.Footer>
             </Modal>
         </div>

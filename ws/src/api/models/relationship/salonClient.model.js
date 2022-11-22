@@ -19,9 +19,9 @@ const salonClient = new Schema({
     }],
     status:{
         type: String,
-        enum:['A','I'],
+        enum:['a','i'],
         required: true,
-        default: 'A'
+        default: 'a'
     },
     dateRegistration:{
         type: Date,

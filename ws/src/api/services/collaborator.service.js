@@ -23,7 +23,7 @@ const getSalonCollaborators = async ( salonId, fields='collaboratorId status dat
     
     //BUSCAR RELACIONAMETO:
     const { salonCollaborators } = await SalonCollaboratorRepository.find(
-        { salonId, status:{$ne:'E'} },//query
+        { salonId, status:{$ne:'e'} },//query
         fields, 
         { path:'collaboratorId', select:'-passwd -recipientId' }//populate
     )
@@ -159,7 +159,7 @@ const put = async ( collaboratorId, status, salColId , services )=>{
 const deleteById = async (id) => {
     console.log('CollaboratorService::deleteById')
     //BUSCAR RELACIONAMENTO:
-    const { upSalonCollaborator } = await SalonCollaboratorRepository.findByIdAndUpdate(id,{status:'E'})
+    const { upSalonCollaborator } = await SalonCollaboratorRepository.findByIdAndUpdate(id,{status:'e'})
     if( !upSalonCollaborator ){ return { error: true, message: 'Erro ao deletar.' } }
     
     return { error: true, message: 'Deletado com sucesso.' }

@@ -15,8 +15,7 @@ const MyForm = (props) =>{
         buttonSubmit={},
         setPage=()=>{}, 
     } = props    
-    console.log("MyForm #####", buttonSubmit)
-
+    // console.log("MyForm #####", buttonSubmit)
 
     return(
         <div className={`formBuilder`}>
@@ -111,8 +110,8 @@ const MyForm = (props) =>{
                         focus="status"
                         setPage("status", e.target.value)
                     }}>
-                        <option value={"A"}>{"Ativo"}</option>
-                        <option value={"I"}>{"Inativo"}</option>
+                        <option value={"a"}>{"Ativo"}</option>
+                        <option value={"i"}>{"Inativo"}</option>
                     </select>
                 </div>
             </div>
@@ -145,8 +144,8 @@ const MyForm = (props) =>{
                         focus="sex"
                         setPage("sex", e.target.value)
                     }}>
-                        <option value={"M"}>{"Masculino"}</option>
-                        <option value={"F"}>{"Feminino"}</option>
+                        <option value={"a"}>{"Masculino"}</option>
+                        <option value={"f"}>{"Feminino"}</option>
                     </select>
                 </div>
                 <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
@@ -307,20 +306,29 @@ const MyForm = (props) =>{
                         <option value={"usa"}>{"Estados Unidos"}</option>
                     </select>
                 </div>
-                
+            </div>
+
+            <b className={`formBuilderTitle`}>{"Geo localização"}</b>
+            <div className={`formBuilderGroup`}>
                 <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
                     <b>{"Latitude"}</b>
                     <input
                     className={`form-control`}
                     name={"coordinates0"}
-                    type={"number"}
-                    placeholder={"Latitude"}
+                    type={"text"}
+                    placeholder={"Lat: -3.731862"}
                     disabled={form.disabled}
-                    value={page["geo"]["coordinates"][0]}
+                    value={page["geo"]["coordinates"][0] || "-3.731862"}
                     autoFocus={focus==='coordinates0'}
                     onChange={(e)=>{
                         focus = e.target.name
-                        setPage("geo", {...page['geo'], coordinates:[e.target.value, page['geo']['coordinates'][1]]})
+                        setPage("geo", {
+                            ...page['geo'], 
+                            coordinates:[
+                                parseFloat(e.target.value), 
+                                page['geo']['coordinates'][1]
+                            ]
+                        })
                     }}/>                
                 </div>
                 <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
@@ -328,14 +336,20 @@ const MyForm = (props) =>{
                     <input
                     className={`form-control`}
                     name={"coordinates1"}
-                    type={"number"}
-                    placeholder={"Longitude"}
+                    type={"text"}
+                    placeholder={"Long: -38.526669"}
                     disabled={form.disabled}
-                    value={page["geo"]["coordinates"][1]}
+                    value={page["geo"]["coordinates"][1] || "-3.731862"}
                     autoFocus={focus==='coordinates1'}
                     onChange={(e)=>{
                         focus = e.target.name
-                        setPage("geo", {...page['geo'], coordinates:[page['geo']['coordinates'][0], e.target.value]})
+                        setPage("geo", {
+                            ...page['geo'], 
+                            coordinates:[
+                                page['geo']['coordinates'][0],
+                                parseFloat(e.target.value)
+                            ]
+                        })
                     }}/>                
                 </div>
             </div>

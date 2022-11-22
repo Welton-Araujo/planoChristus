@@ -22,7 +22,7 @@ const getFullSalonServices = async (salonId, query={}, fields='')=>{
     //BUSCAR SERVICOS:
     const { services } = await ServiceRepository.find({ 
         salonId,
-        status: { $ne: 'E'},
+        status: { $ne: 'e'},
         ...query
     }, fields)
     // console.log('services...', services)
@@ -140,7 +140,7 @@ const deleteFileById = async (id, referenceId, salonId, path)=>{
     // if( !service ){ return { error:true, message:'Erro, o serviço não existe.', delete:false } })
     
     //DELETAR ARQUIVO:
-    const { oldFile } = await FileRepository.deleteById(id)//{ status: 'E' })
+    const { oldFile } = await FileRepository.deleteById(id)//{ status: 'e' })
     if( !!oldFile ){ resp = { error:false, message:'Arquivo deletado com sucesso.', delete:true } }
     
     //DELETAR ARQUIVO NA AWS:

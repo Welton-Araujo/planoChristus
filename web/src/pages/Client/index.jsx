@@ -11,6 +11,7 @@ import {
     filterClient,
     updateClient, 
     resetClient, 
+    unlinkClient,
 } from '../../store/modules/client/actions'
 
 import styles      from './Client.module.css'
@@ -19,6 +20,7 @@ import Table       from '../../components/Table'
 import TableOneRow from '../../components/TableOneRow'
 import MyDrawer    from '../../components/Drawer'
 import Modal       from '../../components/Modal'
+import ConfirmModal from '../../components/Modal/ConfirmModal'
 
 import clientTable from '../../data/componentTest/clientTable.json' 
 
@@ -45,6 +47,9 @@ const Client = (props)=>{
         console.log('save...')
         dispatch(addClient())
     }
+    const remove = () =>{
+        dispatch(unlinkClient())
+    }
     // ATUALIZAR STATE NO LOAD DA PAGE: API
     useEffectDispatch(allClient, null, load(clients))
 
@@ -58,7 +63,7 @@ const Client = (props)=>{
                     {/* Drawer */}
                     <MyDrawer className={styles.clientDrawer} style={{}}
                     id={'drawer-client'}
-                    title={behavior==='create'?"Novo cliente":"Atualizar cliente"} 
+                    title={behavior==='create'?"Novo cliente":"Deletar cliente"}
                     placement={'left'}
                     buttonOpen={{
                         title: <span className="mdi mdi-account-plus"></span>,                        
@@ -111,19 +116,26 @@ const Client = (props)=>{
                         form={form}
                         setPage={setClient}
                         buttonSubmit={{
-                            title:<span className="mdi mdi-zip-disk"> Salvar</span>,
+                            title:   <span className="mdi mdi-zip-disk"> { behavior==='create' ? "Salvar":"Deletar" }</span>,
                             loading: form.saving,
-                            onClick: ()=>{
-                                if(behavior==='create'){
-                                    save()
-                                }else{
-                                    // 
-                                }
-                            },
-                            style:{backgroundColor: behavior==="create" ? "var(--success)":"var(--warning)"}
+                            onClick: ()=>{ (behavior==='create') ? save() : setComponent('modal',{id:"cmClientRemove", open:true}) },
+                            style: { backgroundColor: (behavior==='create') ? "var(--success)":"var(--warning)" }
                         }}  
                         />
                     </MyDrawer>
+                    {/* Modal Confirm */}
+                    <ConfirmModal
+                        id     = {"cmClientRemove"}
+                        config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
+                        buttonConfirm={{title:"",loading:form.saving}}
+                        buttonCancel ={{titel:""}}
+                        customState={{
+                            component: components.modal,
+                            handleConfirm:()=>remove() ,
+                            handleCancel :()=>setComponent('modal',{id:null, open:false})
+                        }}
+                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ }} }
+                    />
                 </div>
             </div>
             {/* CLIENT BODY */}
@@ -194,7 +206,7 @@ const Client = (props)=>{
 
 const load = (clients=[], qtd=0, attempts=0)=>{
     let ok = false
-    //AUTORIZAR ENQUANTO VAZIO/MIN:
+    //AUTORIZAR ENQUANTO VAZIO/MINIMO:
     if( clients.length <= qtd ){ ok=true  }
     //PARA DEPOIS DO MAX DE PASSOS:
     if(  stap++ > attempts   ){ ok=false }

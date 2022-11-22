@@ -23,7 +23,7 @@ const getSalonClients = async ( salonId, fields='clientId status dateRegistratio
     
     //BUSCAR RELACIONAMETO:
     const { salonClients } = await SalonClientRepository.find(
-        { salonId, status:{$ne:'E'} },//query
+        { salonId, status:{$ne:'e'} },//query
         fields, 
         { path:'clientId', select:'-passwd -customertId' }//populate
     )
@@ -66,7 +66,7 @@ const getSalonClients = async ( salonId, fields='clientId status dateRegistratio
  * @returns 
  */
 const post = async ( salonId, clientCandidate )=>{    
-    console.log('ClientService::post Pagar.me', salonId,  )
+    console.log('ClientService::post Pagar.me', salonId, clientCandidate )
     const db = mongoose.connection
     const session = await db.startSession()
     session.startTransaction()
@@ -86,28 +86,27 @@ const post = async ( salonId, clientCandidate )=>{
     // if( pagarmeCustomer.error ){ return{ error:true, message:'Erro, cliente no Pagar.me.', pagarmeCustomer }}
 
     //NOVO CLIENTE:
-    const { error, newClient } = await ClientRepository.save({
+    const { newClient } = await ClientRepository.save({
         _id,
         ...clientCandidate,
         customerId: pagarmeCustomer.id || '0'
     })
-    if( !newClient ){ return{ error:true, message:'Erro ao criar o cliente.', error, newClient }}
+    if( !newClient ){ return{ error:true, message:'Erro ao criar o cliente.' }}
     
     //BUSCAR RELACIONAMENTO NO DB:
     const { salonClient } = await SalonClientRepository.findById(clientCandidate.id)
     if( salonClient ){ return{ error:true, message:'Erro, já existe o cliente para este salão.' }}
 
     //CRIAR RELACIONAMENTO: 
-    await SalonClientRepository.save({
+    const { newSalonClient } = await SalonClientRepository.save({
         salonId,
         clientId: newClient.id,
     })
-    
+
     await session.commitTransaction()
     session.endSession()
 
     return { error:false, message:'Cliente cadastrado no salão com sucesso.', client:newClient }
-
 }
 
 /*** ***
@@ -153,10 +152,10 @@ const put = async ( clientId, status, salColId , services )=>{
 const deleteById = async (id) => {
     console.log('ClientService::deleteById', id)
     //BUSCAR RELACIONAMENTO:
-    const { upSalonClient } = await SalonClientRepository.findByIdAndUpdate(id, {status:'E'})
+    const { upSalonClient } = await SalonClientRepository.findByIdAndUpdate(id, {status:'e'})
     if( !upSalonClient ){ return { error: true, message: 'Erro ao deletar.' } }
     
-    return { error: true, message: 'Deletado com sucesso.' }
+    return { error: false, message: 'Deletado com sucesso.' }
 }
 
 const filters = async (query={}, filters={}) => {

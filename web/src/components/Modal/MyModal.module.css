@@ -1,0 +1,8 @@
+/* SEM EFEITO NO RSUITE.MODAL */
+.myModal{
+    color:inherit;
+}
+/* COM EFEITO: */
+.myModalBody{
+    width: 100%!important;
+}

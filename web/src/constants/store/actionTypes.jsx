@@ -4,6 +4,7 @@ const ADD_CLIENT     = '@client/ADD'
 const FILTER_CLIENTS = '@client/FILTER'
 const UPDATE_CLIENT  = '@client/UPDATE'
 const RESET_CLIENT   = '@client/RESET'
+const UNLINK_CLIENT  = '@client/UNLINK'
 
 //COLLABORATOR
 
@@ -26,6 +27,7 @@ export {
     FILTER_CLIENTS,
     UPDATE_CLIENT,
     RESET_CLIENT,
+    UNLINK_CLIENT,
 
     ALL_SCHEDULING,
     FILTER_SCHEDULING,
