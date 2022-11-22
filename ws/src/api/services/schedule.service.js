@@ -46,7 +46,7 @@ const postCollaboratorSchedules = async (newServices)=>{
     
     //BUSCAR COLABORADORES:
     const { collaboratorServices } = await CollaboratorServiceRepository.find(
-        { serviceId:{$in:newServices}, status:'A' },// query
+        { serviceId:{$in:newServices}, status:'a' },// query
         'collaboratorId -_id',                      //fields
         { path:'collaboratorId', select:'name' }    //populate
     )

@@ -4,6 +4,7 @@ import {
     ALL_CLIENT, 
     ADD_CLIENT,
     FILTER_CLIENTS,
+    UNLINK_CLIENT,
 } from '../../../constants/store/actionTypes'
 import { 
     allClient as allClientAction,
@@ -12,14 +13,18 @@ import {
 } from './actions'
 
 import api   from '../../../utils/external/api' 
+
+// TESTE STATIC
 import clientTest from '../../../data/fakeReq/clientTest.json'
 
 const endPointClients = `/cliente/salao/${clientTest.get.salonId}`
 const endPointFilters = `/cliente/filtro`
 const endPointAdd     = `/cliente`
+const endPointDelCli  = `/cliente/servico/${clientTest.del.salonClientId}`
+
 
 export function* allClient(){
-    // console.log('allClient', )
+    // console.log('SAGAS allClient', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
     const { form } = yield select(state=>state.CLIENT) 
@@ -36,9 +41,9 @@ export function* allClient(){
         //ATUALIZAR FORM: FALSE:
         yield put(updateClient({ form:{ ...form, filtering:false } }))
 
-        // console.log('allClient ...',data)
+        // console.log('SAGAS allClient ...',data)
         if( data.error ){
-            alert('SAGA CLIENT erro ... ' + data.message)
+            alert('SAGAS CLIENT erro ... ' + data.message)
             return false
         }
 
@@ -52,7 +57,7 @@ export function* allClient(){
 }
 
 export function* addClient(){
-    // console.log('addClients', )
+    // console.log('SAGAS addClients', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
     const { client, form, components } = yield select(state=>state.CLIENT) 
@@ -72,7 +77,7 @@ export function* addClient(){
         //ATUALIZAR FORM: FALSE:
         yield put(updateClient({ form:{ ...form, saving:false } }))
 
-        // console.log('addClients ...',data)
+        // console.log('SAGAS addClients ...',data)
         if( data.error ){
             alert('SAGA CLIENT erro ... ' + data.message)
             return false
@@ -81,7 +86,7 @@ export function* addClient(){
         //RECARREGAR A TABLE:
         yield put(allClientAction())
         //FECHAR O COMPONENTE:
-        yield put(updateClient({ components:{ ...components, drawer:false } }))
+        yield put(updateClient({ components:{ ...components, drawer:{ id:null, open:false } } }))
         //LIMPAR FORM:
         yield put(resetClient())
 
@@ -92,7 +97,7 @@ export function* addClient(){
 }
 
 export function* filterClients(){
-    // console.log('filterClients', )
+    // console.log('SAGAS filterClients', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
     const { client, form } = yield select(state=>state.CLIENT) 
@@ -106,13 +111,13 @@ export function* filterClients(){
         //REQUEST CLIENTES PARA API:
         const { data } = yield call(api.post, endPointFilters,{
             email: client.email,
-            status:"A"
+            status:"a"
         })
         
         //ATUALIZAR FORM: FALSE:
         yield put(updateClient({ form:{ ...form, filtering:false }}))
 
-        // console.log('filterClients ...',data)
+        // console.log('SAGAS filterClients ...',data)
         if( data.error ){
             alert('SAGA CLIENT erro ... ' + data.message)
             return false
@@ -135,9 +140,47 @@ export function* filterClients(){
     }
 }
 
+export function* unlinkClient(){
+    console.log('SAGAS unlinkClient', )
+        
+    //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
+    const { form, components } = yield select(state=>state.CLIENT) 
+    // console.log('SAGAS STATE #######', client, form )
+
+    try {
+
+        //ATUALIZAR FORM: TRUE:
+        yield put(updateClient({ form:{ ...form, saving:true } }))
+
+        //REQUEST CLIENTES PARA API:
+        const { data } = yield call(api.delete, endPointDelCli)
+        
+        //ATUALIZAR FORM: FALSE:
+        yield put(updateClient({ form:{ ...form, saving:false } }))
+
+        console.log('SAGAS unlinkClient ...',data)
+        if( data.error ){
+            alert('SAGA CLIENT erro ... ' + data.message)
+            return false
+        }
+        
+        //RECARREGAR A TABLE:
+        yield put(allClientAction())
+        //FECHAR O COMPONENTE:
+        yield put(updateClient({ components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } } }))
+        //LIMPAR FORM:
+        yield put(resetClient())
+
+    } catch (error) {
+        alert('SAGA CLIENT erro ... ' + error)
+        yield put(updateClient({ form:{ ...form, saving:false } }))
+    }
+}
+
 
 export default all([
     takeLatest(ALL_CLIENT, allClient),
     takeLatest(ADD_CLIENT, addClient),
-    takeLatest(FILTER_CLIENTS, filterClients)
+    takeLatest(FILTER_CLIENTS, filterClients),
+    takeLatest(UNLINK_CLIENT , unlinkClient),
 ])

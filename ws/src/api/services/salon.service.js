@@ -76,7 +76,7 @@ const getSalonFormattedServices = async (salonId, query={}, fields='_id title') 
     //BUSCAR SERVIÇOS:
     let { error, services } = await ServiceRepository.find({ 
         salonId, 
-        status: 'A',
+        status: 'a',
         ...query
     }, fields)
 

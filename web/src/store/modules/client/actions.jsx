@@ -4,6 +4,7 @@ import {
     FILTER_CLIENTS,
     UPDATE_CLIENT,
     RESET_CLIENT,
+    UNLINK_CLIENT,
 } from '../../../constants/store/actionTypes'
 
 
@@ -44,6 +45,13 @@ const resetClient = () =>{
     }
 }
 
+const unlinkClient = () =>{
+    console.log('ACTIONS unlinkClient', )
+    return {
+        type:UNLINK_CLIENT 
+    }
+}
+
 
 export {
 
@@ -52,5 +60,6 @@ export {
     filterClient,
     updateClient,
     resetClient,
+    unlinkClient,
 
 }

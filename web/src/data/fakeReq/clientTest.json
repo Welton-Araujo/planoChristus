@@ -1,4 +1,5 @@
 {
+    "INFO":"Usando nos teste dos store, principalmente SAGAS",
     "get":{
         "salonId":"634c3a349592125facfe6a83"
     },
@@ -13,5 +14,8 @@
     "post":{
         "email":"roberto@email.com",
         "status":"I"        
+    },
+    "del":{
+        "salonClientId":"637962ab0605a49ff3b77259"
     }
 }

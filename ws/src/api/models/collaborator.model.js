@@ -32,14 +32,14 @@ const collaborator = new Schema({
     },
     sex:{
         type: String,
-        enum:['M','F'],
+        enum:['m','v'],
         required: true
     },
     status:{
         type: String,
-        enum:['A','I'],
+        enum:['a','i'],
         required: true,
-        default: 'A'
+        default: 'a'
     },
     bankAccount:{
         owner:{

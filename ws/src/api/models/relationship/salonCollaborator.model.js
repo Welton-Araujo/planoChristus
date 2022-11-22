@@ -19,9 +19,9 @@ const salonCollaborator = new Schema({
     }],
     status:{
         type: String,
-        enum:['A','I', 'E'],
+        enum:['a','i', 'e'],
         required: true,
-        default: 'A'
+        default: 'a'
     },
     dateRegistration:{
         type: Date,
