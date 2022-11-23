@@ -112,6 +112,12 @@ const Client = (props)=>{
                         </div>
                         {/* DrawerContent::Form */}
                         <FormClient
+                        alert={{
+                            actived:true, 
+                            title:"ALERTA!",
+                            message:<span className="mdi mdi-cancel"> Aviso importante....!</span>,
+                            style:{}
+                        }}
                         page={client}
                         form={form}
                         setPage={setClient}

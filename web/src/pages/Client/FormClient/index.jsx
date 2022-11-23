@@ -3,25 +3,34 @@ import './Form.css'
 // USANDO CLASS DO BOOTSTRAP:
 // import { isPrimitive } from '../../../utils/validation'
 // import { formInfo } from '../../../constants/pages/client'
+import Alert from '../../../components/Alert'
 
 let focus = ""
 let seePasswd = false
 
 
 const MyForm = (props) =>{
-    const { 
+    const {
+        alert={},
         page={}, 
         form={},
         buttonSubmit={},
         setPage=()=>{}, 
     } = props    
-    // console.log("MyForm #####", buttonSubmit)
+    console.log("MyForm #####", )
 
     return(
         <div className={`formBuilder`}>
-            <b className={`formBuilderTitle`}>{"LOGIN"}</b>
-            <div className={`formBuilderGroup`}>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+        {   !alert.actived ? false :
+            <Alert className={``}
+            key={`${Math.random()}`} 
+            config={alert}
+            style={{}}
+            />            
+        }
+            <b className={`fbTitle`}>{"LOGIN"}</b>
+            <div className={`fbGroup`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Nome"}</b>
                     <input
                     className={`form-control`}
@@ -36,7 +45,7 @@ const MyForm = (props) =>{
                         setPage('name', e.target.value)
                     }}/>
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Fone / WhatsApp"}</b>
                     <input
                     className={`form-control`}
@@ -51,7 +60,7 @@ const MyForm = (props) =>{
                         setPage("phone", e.target.value)
                     }}/>                
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Email"}</b>
                     <input
                     className={`form-control`}
@@ -66,7 +75,7 @@ const MyForm = (props) =>{
                         setPage("email", e.target.value)
                     }}/>                
                 </div>            
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Senha"}</b>
                     <input
                     className={`form-control`}
@@ -82,7 +91,7 @@ const MyForm = (props) =>{
                         setPage("passwd", e.target.value)
                     }}/>
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Foto"}</b>
                     <input
                     className={`form-control`}
@@ -98,7 +107,7 @@ const MyForm = (props) =>{
                     }}/>
                 </div>
 
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Status"}</b>
                     <select
                     className={"form-control"}
@@ -115,9 +124,9 @@ const MyForm = (props) =>{
                     </select>
                 </div>
             </div>
-            <b className={`formBuilderTitle`}>{"DADOS"}</b>
-            <div className={`formBuilderGroup`}>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+            <b className={`fbTitle`}>{"DADOS"}</b>
+            <div className={`fbGroup`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Data de nasc."}</b>
                     <input
                     className={`form-control`}
@@ -132,7 +141,7 @@ const MyForm = (props) =>{
                         setPage("dateBirth", e.target.value)
                     }}/>                
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Sexo"}</b>
                     <select
                     className="form-control"
@@ -148,7 +157,7 @@ const MyForm = (props) =>{
                         <option value={"f"}>{"Feminino"}</option>
                     </select>
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Tipo de documento"}</b>
                     <select
                     className="form-control"
@@ -164,7 +173,7 @@ const MyForm = (props) =>{
                         <option value={"cnpj"}>{"CNPJ"}</option>
                     </select>
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Nº do documento"}</b>
                     <input
                     className={`form-control`}
@@ -179,7 +188,7 @@ const MyForm = (props) =>{
                         setPage("document", { ...page.document, number:e.target.value})
                     }}/>                
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"ID Customer"}</b>
                     <input
                     className={`form-control`}
@@ -195,9 +204,9 @@ const MyForm = (props) =>{
                     }}/>                
                 </div>
             </div>
-            <b className={`formBuilderTitle`}>{"ENDEREÇO"}</b>
-            <div className={`formBuilderGroup`}>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+            <b className={`fbTitle`}>{"ENDEREÇO"}</b>
+            <div className={`fbGroup`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Rua"}</b>
                     <input
                     className={`form-control`}
@@ -212,7 +221,7 @@ const MyForm = (props) =>{
                         setPage("address", {...page.address, street:e.target.value})
                     }}/>                
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Número da casa"}</b>
                     <input
                     className={`form-control`}
@@ -227,7 +236,7 @@ const MyForm = (props) =>{
                         setPage("address", {...page.address, number:e.target.value})
                     }}/>                
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Bairro"}</b>
                     <input
                     className={`form-control`}
@@ -242,7 +251,7 @@ const MyForm = (props) =>{
                         setPage("address", {...page.address, district:e.target.value})
                     }}/>                
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"CEP"}</b>
                     <input
                     className={`form-control`}
@@ -257,7 +266,7 @@ const MyForm = (props) =>{
                         setPage("address", {...page.address, zipCode:e.target.value})
                     }}/>                
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Cidade"}</b>
                     <input
                     className={`form-control`}
@@ -272,7 +281,7 @@ const MyForm = (props) =>{
                         setPage("address", {...page.address, city:e.target.value})
                     }}/>                
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"UF"}</b>
                     <select
                     className="form-control"
@@ -289,7 +298,7 @@ const MyForm = (props) =>{
                         <option value={"sp"}>{"São Paulo"}</option>
                     </select>
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"País"}</b>
                     <select
                     className="form-control"
@@ -308,9 +317,9 @@ const MyForm = (props) =>{
                 </div>
             </div>
 
-            <b className={`formBuilderTitle`}>{"Geo localização"}</b>
-            <div className={`formBuilderGroup`}>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+            <b className={`fbTitle`}>{"Geo localização"}</b>
+            <div className={`fbGroup`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Latitude"}</b>
                     <input
                     className={`form-control`}
@@ -331,7 +340,7 @@ const MyForm = (props) =>{
                         })
                     }}/>                
                 </div>
-                <div key={`${Math.random()}`} className={`formBuilderItem form-group`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Longitude"}</b>
                     <input
                     className={`form-control`}
@@ -354,8 +363,8 @@ const MyForm = (props) =>{
                 </div>
             </div>
             
-            <div className={`formBuilderBtnGroup`}>
-                <button className={`formBuilderBtnSubmit`} 
+            <div className={`fbBtnGroup`}>
+                <button className={`fbBtnSubmit`} 
                 style   = {buttonSubmit.style}
                 name    = {'btnSubmit'}
                 onClick = {buttonSubmit.onClick}
