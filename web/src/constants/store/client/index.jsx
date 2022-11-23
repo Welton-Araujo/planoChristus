@@ -1,6 +1,6 @@
 export const INITIAL_STATE = {
-    clients: [],
-    client:{
+    all: [],
+    current:{
         name: "",
         phone: "",
         email: "",
@@ -37,6 +37,6 @@ export const INITIAL_STATE = {
     components:{
         drawer: { id:0, open:false },
         modal: { id:0, open:false },
-        confirmDelete: false
+        // confirmDelete: false
     }
 }

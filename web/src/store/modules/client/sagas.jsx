@@ -27,7 +27,7 @@ export function* allClient(){
     // console.log('SAGAS allClient', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
-    const { form } = yield select(state=>state.CLIENT) 
+    const { form } = yield select(state=>state.client) 
     // console.log('SAGAS STATE #######', form)
 
     try {
@@ -48,7 +48,7 @@ export function* allClient(){
         }
 
         //ATUALIZAR CLIENTS: (ORIUNDOS API)
-        yield put(updateClient({ clients:data.clients }))
+        yield put(updateClient({ all:data.clients }))
 
     } catch (error) {
         alert('SAGA CLIENT erro ... ' + error)
@@ -60,8 +60,8 @@ export function* addClient(){
     // console.log('SAGAS addClients', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
-    const { client, form, components } = yield select(state=>state.CLIENT) 
-    // console.log('SAGAS STATE #######', client, form )
+    const { current, form, components } = yield select(state=>state.client) 
+    // console.log('SAGAS STATE #######', current, form )
 
     try {
 
@@ -71,7 +71,7 @@ export function* addClient(){
         //REQUEST CLIENTES PARA API:
         const { data } = yield call(api.post, endPointAdd,{
             salonId: clientTest.get.salonId,
-            client
+            client: current
         })
         
         //ATUALIZAR FORM: FALSE:
@@ -100,8 +100,8 @@ export function* filterClients(){
     // console.log('SAGAS filterClients', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
-    const { client, form } = yield select(state=>state.CLIENT) 
-    // console.log('SAGAS STATE #######', client, form )
+    const { current, form } = yield select(state=>state.client) 
+    // console.log('SAGAS STATE #######', current, form )
 
     try {
 
@@ -110,7 +110,7 @@ export function* filterClients(){
 
         //REQUEST CLIENTES PARA API:
         const { data } = yield call(api.post, endPointFilters,{
-            email: client.email,
+            email: current.email,
             status:"a"
         })
         
@@ -126,7 +126,7 @@ export function* filterClients(){
         //ATUALIZAR STATE:
         if(data.clients.length > 0){
             yield put(updateClient({ 
-                client: data.clients[0],//PRIMEIRO
+                current: data.clients[0],//PRIMEIRO
                 form:{ ...form, filtering:false, disabled:true } 
             }))
         }else{
@@ -144,8 +144,8 @@ export function* unlinkClient(){
     console.log('SAGAS unlinkClient', )
         
     //BUSCAR STATE.CLIENT: PAYLOAD, FORM, ...
-    const { form, components } = yield select(state=>state.CLIENT) 
-    // console.log('SAGAS STATE #######', client, form )
+    const { form, components } = yield select(state=>state.client) 
+    // console.log('SAGAS STATE #######', form )
 
     try {
 

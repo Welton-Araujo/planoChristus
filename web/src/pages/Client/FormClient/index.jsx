@@ -3,7 +3,8 @@ import './Form.css'
 // USANDO CLASS DO BOOTSTRAP:
 // import { isPrimitive } from '../../../utils/validation'
 // import { formInfo } from '../../../constants/pages/client'
-import Alert from '../../../components/Alert'
+import Alert from '../../../components/Pieces/Alert'
+import { Button } from 'rsuite'
 
 let focus = ""
 let seePasswd = false
@@ -11,23 +12,28 @@ let seePasswd = false
 
 const MyForm = (props) =>{
     const {
-        alert={},
+        alert={
+            title: <span className="mdi mdi-alert">{" ATENÇÃO"}</span>,
+            message: "Cliente já cadastro!",
+            style:{}
+        },
         page={}, 
         form={},
+        behavior={},
         buttonSubmit={},
         setPage=()=>{}, 
     } = props    
-    console.log("MyForm #####", )
+    const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
+    console.log("MyForm #####", alertActived, alert)
 
     return(
         <div className={`formBuilder`}>
-        {   !alert.actived ? false :
-            <Alert className={``}
-            key={`${Math.random()}`} 
+            <Alert className={``} key={`${Math.random()}`} 
+            actived={alertActived}
             config={alert}
             style={{}}
-            />            
-        }
+            />
+
             <b className={`fbTitle`}>{"LOGIN"}</b>
             <div className={`fbGroup`}>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
@@ -364,13 +370,16 @@ const MyForm = (props) =>{
             </div>
             
             <div className={`fbBtnGroup`}>
-                <button className={`fbBtnSubmit`} 
-                style   = {buttonSubmit.style}
+                <Button className={`fbBtnSubmit`} style={buttonSubmit.style}
                 name    = {'btnSubmit'}
+                disabled= {form.disabled}
+                onFocus = {()=>{focus='btnSubmit'}} 
+                // autoFocus={focus==='btnSubmit'}
                 onClick = {buttonSubmit.onClick}
-                onFocus = {()=>{focus='btnSubmit'}} >
+                loading = {buttonSubmit.loading || false}
+                appearance={buttonSubmit.appearance||"primary"} >
                     {buttonSubmit.title||"OK"}
-                </button>
+                </Button>
             </div>
         </div>
     )  

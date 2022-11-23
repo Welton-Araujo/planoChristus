@@ -7,12 +7,18 @@ import {
 
 const filterScheduling = (payload) =>{
     // console.log('filterScheduling', payload,  )
-    return{ type:FILTER_SCHEDULING, payload }
+    return{ 
+        type:FILTER_SCHEDULING, 
+        payload 
+    }
 }
 
 const updateScheduling = ( payload ) =>{
     // console.log('updateScheduling', payload,  )
-    return{ type:UPDATE_SCHEDULING, payload }
+    return{ 
+        type:UPDATE_SCHEDULING, 
+        payload 
+    }
 }
 
 export {

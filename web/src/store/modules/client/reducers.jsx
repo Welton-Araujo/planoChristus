@@ -17,7 +17,7 @@ const client = (state=INITIAL_STATE, action) => {
             })
         case RESET_CLIENT:
             return produce(state, (draft)=>{
-                draft.client = INITIAL_STATE.client 
+                draft.current = INITIAL_STATE.current 
                 return draft
             })            
         default:

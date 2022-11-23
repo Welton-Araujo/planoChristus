@@ -9,8 +9,7 @@ const scheduling = (state=INITIAL_STATE, action) =>{
     switch (action.type) {
         case UPDATE_SCHEDULING:
             return produce(state, (draft)=>{
-                // draft = { ...draft, ...action.payload }
-                draft.payload = action.payload
+                draft = { ...draft, ...action.payload }
                 return draft
             })
         default:

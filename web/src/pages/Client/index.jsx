@@ -32,8 +32,8 @@ const Client = (props)=>{
     // console.log('Client', clientTable)
     
     //STATE: inicial=[] e atualizado=[...]
-    const { clients, client, form, components, behavior } = useSelector((state)=>state.CLIENT)
-    console.log('CLIENT ############', clients)
+    const { all, current, form, components, behavior } = useSelector((state)=>state.client)
+    console.log('CLIENT #### ', )
         
     //FUNCOES:
     const dispatch     = useDispatch()
@@ -41,17 +41,16 @@ const Client = (props)=>{
         dispatch(updateClient({ components:{ ...components, [component]:state } }))
     }
     const setClient = (key, value) =>{
-        dispatch(updateClient({ client:{ ...client, [key]:value } }))
+        dispatch(updateClient({ current:{ ...current, [key]:value } }))
     }
     const save = () =>{
-        console.log('save...')
         dispatch(addClient())
     }
     const remove = () =>{
         dispatch(unlinkClient())
     }
     // ATUALIZAR STATE NO LOAD DA PAGE: API
-    useEffectDispatch(allClient, null, load(clients))
+    useEffectDispatch(allClient, null, load(all))
 
     return(
         <div className={`content ${styles.clientContent}`}>  
@@ -63,7 +62,7 @@ const Client = (props)=>{
                     {/* Drawer */}
                     <MyDrawer className={styles.clientDrawer} style={{}}
                     id={'drawer-client'}
-                    title={behavior==='create'?"Novo cliente":"Deletar cliente"}
+                    title={behavior==='create'?"Novo cliente":"Atualizar cliente"}
                     placement={'left'}
                     buttonOpen={{
                         title: <span className="mdi mdi-account-plus"></span>,                        
@@ -80,9 +79,8 @@ const Client = (props)=>{
                             setComponent('drawer',{id:'drawer-client', open:true})
                         },
                         handleClose:()=>setComponent('drawer',{id:null, open:false})
-                    }} 
-                    >
-                        {/* DrawerContent::Search */}
+                    }} >
+                        {/* DrawerContent:: Search */}
                         <div className={`${styles.clientSearch}`}>
                             <div className={"form-group"}>
                                 <b>E-mail</b>
@@ -92,46 +90,46 @@ const Client = (props)=>{
                                     name={"search"}
                                     type={'search'}
                                     placeholder="E-mail"
-                                    defaultValue={client.email}
+                                    defaultValue={current.email}
                                     autoFocus={true}
                                     onChange={(e)=>setClient('email', e.target.value)}
-                                    onKeyUp={(e)=>{(e.key==="Enter") && dispatch(filterClient())}}
+                                    onKeyUp={(e)=>{
+                                        if(e.key==="Enter"){
+                                            dispatch(filterClient())
+                                            dispatch(resetClient())
+                                        }
+                                    }}
                                     />
                                     <div className="input-group-append ">
                                         <Button
                                         appearance="primary"
                                         loading={form.filtering}
                                         disabled={form.filtering}
-                                        onClick={()=>dispatch(filterClient())}
-                                        >
+                                        onClick={()=>{
+                                            dispatch(filterClient())
+                                            dispatch(resetClient())
+                                        }} >
                                             <span className="mdi mdi-magnify"></span>
                                         </Button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {/* DrawerContent::Form */}
-                        <FormClient
-                        alert={{
-                            actived:true, 
-                            title:"ALERTA!",
-                            message:<span className="mdi mdi-cancel"> Aviso importante....!</span>,
-                            style:{}
-                        }}
-                        page={client}
+                        {/* DrawerContent:: Form */}
+                        <FormClient                        
+                        page={current}
                         form={form}
+                        behavior={behavior}
                         setPage={setClient}
                         buttonSubmit={{
                             title:   <span className="mdi mdi-zip-disk"> { behavior==='create' ? "Salvar":"Deletar" }</span>,
                             loading: form.saving,
                             onClick: ()=>{ (behavior==='create') ? save() : setComponent('modal',{id:"cmClientRemove", open:true}) },
                             style: { backgroundColor: (behavior==='create') ? "var(--success)":"var(--warning)" }
-                        }}  
+                        }}
                         />
-                    </MyDrawer>
-                    {/* Modal Confirm */}
-                    <ConfirmModal
-                        id     = {"cmClientRemove"}
+                        {/* DrawerContent:: ConfirmModal : cm */}
+                        <ConfirmModal id={"cmClientRemove"}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
                         buttonConfirm={{title:"",loading:form.saving}}
                         buttonCancel ={{titel:""}}
@@ -140,19 +138,20 @@ const Client = (props)=>{
                             handleConfirm:()=>remove() ,
                             handleCancel :()=>setComponent('modal',{id:null, open:false})
                         }}
-                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ }} }
-                    />
+                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
+                        />                        
+                    </MyDrawer>
                 </div>
             </div>
             {/* CLIENT BODY */}
             <div className={styles.clientBody} style={style}>
                 <Table 
                 loading={form.filtering}
-                data={clients}
+                data={all}
                 config={clientTable.config}
                 onRowClick={(rowData)=>{
                     // dispatch(updateClient({ behavior:'update', form:{ ...form, disabled:false} }))
-                    // dispatch(updateClient({ client:rowData }))
+                    // dispatch(updateClient({ current:rowData }))
                     // setComponent('drawer', true)
                 }}
                 actions={(rowData)=>{
@@ -171,7 +170,7 @@ const Client = (props)=>{
                                 backgroundColor:"var(--light-gray)"
                             }}
                             onClick={(e) =>{
-                                dispatch(updateClient({ client:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                                dispatch(updateClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
                                 setComponent('drawer',{id:'drawer-client',open:true})                                                              
                             }}>
                             </span>                                
@@ -210,10 +209,10 @@ const Client = (props)=>{
     )
 }
 
-const load = (clients=[], qtd=0, attempts=0)=>{
+const load = (all=[], qtd=0, attempts=0)=>{
     let ok = false
     //AUTORIZAR ENQUANTO VAZIO/MINIMO:
-    if( clients.length <= qtd ){ ok=true  }
+    if( all.length <= qtd ){ ok=true  }
     //PARA DEPOIS DO MAX DE PASSOS:
     if(  stap++ > attempts   ){ ok=false }
     return ok

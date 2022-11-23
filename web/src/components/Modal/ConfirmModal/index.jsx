@@ -14,7 +14,7 @@ const ConfirmModal = (props) =>{
     } = props    
     console.log('ConfirmModal ### ', id, buttonConfirm)
 
-    // STATE VIA SAGAS:
+    //STATE VIA SAGA(REDUX):
     const { 
         component,
         handleConfirm,

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-import CLIENT from './modules/client/reducers'
-import SCHEDULING from './modules/scheduling/reducers'
+import client from './modules/client/reducers'
+import scheduling from './modules/scheduling/reducers'
 
 export default combineReducers({
-    CLIENT,
-    SCHEDULING,
+    client,
+    scheduling,
 })
