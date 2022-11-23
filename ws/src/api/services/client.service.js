@@ -94,8 +94,13 @@ const post = async ( salonId, clientCandidate )=>{
     if( !newClient ){ return{ error:true, message:'Erro ao criar o cliente.' }}
     
     //BUSCAR RELACIONAMENTO NO DB:
-    const { salonClient } = await SalonClientRepository.findById(clientCandidate.id)
-    if( salonClient ){ return{ error:true, message:'Erro, já existe o cliente para este salão.' }}
+    // const { oldSalonClient } = await SalonClientRepository.findById(clientCandidate.id)
+    // const { oldSalonClient } = await SalonClientRepository.findOne({
+    //     salonId,
+    //     clientId: _id,
+    //     status:{ $ne: 'e'}
+    // })
+    // if( oldSalonClient ){ return{ error:true, message:'Erro, já existe o cliente para este salão.' }}
 
     //CRIAR RELACIONAMENTO: 
     const { newSalonClient } = await SalonClientRepository.save({
