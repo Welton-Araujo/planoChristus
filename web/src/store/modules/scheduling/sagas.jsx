@@ -26,7 +26,7 @@ export function* filterScheduling ({ payload: { start, end } }){
         }
 
         //DISPARAR ACTION:
-        yield put(updateScheduling(data.schedules))
+        yield put(updateScheduling({ all:data.schedules }))
 
     } catch (error) {
         alert('Saga erro ... ' + error)

@@ -11,7 +11,7 @@ const TableOneRow = (props) =>{
     } = props
     
     const {
-        uppercase=false,
+        uppercase=true,
         rootLabel=false, 
         char='.', 
         ignore=[] 

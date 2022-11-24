@@ -22,7 +22,7 @@ const MyDrawer = (props)=>{
         style={} 
     } = props
     
-    //STATE VIA SAGAS:
+    //STATE VIA SAGA(REDUX):
     const { 
         component, 
         handleOpen,
@@ -30,7 +30,7 @@ const MyDrawer = (props)=>{
     } = customState
     // console.log('MyDrawer ... id', id, customState,  )
     
-    //STATE PADRAO:
+    //STATE REACT:
     const [open, setOpen] = useState(false)
     const _handleOpen     = ()=>setOpen(true)
     const _handleClose    = ()=>setOpen(false)

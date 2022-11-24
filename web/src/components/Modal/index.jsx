@@ -20,14 +20,14 @@ const MyModal = (props) => {
     } = props
     // console.log("Modal ... ", id,)
 
-    //STATE VIA SAGAS:
+    //STATE VIA SAGA(REDUX):
     const { 
         component, 
         handleOpen,
         handleClose, 
     } = customState
 
-    //STATE PADRAO:
+    //STATE REACT:
     const [open, setOpen] = useState(false)
     const _handleOpen     = ()=>setOpen(true)
     const _handleClose    = ()=>setOpen(false)

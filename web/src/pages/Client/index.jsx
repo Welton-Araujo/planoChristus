@@ -6,20 +6,24 @@ import { Button } from 'rsuite'
 
 import useEffectDispatch from '../../hooks/UseEffect'
 import { 
+    // API
     allClient, 
     addClient,
     filterClient,
-    updateClient, 
-    resetClient, 
+    updateClient,
     unlinkClient,
+
+    // STATE LOCAL
+    refreshClient, 
+    resetClient, 
 } from '../../store/modules/client/actions'
 
 import styles      from './Client.module.css'
 import FormClient  from './FormClient'
-import Table       from '../../components/Table'
+import MyTable     from '../../components/Table'
 import TableOneRow from '../../components/TableOneRow'
 import MyDrawer    from '../../components/Drawer'
-import Modal       from '../../components/Modal'
+import MyModal       from '../../components/Modal'
 import ConfirmModal from '../../components/Modal/ConfirmModal'
 
 import clientTable from '../../data/componentTest/clientTable.json' 
@@ -32,26 +36,29 @@ const Client = (props)=>{
     // console.log('Client', clientTable)
     
     //STATE: inicial=[] e atualizado=[...]
-    const { clients, client, form, components, behavior } = useSelector((state)=>state.CLIENT)
-    console.log('CLIENT ############', clients)
+    const { all, current, form, components, behavior } = useSelector((state)=>state.client)
+    console.log('CLIENT #### all', all)
         
     //FUNCOES:
     const dispatch     = useDispatch()
     const setComponent = (component, state) =>{
-        dispatch(updateClient({ components:{ ...components, [component]:state } }))
+        dispatch(refreshClient({ components:{ ...components, [component]:state } }))
     }
     const setClient = (key, value) =>{
-        dispatch(updateClient({ client:{ ...client, [key]:value } }))
+        dispatch(refreshClient({ current:{ ...current, [key]:value } }))
     }
     const save = () =>{
-        console.log('save...')
         dispatch(addClient())
+    }
+    const update = () =>{
+        console.log('update...')
+        dispatch(updateClient())
     }
     const remove = () =>{
         dispatch(unlinkClient())
     }
     // ATUALIZAR STATE NO LOAD DA PAGE: API
-    useEffectDispatch(allClient, null, load(clients))
+    useEffectDispatch(allClient, null, load(all))
 
     return(
         <div className={`content ${styles.clientContent}`}>  
@@ -63,7 +70,7 @@ const Client = (props)=>{
                     {/* Drawer */}
                     <MyDrawer className={styles.clientDrawer} style={{}}
                     id={'drawer-client'}
-                    title={behavior==='create'?"Novo cliente":"Deletar cliente"}
+                    title={behavior==='create'?"Novo cliente":"Atualizar cliente"}
                     placement={'left'}
                     buttonOpen={{
                         title: <span className="mdi mdi-account-plus"></span>,                        
@@ -75,14 +82,13 @@ const Client = (props)=>{
                     customState={{
                         component: components.drawer,
                         handleOpen:()=>{
-                            dispatch(updateClient({ behavior:'create' }))
+                            dispatch(refreshClient({ behavior:'create' }))
                             dispatch(resetClient())
                             setComponent('drawer',{id:'drawer-client', open:true})
                         },
                         handleClose:()=>setComponent('drawer',{id:null, open:false})
-                    }} 
-                    >
-                        {/* DrawerContent::Search */}
+                    }} >
+                        {/* DrawerContent:: Search */}
                         <div className={`${styles.clientSearch}`}>
                             <div className={"form-group"}>
                                 <b>E-mail</b>
@@ -92,40 +98,56 @@ const Client = (props)=>{
                                     name={"search"}
                                     type={'search'}
                                     placeholder="E-mail"
-                                    defaultValue={client.email}
+                                    defaultValue={current.email}
                                     autoFocus={true}
                                     onChange={(e)=>setClient('email', e.target.value)}
-                                    onKeyUp={(e)=>{(e.key==="Enter") && dispatch(filterClient())}}
+                                    onKeyUp={(e)=>{
+                                        if(e.key==="Enter"){
+                                            dispatch(filterClient())
+                                            dispatch(resetClient())
+                                        }
+                                    }}
                                     />
                                     <div className="input-group-append ">
                                         <Button
                                         appearance="primary"
                                         loading={form.filtering}
                                         disabled={form.filtering}
-                                        onClick={()=>dispatch(filterClient())}
-                                        >
+                                        onClick={()=>{
+                                            dispatch(filterClient())
+                                            dispatch(resetClient())
+                                        }} >
                                             <span className="mdi mdi-magnify"></span>
                                         </Button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {/* DrawerContent::Form */}
-                        <FormClient
-                        page={client}
+                        {/* DrawerContent:: Form */}
+                        <FormClient                        
+                        page={current}
                         form={form}
+                        behavior={behavior}
                         setPage={setClient}
                         buttonSubmit={{
-                            title:   <span className="mdi mdi-zip-disk"> { behavior==='create' ? "Salvar":"Deletar" }</span>,
+                            title:  <span className="mdi mdi-zip-disk">
+                                        { behavior==='create' ? " Salvar":" Atualizar" }
+                                    </span>,
                             loading: form.saving,
-                            onClick: ()=>{ (behavior==='create') ? save() : setComponent('modal',{id:"cmClientRemove", open:true}) },
+                            onClick: ()=>{ 
+                                if(behavior==='create'){
+                                    save() 
+                                }else if(behavior==='update'){
+                                    update()
+                                }else{
+                                    setComponent('modal',{id:"cmClientRemove", open:true}) 
+                                } 
+                            },
                             style: { backgroundColor: (behavior==='create') ? "var(--success)":"var(--warning)" }
-                        }}  
+                        }}
                         />
-                    </MyDrawer>
-                    {/* Modal Confirm */}
-                    <ConfirmModal
-                        id     = {"cmClientRemove"}
+                        {/* DrawerContent:: ConfirmModal : cm */}
+                        <ConfirmModal id={"cmClientRemove"}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
                         buttonConfirm={{title:"",loading:form.saving}}
                         buttonCancel ={{titel:""}}
@@ -134,19 +156,20 @@ const Client = (props)=>{
                             handleConfirm:()=>remove() ,
                             handleCancel :()=>setComponent('modal',{id:null, open:false})
                         }}
-                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ }} }
-                    />
+                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
+                        />                        
+                    </MyDrawer>
                 </div>
             </div>
             {/* CLIENT BODY */}
             <div className={styles.clientBody} style={style}>
-                <Table 
+                <MyTable 
                 loading={form.filtering}
-                data={clients}
+                data={all}
                 config={clientTable.config}
                 onRowClick={(rowData)=>{
-                    // dispatch(updateClient({ behavior:'update', form:{ ...form, disabled:false} }))
-                    // dispatch(updateClient({ client:rowData }))
+                    // dispatch(refreshClient({ behavior:'update', form:{ ...form, disabled:false} }))
+                    // dispatch(refreshClient({ current:rowData }))
                     // setComponent('drawer', true)
                 }}
                 actions={(rowData)=>{
@@ -165,12 +188,12 @@ const Client = (props)=>{
                                 backgroundColor:"var(--light-gray)"
                             }}
                             onClick={(e) =>{
-                                dispatch(updateClient({ client:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                                dispatch(refreshClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
                                 setComponent('drawer',{id:'drawer-client',open:true})                                                              
                             }}>
                             </span>                                
                         </a>
-                        <Modal style={{}}
+                        <MyModal style={{}}
                         id={rowData.id}                        
                         config={{title:'DETALHES'}}
                         buttonOpen={{
@@ -179,23 +202,22 @@ const Client = (props)=>{
                         buttonSubmit={{
                             title:<span className="mdi mdi-exit-to-app"></span>,
                         }}
-                        // customState={{
-                        //     component: components.modal,
-                        //     handleOpen:()=>{
-                        //         setComponent('modal',{id:rowData.id, open:true})
-                        //     },
-                        //     handleClose:()=>setComponent('modal',{id:null, open:false})
-                        // }}
-                        >
+                        customState={{
+                            component: components.modal,
+                            handleOpen:()=>{
+                                setComponent('modal',{id:rowData.id, open:true})
+                            },
+                            handleClose:()=>setComponent('modal',{id:null, open:false})
+                        }} >
                             <TableOneRow objData={rowData}
                             config={{
-                                uppercase: false, 
+                                uppercase: true, 
                                 rootLabel: true,
                                 char: '.',
                                 ignore:[ '_id', '__v', 'salonClient', 'geo.type'] 
                             }}
                             />
-                        </Modal>
+                        </MyModal>
                         </>
                     )
                 }}/>
@@ -204,10 +226,10 @@ const Client = (props)=>{
     )
 }
 
-const load = (clients=[], qtd=0, attempts=0)=>{
+const load = (all=[], qtd=0, attempts=0)=>{
     let ok = false
     //AUTORIZAR ENQUANTO VAZIO/MINIMO:
-    if( clients.length <= qtd ){ ok=true  }
+    if( all.length <= qtd ){ ok=true  }
     //PARA DEPOIS DO MAX DE PASSOS:
     if(  stap++ > attempts   ){ ok=false }
     return ok

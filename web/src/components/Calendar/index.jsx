@@ -17,7 +17,7 @@ const MyCalendar = (props) => {
         events=initEvents, 
         style={} 
     } = props
-    console.log('MyCalender', events)
+    // console.log('MyCalender ### events', events)
 
     return(
         <Calendar className={styles.calendar} style={style}

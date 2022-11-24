@@ -8,6 +8,7 @@ const ClientModel = require('../models/client.model')
 const find = async ( query={}, fields='' ) => {
     try {
         const clients = await ClientModel.find(query).select(fields)
+        console.log('ClientModel.find::',clients)
         return { error:false, clients }
     } catch (error) {
         return { error:true, message:error.message, clients:[] }

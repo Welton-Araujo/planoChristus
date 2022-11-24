@@ -19,7 +19,7 @@ const salonClient = new Schema({
     }],
     status:{
         type: String,
-        enum:['a','i'],
+        enum:['a','i','e'],
         required: true,
         default: 'a'
     },

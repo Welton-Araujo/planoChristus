@@ -1,15 +1,15 @@
 .formBuilder,
-.formBuilderGroup{
+.fbGroup{
     display: flex;
     flex-wrap: wrap;
 }
 .formBuilder{
     padding: 15px 0;
 }
-.formBuilderTitle{
+.fbTitle{
     margin-top: 6px;
 }
-.formBuilderGroup{
+.fbGroup{
     justify-content: space-between;
     margin: 5px 0;
     padding: 5px 10px;
@@ -17,15 +17,15 @@
     border-radius: 5px;
     border: 1px solid aliceblue;
 }
-.formBuilderItem{
+.fbItem{
     width: 48%;
     margin-bottom: 20px;
 }
-.formBuilderBtnGroup{
+.fbBtnGroup{
     width: 100%;
     margin: 10px 0;
 }
-.formBuilderBtnSubmit{
+.fbBtnSubmit{
     width: 100%;
     padding: 12px;
     border-radius: 6px;
@@ -46,7 +46,7 @@
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
-    .formBuilderItem{
+    .fbItem{
         width: 100%!important;
     }
 }

@@ -28,8 +28,9 @@ const Scheduling = (props)=>{
     // console.log('Scheduling', style) 
 
     //STATE: inicial=[] e atualizado=[...] 
-    const schedules       = useSelector((state)=>state.SCHEDULING.payload)
-    const formattedEvents = formatEvents(schedules)
+    const { all, current }  = useSelector((state)=>state.scheduling)
+    console.log('Scheduling:: current', current)
+    const formattedEvents   = formatEvents(all)
     // console.log('formattedEvents', formattedEvents)
     
     const dispatch = useDispatch()

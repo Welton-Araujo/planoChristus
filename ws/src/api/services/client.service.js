@@ -8,7 +8,7 @@ const SalonClientRepository = require('../repositories/relationship/salonClient.
 
 /**  **/
 const get = async ( query={}, fields='' )=>{    
-    console.log('ClientService::post Pagar.me' )
+    console.log('ClientService::post Pagar.me', query, fields )
     return ClientRepository.find(query, fields)
 }
 
@@ -94,8 +94,13 @@ const post = async ( salonId, clientCandidate )=>{
     if( !newClient ){ return{ error:true, message:'Erro ao criar o cliente.' }}
     
     //BUSCAR RELACIONAMENTO NO DB:
-    const { salonClient } = await SalonClientRepository.findById(clientCandidate.id)
-    if( salonClient ){ return{ error:true, message:'Erro, já existe o cliente para este salão.' }}
+    // const { oldSalonClient } = await SalonClientRepository.findById(clientCandidate.id)
+    // const { oldSalonClient } = await SalonClientRepository.findOne({
+    //     salonId,
+    //     clientId: _id,
+    //     status:{ $ne: 'e'}
+    // })
+    // if( oldSalonClient ){ return{ error:true, message:'Erro, já existe o cliente para este salão.' }}
 
     //CRIAR RELACIONAMENTO: 
     const { newSalonClient } = await SalonClientRepository.save({
@@ -159,7 +164,7 @@ const deleteById = async (id) => {
 }
 
 const filters = async (query={}, filters={}) => {
-    console.log('ClientService::filters')
+    console.log('ClientService::filters',query, filters)
     return ClientRepository.find(query, filters)
 }
 
