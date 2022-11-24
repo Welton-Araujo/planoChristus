@@ -25,12 +25,13 @@ const get = async (query={}, fields='')=>{
  * @returns sucess {error, salon, distance}
  * @returns error {error, message}
  */
-const getById = async (id, coordinates, fields='_id name address.city')=>{
+const getById = async (id="", coordinates=[], fields='_id name address.city')=>{
     console.log('SalonService::getById', id, coordinates, fields)
     
     //BUSCAR SALAO:
-    const { error, salon } = await SalonRepository.findById(id, fields)
-    if(error) return { error:true, message:'Salão não encontrado'}
+    const { salon } = await SalonRepository.findById(id, fields)
+    if( !salon ) return { error:true, message:'Salão não encontrado'}
+    if( coordinates.includes(undefined) ) return { error:true, message:'Coordenadas inválidas'}
 
     let distance = null
     //DISTANCIA: SE GEO EXISTIR, CALCULAR:

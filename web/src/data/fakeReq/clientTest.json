@@ -4,16 +4,16 @@
         "salonId":"634c3a349592125facfe6a83"
     },
     "put":{
-        "bondId":"634c3a349592125facfe6a83",
-        "status":"I",
+        "clientId":"6370f9ca182dd1734808ced8",
+        "bondId":"634e8302657bdccc9fc34d02",
+        "status":"a",
         "services":[
-            "634d75078544ede7dfcc5956",
-            "634d739910870d4af9ec1109"
-        ]
+            "634d75078544ede7dfcc5956"
+        ]	
     },
     "post":{
         "email":"roberto@email.com",
-        "status":"I"        
+        "status":"a"        
     },
     "del":{
         "salonClientId":"637962ab0605a49ff3b77259"

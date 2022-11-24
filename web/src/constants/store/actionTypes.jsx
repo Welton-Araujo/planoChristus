@@ -1,10 +1,12 @@
 //CLIENT
 const ALL_CLIENT     = '@client/ALL'
 const ADD_CLIENT     = '@client/ADD'
-const FILTER_CLIENTS = '@client/FILTER'
+const FILTER_CLIENT  = '@client/FILTER'
 const UPDATE_CLIENT  = '@client/UPDATE'
-const RESET_CLIENT   = '@client/RESET'
 const UNLINK_CLIENT  = '@client/UNLINK'
+
+const REFRESH_CLIENT = '@client/REFRESH'
+const RESET_CLIENT   = '@client/RESET'
 
 //COLLABORATOR
 
@@ -22,15 +24,19 @@ const UPDATE_SCHEDULING = '@scheduling/UPDATE'
 
 export {
 
+    // API
     ALL_CLIENT,
     ADD_CLIENT,
-    FILTER_CLIENTS,
+    FILTER_CLIENT,
     UPDATE_CLIENT,
-    RESET_CLIENT,
     UNLINK_CLIENT,
-
+    
     ALL_SCHEDULING,
     FILTER_SCHEDULING,
     UPDATE_SCHEDULING,
+
+    // STATE LOCAL
+    REFRESH_CLIENT,
+    RESET_CLIENT,
 
 }

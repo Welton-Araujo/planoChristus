@@ -8,7 +8,7 @@ const SalonClientRepository = require('../repositories/relationship/salonClient.
 
 /**  **/
 const get = async ( query={}, fields='' )=>{    
-    console.log('ClientService::post Pagar.me' )
+    console.log('ClientService::post Pagar.me', query, fields )
     return ClientRepository.find(query, fields)
 }
 
@@ -164,7 +164,7 @@ const deleteById = async (id) => {
 }
 
 const filters = async (query={}, filters={}) => {
-    console.log('ClientService::filters')
+    console.log('ClientService::filters',query, filters)
     return ClientRepository.find(query, filters)
 }
 

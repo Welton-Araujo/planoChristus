@@ -6,20 +6,24 @@ import { Button } from 'rsuite'
 
 import useEffectDispatch from '../../hooks/UseEffect'
 import { 
+    // API
     allClient, 
     addClient,
     filterClient,
-    updateClient, 
-    resetClient, 
+    updateClient,
     unlinkClient,
+
+    // STATE LOCAL
+    refreshClient, 
+    resetClient, 
 } from '../../store/modules/client/actions'
 
 import styles      from './Client.module.css'
 import FormClient  from './FormClient'
-import Table       from '../../components/Table'
+import MyTable     from '../../components/Table'
 import TableOneRow from '../../components/TableOneRow'
 import MyDrawer    from '../../components/Drawer'
-import Modal       from '../../components/Modal'
+import MyModal       from '../../components/Modal'
 import ConfirmModal from '../../components/Modal/ConfirmModal'
 
 import clientTable from '../../data/componentTest/clientTable.json' 
@@ -33,18 +37,22 @@ const Client = (props)=>{
     
     //STATE: inicial=[] e atualizado=[...]
     const { all, current, form, components, behavior } = useSelector((state)=>state.client)
-    console.log('CLIENT #### ', )
+    console.log('CLIENT #### all', all)
         
     //FUNCOES:
     const dispatch     = useDispatch()
     const setComponent = (component, state) =>{
-        dispatch(updateClient({ components:{ ...components, [component]:state } }))
+        dispatch(refreshClient({ components:{ ...components, [component]:state } }))
     }
     const setClient = (key, value) =>{
-        dispatch(updateClient({ current:{ ...current, [key]:value } }))
+        dispatch(refreshClient({ current:{ ...current, [key]:value } }))
     }
     const save = () =>{
         dispatch(addClient())
+    }
+    const update = () =>{
+        console.log('update...')
+        dispatch(updateClient())
     }
     const remove = () =>{
         dispatch(unlinkClient())
@@ -74,7 +82,7 @@ const Client = (props)=>{
                     customState={{
                         component: components.drawer,
                         handleOpen:()=>{
-                            dispatch(updateClient({ behavior:'create' }))
+                            dispatch(refreshClient({ behavior:'create' }))
                             dispatch(resetClient())
                             setComponent('drawer',{id:'drawer-client', open:true})
                         },
@@ -122,9 +130,19 @@ const Client = (props)=>{
                         behavior={behavior}
                         setPage={setClient}
                         buttonSubmit={{
-                            title:   <span className="mdi mdi-zip-disk"> { behavior==='create' ? "Salvar":"Deletar" }</span>,
+                            title:  <span className="mdi mdi-zip-disk">
+                                        { behavior==='create' ? " Salvar":" Atualizar" }
+                                    </span>,
                             loading: form.saving,
-                            onClick: ()=>{ (behavior==='create') ? save() : setComponent('modal',{id:"cmClientRemove", open:true}) },
+                            onClick: ()=>{ 
+                                if(behavior==='create'){
+                                    save() 
+                                }else if(behavior==='update'){
+                                    update()
+                                }else{
+                                    setComponent('modal',{id:"cmClientRemove", open:true}) 
+                                } 
+                            },
                             style: { backgroundColor: (behavior==='create') ? "var(--success)":"var(--warning)" }
                         }}
                         />
@@ -145,13 +163,13 @@ const Client = (props)=>{
             </div>
             {/* CLIENT BODY */}
             <div className={styles.clientBody} style={style}>
-                <Table 
+                <MyTable 
                 loading={form.filtering}
                 data={all}
                 config={clientTable.config}
                 onRowClick={(rowData)=>{
-                    // dispatch(updateClient({ behavior:'update', form:{ ...form, disabled:false} }))
-                    // dispatch(updateClient({ current:rowData }))
+                    // dispatch(refreshClient({ behavior:'update', form:{ ...form, disabled:false} }))
+                    // dispatch(refreshClient({ current:rowData }))
                     // setComponent('drawer', true)
                 }}
                 actions={(rowData)=>{
@@ -170,12 +188,12 @@ const Client = (props)=>{
                                 backgroundColor:"var(--light-gray)"
                             }}
                             onClick={(e) =>{
-                                dispatch(updateClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                                dispatch(refreshClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
                                 setComponent('drawer',{id:'drawer-client',open:true})                                                              
                             }}>
                             </span>                                
                         </a>
-                        <Modal style={{}}
+                        <MyModal style={{}}
                         id={rowData.id}                        
                         config={{title:'DETALHES'}}
                         buttonOpen={{
@@ -184,23 +202,22 @@ const Client = (props)=>{
                         buttonSubmit={{
                             title:<span className="mdi mdi-exit-to-app"></span>,
                         }}
-                        // customState={{
-                        //     component: components.modal,
-                        //     handleOpen:()=>{
-                        //         setComponent('modal',{id:rowData.id, open:true})
-                        //     },
-                        //     handleClose:()=>setComponent('modal',{id:null, open:false})
-                        // }}
-                        >
+                        customState={{
+                            component: components.modal,
+                            handleOpen:()=>{
+                                setComponent('modal',{id:rowData.id, open:true})
+                            },
+                            handleClose:()=>setComponent('modal',{id:null, open:false})
+                        }} >
                             <TableOneRow objData={rowData}
                             config={{
-                                uppercase: false, 
+                                uppercase: true, 
                                 rootLabel: true,
                                 char: '.',
                                 ignore:[ '_id', '__v', 'salonClient', 'geo.type'] 
                             }}
                             />
-                        </Modal>
+                        </MyModal>
                         </>
                     )
                 }}/>

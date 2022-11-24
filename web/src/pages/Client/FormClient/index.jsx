@@ -1,10 +1,12 @@
 // OBS: CRIAR UM FORM DINAMICO NO FUTURO!
-import './Form.css'
 // USANDO CLASS DO BOOTSTRAP:
+import { Button } from 'rsuite'
+
+import './Form.css'
+import Alert from '../../../components/Pieces/Alert'
+
 // import { isPrimitive } from '../../../utils/validation'
 // import { formInfo } from '../../../constants/pages/client'
-import Alert from '../../../components/Pieces/Alert'
-import { Button } from 'rsuite'
 
 let focus = ""
 let seePasswd = false
