@@ -123,7 +123,7 @@ const post = async ( salonId, clientCandidate )=>{
  * @returns 
  */
 const put = async ( clientId, status, salColId , services )=>{
-    console.log('ClientService::put', clientId, salColId, status, services)
+    console.log('ClientService::put', clientId, status, salColId, services)
     const db = mongoose.connection
     const session = await db.startSession()
     session.startTransaction()
@@ -141,11 +141,9 @@ const put = async ( clientId, status, salColId , services )=>{
     console.log('delSalonClients', delSalonClients)
 
     //INSERIR RELACIONAMENTO: (INSERT SERVICES) 
-    const ser = services.map((serviceId)=>({ serviceId, clientId }))
-    console.log('insertMany', ser)
-    const { newSalonClients } = await SalonClientRepository.insertMany(
-        ser
-    )
+    const clientServices      = services.map((serviceId)=>({ serviceId, clientId }))
+    const { newSalonClients } = await SalonClientRepository.insertMany(clientServices)
+    if( !newSalonClients ){ return{ error:true, message:'Serviços do clientes não inseridos neste salão.' } }
 
     await session.commitTransaction()
     session.endSession()

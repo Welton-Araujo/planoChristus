@@ -38,8 +38,8 @@ const put = async (req, res)=>{
 /**AULA **/
 const deleteById = async (req, res)=>{
     console.log('ClientController::deleteById')   
-    const { id } = req.params
-    const response = await clientService.deleteById(id)
+    const { id:salColId } = req.params
+    const response = await clientService.deleteById(salColId)
     res.json(response)
 }
 
