@@ -1,0 +1,83 @@
+.collaboratorContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0px;
+    padding: 0px ;
+    /* background-color: transparent;
+    background-color: cornflowerblue; */
+}
+.collaboratorHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}  
+.collaboratorTitle{
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+    text-transform: uppercase;
+}
+.collaboratorTitle h1{
+    font-size: 1.5rem;
+    color: var(--white);
+}
+.collaboratorBody{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+/* CLIENTPANEL */
+.collaboratorPanel{
+    color: inherit;
+}
+.collaboratorSearch{
+    padding: 15px;
+    border-radius: 5px;
+    background-color: var(--form-gray);
+    /* margin-bottom: 20px; */
+    border-radius: 5px;
+    border: 1px solid aliceblue;
+}
+
+
+
+/* COMPONENT QUERIES */
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+    .collaboratorContent {
+        background-color: rgb(230, 217, 173);
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+    .collaboratorContent {
+        background-color: rgb(173, 230, 181);
+    }
+    .collaboratorHeader .rs-drawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+        width: 100%!important;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (max-width: 728px) {
+    .collaboratorContent {
+        background-color: rgb(207, 173, 230);
+    }
+    .collaboratorDrawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+        width: 100%!important;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) {
+    .collaboratorContent {
+        background-color: lightblue;
+    }
+}

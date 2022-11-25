@@ -77,7 +77,7 @@ export function* addClient(){
 
         //REQUEST CLIENTES PARA API:
         const { data } = yield call(api.post, endPointAdd,{
-            salonId: clientTest.get.salonId,
+            salonId: login.salon._id,
             client: current
         })
         
