@@ -29,12 +29,11 @@ import clientTest from '../../../data/fakeReq/clientTest.json'
  * @returns 
  */
 export function* allClient(){
-    const endPointAll=`/cliente/salao/${login.salon._id}`
-    console.log('SAGAS::allClient::API.get', endPointAll)
-        
+    
     //BUSCAR STATE.CLIENT:
     const { form } = yield select(state=>state.client) 
-    // console.log('SAGAS STATE #######', form)
+    const endPointAll=`/cliente/salao/${login.salon._id}`
+    console.log('SAGAS::allClient:', endPointAll)
 
     try {
         //ATUALIZAR FORM: loading
@@ -63,16 +62,14 @@ export function* allClient(){
 
 /**
  * @Info Criar client e o relacionamento com um salao.
- *       Post Model Client, Relationship:SalonClient
+ *       Post Model:Client, Relationship:SalonClient
  * @return
  */
-export function* addClient(){
-    const endPointAdd = `/cliente`
-    // console.log('SAGAS addClients', )
-        
+export function* addClient(){    
     //BUSCAR STATE.CLIENT:
     const { current, form, components } = yield select(state=>state.client) 
-    // console.log('SAGAS STATE #######', current, form )
+    const endPointAdd = `/cliente`
+    // console.log('SAGAS::addClient::', endPointAdd, current)
 
     try {
         //ATUALIZAR FORM: loading:
@@ -108,7 +105,7 @@ export function* addClient(){
 
 /**
  * @Info Busca um cliente do salao logado.
- *       Post Model Client ou Get Client
+ *       Post Model:Client ou Get Model:Client
  * @returns 
  */
 export function* filterClient(){
@@ -155,14 +152,16 @@ export function* filterClient(){
 
 /**
  * @Info Atualiza cliente do salao logado.
- *       Put Telationship:SalonClient.
+ *       Put Relationship:SalonClient.
  * @returns 
  */
 export function* updateClient(){        
     //BUSCAR STATE.CLIENT:
-    const { current, form, components } = yield select(state=>state.client) 
-    const endPointUpdate = `/cliente/${current.Id}`
-    console.log('SAGAS STATE #######', endPointUpdate, current, form )
+    const { current, form, components } = yield select(state=>state.client)
+    const { salonClient={} } = current
+    const clientServices     = clientTest.put.services
+    const endPointUpdate     = `/cliente/${current.id}`
+    console.log('SAGAS::updateClient:', endPointUpdate, current )
 
     try {
         //ATUALIZAR FORM: loading:
@@ -170,9 +169,9 @@ export function* updateClient(){
 
         //REQUEST CLIENTES PARA API:
         const { data } = yield call(api.put, endPointUpdate,{
-            bondId: clientTest.put.bondId,
-            status: clientTest.put.status,
-            services: clientTest.put.services            
+            bondId: salonClient.salonClientId,
+            status: salonClient.status,
+            services: clientServices
         })
         
         //ATUALIZAR FORM: loading:
@@ -202,13 +201,13 @@ export function* updateClient(){
  *       Delete Relationship:SalonClient
  * @returns 
  */
+
 export function* unlinkClient(){
-    const endPointUnlink = `/cliente/servico/${clientTest.del.salonClientId}`
-    // console.log('SAGAS unlinkClient', )
-        
     //BUSCAR STATE.CLIENT:
-    const { form, components } = yield select(state=>state.client) 
-    // console.log('SAGAS STATE #######', form )
+    const { current, form, components } = yield select(state=>state.client)
+    const { salonClient={} } = current
+    const endPointUnlink = `/cliente/servico/${salonClient.salonClientId}`
+    console.log('SAGAS::unlinkClient', endPointUnlink, current)
 
     try {
         //ATUALIZAR FORM: loading

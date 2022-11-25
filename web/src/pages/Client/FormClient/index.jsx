@@ -26,7 +26,7 @@ const MyForm = (props) =>{
         setPage=()=>{}, 
     } = props    
     const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
-    console.log("MyForm #####", alertActived, alert)
+    console.log("MyForm ### current", page)
 
     return(
         <div className={`formBuilder`}>

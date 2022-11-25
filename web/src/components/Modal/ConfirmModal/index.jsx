@@ -7,16 +7,22 @@ const ConfirmModal = (props) =>{
     const { 
         id = "confirmModal",
         config = {title:"OPERAÇÃO"},
+        buttonOpen={disabled:false},
+        buttonSubmit={disabled:true},
         buttonConfirm={title:"",loading:false},
         buttonCancel ={titel:""},
         customState = {},
         style  = {}
     } = props    
-    console.log('ConfirmModal ### ', id, buttonConfirm)
+    // console.log('ConfirmModal ### ', id, buttonConfirm)
 
     //STATE VIA SAGA(REDUX):
     const { 
+        //MyModal
         component,
+        handleOpen,
+        handleClose,
+        //ConfirmModal
         handleConfirm,
         handleCancel, 
     } = customState
@@ -25,12 +31,12 @@ const ConfirmModal = (props) =>{
         <MyModal style={{}}
         id={id}
         config={{title: config.title || "OPERAÇÃO"}}
-        buttonOpen={{disabled:true}}
-        buttonSubmit={{disabled:true}}
+        buttonOpen={{...buttonOpen}}
+        buttonSubmit={{...buttonSubmit}}
         customState={{
             component,
-            handleOpen: handleConfirm, 
-            handleClose: handleCancel,
+            handleOpen: handleOpen, 
+            handleClose: handleClose || handleCancel,
         }} >
             <div className={styles.confirmModal}>
                 <div className={styles.cmBody}>

@@ -13,10 +13,14 @@
     align-items: center;
     padding: 5px 10px;
 }  
-.clientHeader h1{
+.clientTitle{
+    display: flex;
+    flex-direction: column;
     margin: 0 5px;
-    font-size: 1.5rem;
     text-transform: uppercase;
+}
+.clientTitle h1{
+    font-size: 1.5rem;
     color: var(--white);
 }
 .clientBody{

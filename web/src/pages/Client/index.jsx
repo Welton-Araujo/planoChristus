@@ -26,8 +26,11 @@ import MyDrawer    from '../../components/Drawer'
 import MyModal       from '../../components/Modal'
 import ConfirmModal from '../../components/Modal/ConfirmModal'
 
+// STATIC TEST
+import loginFake   from '../../data/fakeReq/login.json' 
 import clientTable from '../../data/componentTest/clientTable.json' 
 
+const { name:salonName } = loginFake.salon
 let stap = 0
 
 
@@ -37,7 +40,7 @@ const Client = (props)=>{
     
     //STATE: inicial=[] e atualizado=[...]
     const { all, current, form, components, behavior } = useSelector((state)=>state.client)
-    console.log('CLIENT #### all', all)
+    console.log('CLIENT #### ', current, all)
         
     //FUNCOES:
     const dispatch     = useDispatch()
@@ -55,6 +58,7 @@ const Client = (props)=>{
         dispatch(updateClient())
     }
     const remove = () =>{
+        console.log('remove...')
         dispatch(unlinkClient())
     }
     // ATUALIZAR STATE NO LOAD DA PAGE: API
@@ -64,13 +68,16 @@ const Client = (props)=>{
         <div className={`content ${styles.clientContent}`}>  
             {/* CLIENT HEADER */}
             <div className={styles.clientHeader}>
-                <h1>Clientes</h1>
+                <div className={styles.clientTitle}>
+                    <h1>Clientes</h1>
+                    <small>{salonName}</small>
+                </div>
                 {/* Client Panel */}
                 <div className={styles.clientPanel}>
                     {/* Drawer */}
                     <MyDrawer className={styles.clientDrawer} style={{}}
                     id={'drawer-client'}
-                    title={behavior==='create'?"Novo cliente":"Atualizar cliente"}
+                    title={`${getBehavior(behavior).title} cliente`}
                     placement={'left'}
                     buttonOpen={{
                         title: <span className="mdi mdi-account-plus"></span>,                        
@@ -88,7 +95,7 @@ const Client = (props)=>{
                         },
                         handleClose:()=>setComponent('drawer',{id:null, open:false})
                     }} >
-                        {/* DrawerContent:: Search */}
+                        {/* Search */}
                         <div className={`${styles.clientSearch}`}>
                             <div className={"form-group"}>
                                 <b>E-mail</b>
@@ -123,16 +130,14 @@ const Client = (props)=>{
                                 </div>
                             </div>
                         </div>
-                        {/* DrawerContent:: Form */}
+                        {/* Form */}
                         <FormClient                        
                         page={current}
                         form={form}
                         behavior={behavior}
                         setPage={setClient}
                         buttonSubmit={{
-                            title:  <span className="mdi mdi-zip-disk">
-                                        { behavior==='create' ? " Salvar":" Atualizar" }
-                                    </span>,
+                            title:  <span className="mdi mdi-zip-disk">{getBehavior(behavior).title} </span>,
                             loading: form.saving,
                             onClick: ()=>{ 
                                 if(behavior==='create'){
@@ -143,22 +148,10 @@ const Client = (props)=>{
                                     setComponent('modal',{id:"cmClientRemove", open:true}) 
                                 } 
                             },
-                            style: { backgroundColor: (behavior==='create') ? "var(--success)":"var(--warning)" }
+                            style: { backgroundColor: getBehavior(behavior).color }
                         }}
                         />
-                        {/* DrawerContent:: ConfirmModal : cm */}
-                        <ConfirmModal id={"cmClientRemove"}
-                        config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
-                        buttonConfirm={{title:"",loading:form.saving}}
-                        buttonCancel ={{titel:""}}
-                        customState={{
-                            component: components.modal,
-                            handleConfirm:()=>remove() ,
-                            handleCancel :()=>setComponent('modal',{id:null, open:false})
-                        }}
-                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
-                        />                        
-                    </MyDrawer>
+                    </MyDrawer>                        
                 </div>
             </div>
             {/* CLIENT BODY */}
@@ -168,31 +161,35 @@ const Client = (props)=>{
                 data={all}
                 config={clientTable.config}
                 onRowClick={(rowData)=>{
-                    // dispatch(refreshClient({ behavior:'update', form:{ ...form, disabled:false} }))
-                    // dispatch(refreshClient({ current:rowData }))
-                    // setComponent('drawer', true)
+                    // dispatch(refreshClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                    // setComponent('drawer', {id:"drawer-client", open:true})
                 }}
                 actions={(rowData)=>{
                     return(
                         <>
-                        <a href={"#"} style={{display:"flex", width:"100%", textDecoration:"none"}}>
+                        <a href={"#"} 
+                        style={{
+                            display:"flex", 
+                            justifyContent:"center",
+                            alignItems: "center",
+                            width:"100%", 
+                            height: "35px",
+                            // margin:"5px", 
+                            padding: "8px 12px",
+                            borderRadius:"6px",
+                            fontSize:"16px",
+                            textDecoration:"none",
+                            color:"inherit", 
+                            backgroundColor:"var(--rs-btn-default-bg)",
+                        }}>
                             <span className="mdi mdi-account-edit" 
-                            style={{
-                                display:"flex", 
-                                justifyContent:"center",
-                                width:"100%", 
-                                marginRight:"5px", 
-                                borderRadius:"6px",
-                                fontSize:"21px",
-                                color:'var(--rs-text-link-hover)', 
-                                backgroundColor:"var(--light-gray)"
-                            }}
                             onClick={(e) =>{
                                 dispatch(refreshClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
                                 setComponent('drawer',{id:'drawer-client',open:true})                                                              
                             }}>
                             </span>                                
                         </a>
+                        {/* Modal: see */}
                         <MyModal style={{}}
                         id={rowData.id}                        
                         config={{title:'DETALHES'}}
@@ -209,15 +206,35 @@ const Client = (props)=>{
                             },
                             handleClose:()=>setComponent('modal',{id:null, open:false})
                         }} >
-                            <TableOneRow objData={rowData}
+                            <TableOneRow objData={rowData.salonClient}
                             config={{
                                 uppercase: true, 
                                 rootLabel: true,
                                 char: '.',
-                                ignore:[ '_id', '__v', 'salonClient', 'geo.type'] 
+                                ignore:[ '_id', ] 
                             }}
                             />
                         </MyModal>
+                        {/* ConfirmModal : cm */}
+                        <ConfirmModal id={"cmClientRemove"}
+                        config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
+                        buttonOpen={{
+                            disabled:false,
+                            title: <span className="mdi mdi-delete"></span> 
+                        }}
+                        buttonConfirm={{title:"",loading:form.saving}}
+                        buttonCancel ={{titel:""}}
+                        customState={{
+                            component: components.modal,
+                            handleOpen: ()=>{
+                                dispatch(refreshClient({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
+                                setComponent('modal',{id:"cmClientRemove", open:true})
+                            },
+                            handleConfirm:()=>{remove()},
+                            handleCancel :()=>setComponent('modal',{id:null, open:false})
+                        }}
+                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
+                        />
                         </>
                     )
                 }}/>
@@ -233,6 +250,17 @@ const load = (all=[], qtd=0, attempts=0)=>{
     //PARA DEPOIS DO MAX DE PASSOS:
     if(  stap++ > attempts   ){ ok=false }
     return ok
+}
+
+const getBehavior = (behavior) =>{
+    switch (behavior) {
+        case 'delete':
+            return {title:" Deletar"   , color:"var(--danger)"}
+        case 'update':
+                return {title:" Atualizar" , color:"var(--warning)"} 
+        default://create
+            return {title:" Salvar"    , color:"var(--success)"}
+    }
 }
 
 

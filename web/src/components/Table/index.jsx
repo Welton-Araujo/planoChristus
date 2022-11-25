@@ -36,7 +36,7 @@ const MyTable = (props) => {
                 </Column>
             ))       
         }
-            <Column width={100} fixed={"right"} style={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>
+            <Column width={120} fixed={"right"} style={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>
                 <HeaderCell>...</HeaderCell>
                 <Cell style={{padding:'0px'}}>
                     {actions}
