@@ -13,8 +13,8 @@ const CollaboratorServiceModel = require('../../models/relationship/collaborator
  * @param {*} populate { path, select }
  * @returns 
  */
- const find = async ( query={}, fields='', populate={} ) => {
-    console.log('CollaboratorServiceModel::find ...', fields, populate)
+ const find = async ( query={}, fields='', populate="" ) => {
+    // console.log('CollaboratorServiceModel::find ...', fields, populate)
     try {
         const collaboratorServices = await CollaboratorServiceModel.find(query)
                                             .select(fields)

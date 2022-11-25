@@ -6,7 +6,7 @@ import './Form.css'
 import Alert from '../../../components/Pieces/Alert'
 
 // import { isPrimitive } from '../../../utils/validation'
-// import { formInfo } from '../../../constants/pages/client'
+// import { formInfo } from '../../../constants/pages/collaborator'
 
 let focus = ""
 let seePasswd = false
@@ -16,7 +16,7 @@ const MyForm = (props) =>{
     const {
         alert={
             title: <span className="mdi mdi-alert">{" ATENÇÃO"}</span>,
-            message: "Cliente já cadastro!",
+            message: "Colaborador já cadastro!",
             style:{}
         },
         page={}, 
@@ -26,7 +26,7 @@ const MyForm = (props) =>{
         setPage=()=>{}, 
     } = props    
     const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
-    console.log("MyForm ### current", page)
+    console.log("MyForm ### page", page)
 
     return(
         <div className={`formBuilder`}>
@@ -44,7 +44,7 @@ const MyForm = (props) =>{
                     className={`form-control`}
                     name={"name"}
                     type={"text"}
-                    placeholder={"Nome do cliente"}
+                    placeholder={"Nome do colaborador"}
                     disabled={form.disabled}
                     defaultValue={page['name']}
                     autoFocus={focus==='name'}
@@ -165,7 +165,7 @@ const MyForm = (props) =>{
                         <option value={"f"}>{"Feminino"}</option>
                     </select>
                 </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                {/* <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Tipo de documento"}</b>
                     <select
                     className="form-control"
@@ -180,8 +180,8 @@ const MyForm = (props) =>{
                         <option value={"cpf"}>{"CPF"}</option>
                         <option value={"cnpj"}>{"CNPJ"}</option>
                     </select>
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                </div> */}
+                {/* <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Nº do documento"}</b>
                     <input
                     className={`form-control`}
@@ -195,24 +195,24 @@ const MyForm = (props) =>{
                         focus = e.target.name
                         setPage("document", { ...page.document, number:e.target.value})
                     }}/>                
-                </div>
+                </div> */}
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"ID Customer"}</b>
+                    <b>{"ID Recipient"}</b>
                     <input
                     className={`form-control`}
-                    name={"customerId"}
+                    name={"recipientId"}
                     type={"text"}
-                    placeholder={"ID customer"}
+                    placeholder={"ID Recipient"}
                     disabled={form.disabled}
-                    value={page["customerId"]}
-                    autoFocus={focus==='customerId'}
+                    value={page["recipientId"]}
+                    autoFocus={focus==='recipientId'}
                     onChange={(e)=>{
                         focus = e.target.name
-                        setPage("customerId", e.target.value)
+                        setPage("recipientId", e.target.value)
                     }}/>                
                 </div>
             </div>
-            <b className={`fbTitle`}>{"ENDEREÇO"}</b>
+            {/* <b className={`fbTitle`}>{"ENDEREÇO"}</b>
             <div className={`fbGroup`}>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Rua"}</b>
@@ -323,54 +323,8 @@ const MyForm = (props) =>{
                         <option value={"usa"}>{"Estados Unidos"}</option>
                     </select>
                 </div>
-            </div>
-
-            <b className={`fbTitle`}>{"Geo localização"}</b>
-            <div className={`fbGroup`}>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Latitude"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"coordinates0"}
-                    type={"text"}
-                    placeholder={"Lat: -3.731862"}
-                    disabled={form.disabled}
-                    value={page["geo"]["coordinates"][0] || "-3.731862"}
-                    autoFocus={focus==='coordinates0'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("geo", {
-                            ...page['geo'], 
-                            coordinates:[
-                                parseFloat(e.target.value), 
-                                page['geo']['coordinates'][1]
-                            ]
-                        })
-                    }}/>                
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Longitude"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"coordinates1"}
-                    type={"text"}
-                    placeholder={"Long: -38.526669"}
-                    disabled={form.disabled}
-                    value={page["geo"]["coordinates"][1] || "-3.731862"}
-                    autoFocus={focus==='coordinates1'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("geo", {
-                            ...page['geo'], 
-                            coordinates:[
-                                page['geo']['coordinates'][0],
-                                parseFloat(e.target.value)
-                            ]
-                        })
-                    }}/>                
-                </div>
-            </div>
-            
+            </div> */}
+         
             <div className={`fbBtnGroup`}>
                 <Button className={`fbBtnSubmit`} style={buttonSubmit.style}
                 name    = {'btnSubmit'}

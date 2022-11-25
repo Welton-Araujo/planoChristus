@@ -4,11 +4,11 @@
         "salonId":"634c3a349592125facfe6a83"
     },
     "put":{
-        "clientId":"6370f9ca182dd1734808ced8",
-        "bondId":"634e8302657bdccc9fc34d02",
-        "status":"a",
+        "collaboratorId":"637ea8222f700bffc0e24b27",
+        "bondId":"637ea6822f700bffc0e24b08",
+        "status":"e",
         "services":[
-            "634d75078544ede7dfcc5956"
+            "637ea7ba2f700bffc0e24b1f"
         ]	
     },
     "post":{

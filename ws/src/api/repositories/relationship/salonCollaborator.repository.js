@@ -12,8 +12,8 @@ const SalonCollaboratorModel = require('../../models/relationship/salonCollabora
  * @param {*} populate { path, select }
  * @returns 
  */
-const find = async ( query={}, fields='', populate={} ) => {
-    console.log('SalonCollaboratorModel::find ...', fields, populate)
+const find = async ( query={}, fields='', populate='' ) => {
+    // console.log('SalonCollaboratorModel::find ...', fields, populate)
     try {
         const salonCollaborators = await SalonCollaboratorModel.find(query)
                                             .select(fields)

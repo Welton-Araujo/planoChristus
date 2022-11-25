@@ -1,4 +1,4 @@
-.clientContent {
+.collaboratorContent {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -7,23 +7,23 @@
     /* background-color: transparent;
     background-color: cornflowerblue; */
 }
-.clientHeader{
+.collaboratorHeader{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
 }  
-.clientTitle{
+.collaboratorTitle{
     display: flex;
     flex-direction: column;
     margin: 0 5px;
     text-transform: uppercase;
 }
-.clientTitle h1{
+.collaboratorTitle h1{
     font-size: 1.5rem;
     color: var(--white);
 }
-.clientBody{
+.collaboratorBody{
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -33,10 +33,10 @@
 }
 
 /* CLIENTPANEL */
-.clientPanel{
+.collaboratorPanel{
     color: inherit;
 }
-.clientSearch{
+.collaboratorSearch{
     padding: 15px;
     border-radius: 5px;
     background-color: var(--form-gray);
@@ -50,34 +50,34 @@
 /* COMPONENT QUERIES */
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
-    .clientContent {
+    .collaboratorContent {
         background-color: rgb(230, 217, 173);
     }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
-    .clientContent {
+    .collaboratorContent {
         background-color: rgb(173, 230, 181);
     }
-    .clientHeader .rs-drawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+    .collaboratorHeader .rs-drawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
         width: 100%!important;
     }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
-    .clientContent {
+    .collaboratorContent {
         background-color: rgb(207, 173, 230);
     }
-    .clientDrawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+    .collaboratorDrawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
         width: 100%!important;
     }
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media only screen and (max-width: 576px) {
-    .clientContent {
+    .collaboratorContent {
         background-color: lightblue;
     }
 }

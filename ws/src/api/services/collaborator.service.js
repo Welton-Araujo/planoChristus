@@ -25,35 +25,42 @@ const getSalonCollaborators = async ( salonId, fields='collaboratorId status dat
     const { salonCollaborators } = await SalonCollaboratorRepository.find(
         { salonId, status:{$ne:'e'} },//query
         fields, 
-        { path:'collaboratorId', select:'-passwd -recipientId' }//populate
+        { path:'collaboratorId', select:'-passwd' }//populate
     )
-    if( isEmpty(salonCollaborators) ){ return {error:true, message:'Salão sem colaborador(es).', collaborators:[] } }
+    if( isEmpty(salonCollaborators) ){ return { error:true, message:'Salão sem colaborador(es).' } }
 
     //CRIAR LISTA COLABORADORES:
     let listCollaborador = []
+    let services         = []
     for (const salCol of salonCollaborators) {
-        const services = await CollaboratorServiceRepository.find(
-            { collaboratorId: salCol.collaboratorId._id },//query
-            '',//fields
-            { path:'collaboratorId', select:'-passwd' }//populate
-        )
-
-        listCollaborador.push({
-            ...salCol._doc,
-            services,
-        })
+        const { collaboratorId=[] } = salCol
+        for (const collaborator of collaboratorId) {
+            const { oldCollaboratorService } = await CollaboratorServiceRepository.findOne(
+                { collaboratorId: collaborator._id },//query
+                '',//fields
+                // { path:'collaboratorId', select:'-passwd' }//populate
+            )
+            
+            if(oldCollaboratorService){ services = oldCollaboratorService.serviceId }
+            
+            listCollaborador.push({
+                ...collaborator._doc,
+                services,
+            })
+        }
     }
 
     return { 
         error:false, 
         message:'Colaborador(es) encontrado.', 
-        collaborators:listCollaborador.map((salCol)=>({
-            ...salCol.collaboratorId._doc,
-            salonCollaboratorId: salCol._id,
-            status: salCol.status,
-            services: salCol.services,
-            dateRegistration: salCol.dateRegistration
-        }))
+        // collaborators: listCollaborador.map((salCol)=>({
+        //     ...salCol.collaboratorId._doc,
+        //     salonCollaboratorId: salCol._id,
+        //     status: salCol.status,
+        //     services: salCol.services,
+        //     dateRegistration: salCol.dateRegistration
+        // }))
+        collaborators: listCollaborador
     }
 }
 
