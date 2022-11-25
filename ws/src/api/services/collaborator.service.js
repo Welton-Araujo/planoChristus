@@ -33,18 +33,16 @@ const getSalonCollaborators = async ( salonId, fields='collaboratorId status dat
     let listCollaborador = []
     let services         = []
     for (const salCol of salonCollaborators) {
-        const { collaboratorId } = salCol
-        console.log('collab ########## doc', salCol)
-
+        const { collaboratorId=[] } = salCol
         for (const collaborator of collaboratorId) {
-            console.log('collab ### ', collaborator.name, collaborator._id)
             const { oldCollaboratorService } = await CollaboratorServiceRepository.findOne(
                 { collaboratorId: collaborator._id },//query
                 '',//fields
                 // { path:'collaboratorId', select:'-passwd' }//populate
             )
-            console.log('servicos #### old ', oldCollaboratorService)
+            
             if(oldCollaboratorService){ services = oldCollaboratorService.serviceId }
+            
             listCollaborador.push({
                 ...collaborator._doc,
                 services,
