@@ -45,8 +45,9 @@ const deleteById = async (req, res)=>{
 
 /**AULA **/
 const filters = async (req, res)=>{
-    console.log('CollaboratorController::filters', req.body)   
-    const response = await collaboratorService.filters(req.body)
+    console.log('CollaboratorController::filters', req.query, req.body)   
+    const { filtro, ...query } = req.query
+    const response = await collaboratorService.filters({...query,...req.body}, filtro)
     res.json(response)
 }
 

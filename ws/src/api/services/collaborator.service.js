@@ -173,9 +173,9 @@ const deleteById = async (id) => {
 }
 
 
-const filters = async (filters={}) => {
+const filters = async (query={}, filters={}) => {
     console.log('CollaboratorService::filters')
-    return CollaboratorRepository.filters(filters)
+    return CollaboratorRepository.filters(query, filters)
 }
 
 module.exports = {

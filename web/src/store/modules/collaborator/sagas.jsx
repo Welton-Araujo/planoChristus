@@ -127,7 +127,7 @@ export function* filterCollaborator(){
         //ATUALIZAR FORM: loading
         yield put(refreshCollaborator({ form:{ ...form, filtering:false }}))
 
-        console.log('SAGAS::filterCollaborators ...',data)
+        console.log('SAGAS::filterCollaborators ... DATA',data)
         if( data.error ){
             alert('SAGA COLLABORATOR erro ... ' + data.message)
             return false

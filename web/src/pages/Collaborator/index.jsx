@@ -257,7 +257,7 @@ const getBehavior = (behavior) =>{
         case 'delete':
             return {title:" Deletar"   , color:"var(--danger)"}
         case 'update':
-                return {title:" Atualizar" , color:"var(--warning)"} 
+            return {title:" Atualizar" , color:"var(--warning)"} 
         default://create
             return {title:" Salvar"    , color:"var(--success)"}
     }

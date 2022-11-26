@@ -47,7 +47,7 @@ router.post('/colaborador', async (req, res)=>{
 /*** AULA REMOVER: EH IGUAL AO get()::find(query)***
  * 
  */
- router.post('/colaborador/filters', async (req, res)=>{
+ router.post('/colaborador/filtro', async (req, res)=>{
     console.log('Collaborator:: /colaborador/filters')
     collaboratorController.filters(req, res)
 })

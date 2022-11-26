@@ -255,11 +255,11 @@ const load = (all=[], qtd=0, attempts=0)=>{
 const getBehavior = (behavior) =>{
     switch (behavior) {
         case 'delete':
-            return {title:" Deletar"   , color:"var(--danger)"}
+            return {title:" Deletar"  , color:"var(--danger)"}
         case 'update':
-                return {title:" Atualizar" , color:"var(--warning)"} 
+            return {title:" Atualizar", color:"var(--warning)"} 
         default://create
-            return {title:" Salvar"    , color:"var(--success)"}
+            return {title:" Salvar"   , color:"var(--success)"}
     }
 }
 
