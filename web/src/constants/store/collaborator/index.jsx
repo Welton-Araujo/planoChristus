@@ -9,17 +9,18 @@ export const INITIAL_STATE = {
         dateBirth: "",
         sex: "m",
         status: "a",
-        services: [],
         bankAccount: {
-            agency: "",
+            owner: "",
+            cpfCnpj: "",
             bank: "",
+            type: "conta_corrente",
+            agency: "",
             number: "",
             dv: "",
-            type: "conta_corrente",
-            cpfCnpj: "",
-            owner: ""
         },
-        recipientId: ""
+        recipientId: "",
+        services: [],
+        salonCollaborator:{}
     },
     services: [],
     form: {

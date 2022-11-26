@@ -26,6 +26,7 @@ const MyForm = (props) =>{
         setPage=()=>{}, 
     } = props    
     const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
+    const {bankAccount={}} = page
     console.log("MyForm ### page", page)
 
     return(
@@ -191,7 +192,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Titular"}
                     disabled={form.disabled}
-                    value={page["bankAccount"]["owner"]}
+                    value={bankAccount["owner"]}
                     autoFocus={focus==='bankAccount-owner'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -206,7 +207,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"CPF/CNPJ"}
                     disabled={form.disabled}
-                    value={page["bankAccount"]["cpfCnpj"]}
+                    value={bankAccount["cpfCnpj"]}
                     autoFocus={focus==='bankAccount-cpfCnpj'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -221,7 +222,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Nº do banco"}
                     disabled={form.disabled}
-                    value={page["bankAccount"]["bank"]}
+                    value={bankAccount["bank"]}
                     autoFocus={focus==='bankAccount-bank'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -234,14 +235,16 @@ const MyForm = (props) =>{
                     className="form-control"
                     name={"bankAccount-type"}
                     disabled={form.disabled}
-                    defaultValue={page["bankAccount"]["type"]}
+                    defaultValue={bankAccount["type"]}
                     // autoFocus={focus==='state'}
                     onChange={(e)=>{
                         focus="bankAccount-type"
                         setPage("bankAccount", { ...page.bankAccount, type:e.target.value})
                     }}>
-                        <option value={"conta-conrrente"}>{"Conta corrente"}</option>
-                        <option value={"conta-poupanca"}>{"Conta poupaça"}</option>
+                        <option value={"conta_corrente"}>{"Conta corrente"}</option>
+                        <option value={"conta_poupanca"}>{"Conta poupança"}</option>
+                        <option value={"conta_corrente_conjunta"}>{"Conta corrente conjunta"}</option>
+                        <option value={"conta_poupanca_conjunta"}>{"Conta poupança conjunta"}</option>
                     </select>
                 </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
@@ -252,7 +255,7 @@ const MyForm = (props) =>{
                     type={"number"}
                     placeholder={"Nº da agência"}
                     disabled={form.disabled}
-                    value={page["bankAccount"]["agency"]}
+                    value={bankAccount["agency"]}
                     autoFocus={focus==='bankAccount-agency'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -267,7 +270,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Nº da conta"}
                     disabled={form.disabled}
-                    value={page["bankAccount"]["number"]}
+                    value={bankAccount["number"]}
                     autoFocus={focus==='bankAccount-number'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -282,7 +285,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Dígito validador"}
                     disabled={form.disabled}
-                    value={page["bankAccount"]["dv"]}
+                    value={bankAccount["dv"]}
                     autoFocus={focus==='bankAccount-dv'}
                     onChange={(e)=>{
                         focus = e.target.name

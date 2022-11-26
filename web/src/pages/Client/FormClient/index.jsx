@@ -26,7 +26,8 @@ const MyForm = (props) =>{
         setPage=()=>{}, 
     } = props    
     const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
-    console.log("MyForm ### current", page)
+    const { document={}, address={}, geo:{coordinates=[]} } = page
+    // console.log("MyForm ### current", address)
 
     return(
         <div className={`formBuilder`}>
@@ -171,7 +172,7 @@ const MyForm = (props) =>{
                     className="form-control"
                     name={"document-type"}
                     disabled={form.disabled}
-                    defaultValue={page["document"]["type"]}
+                    defaultValue={document["type"]}
                     // autoFocus={focus==='status'}
                     onChange={(e)=>{
                         focus="document-type"
@@ -189,7 +190,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Nº do documento"}
                     disabled={form.disabled}
-                    value={page["document"]["number"]}
+                    value={document["number"]}
                     autoFocus={focus==='document-number'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -222,7 +223,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Logradouro"}
                     disabled={form.disabled}
-                    value={page["address"]["street"]}
+                    value={address["street"]}
                     autoFocus={focus==='street'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -237,7 +238,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Número da casa"}
                     disabled={form.disabled}
-                    value={page["address"]["number"]}
+                    value={address["number"]}
                     autoFocus={focus==='address-number'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -252,7 +253,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Bairro"}
                     disabled={form.disabled}
-                    value={page["address"]["district"]}
+                    value={address["district"]}
                     autoFocus={focus==='district'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -267,7 +268,7 @@ const MyForm = (props) =>{
                     type={"number"}
                     placeholder={"Ex. 10111222"}
                     disabled={form.disabled}
-                    value={page["address"]["zipCode"]}
+                    value={address["zipCode"]}
                     autoFocus={focus==='zipCode'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -282,7 +283,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Cidade"}
                     disabled={form.disabled}
-                    value={page["address"]["city"]}
+                    value={address["city"]}
                     autoFocus={focus==='city'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -295,7 +296,7 @@ const MyForm = (props) =>{
                     className="form-control"
                     name={"state"}
                     disabled={form.disabled}
-                    defaultValue={page["address"]["state"]}
+                    defaultValue={address["state"]}
                     // autoFocus={focus==='state'}
                     onChange={(e)=>{
                         focus="state"
@@ -312,7 +313,7 @@ const MyForm = (props) =>{
                     className="form-control"
                     name={"country"}
                     disabled={form.disabled}
-                    value={page["address"]["country"]}
+                    value={address["country"]}
                     // autoFocus={focus==='country'}
                     onChange={(e)=>{
                         focus="country"
@@ -335,7 +336,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Lat: -3.731862"}
                     disabled={form.disabled}
-                    value={page["geo"]["coordinates"][0] || "-3.731862"}
+                    value={coordinates[0] || "-3.731862"}
                     autoFocus={focus==='coordinates0'}
                     onChange={(e)=>{
                         focus = e.target.name
@@ -356,7 +357,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Long: -38.526669"}
                     disabled={form.disabled}
-                    value={page["geo"]["coordinates"][1] || "-3.731862"}
+                    value={coordinates[1] || "-3.731862"}
                     autoFocus={focus==='coordinates1'}
                     onChange={(e)=>{
                         focus = e.target.name

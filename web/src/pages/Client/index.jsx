@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { 
     useDispatch, 
     useSelector,
@@ -167,28 +168,16 @@ const Client = (props)=>{
                 actions={(rowData)=>{
                     return(
                         <>
-                        <a href={"#"} 
-                        style={{
-                            display:"flex", 
-                            justifyContent:"center",
-                            alignItems: "center",
-                            width:"100%", 
-                            height: "35px",
-                            // margin:"5px", 
-                            padding: "8px 12px",
-                            borderRadius:"6px",
-                            fontSize:"16px",
-                            textDecoration:"none",
-                            color:"inherit", 
-                            backgroundColor:"var(--rs-btn-default-bg)",
-                        }}>
-                            <span className="mdi mdi-account-edit" 
-                            onClick={(e) =>{
-                                dispatch(refreshClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
-                                setComponent('drawer',{id:'drawer-client',open:true})                                                              
-                            }}>
-                            </span>                                
-                        </a>
+                        {/* Link: edit */}
+                        <Link 
+                        href={"#"}
+                        onClick={(e) =>{
+                            dispatch(refreshClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                            setComponent('drawer',{id:'drawer-client',open:true})                                                              
+                        }} >
+                            <span className="mdi mdi-account-edit"></span>
+                        </Link>
+
                         {/* Modal: see */}
                         <MyModal style={{}}
                         id={rowData.id}                        
@@ -215,6 +204,7 @@ const Client = (props)=>{
                             }}
                             />
                         </MyModal>
+                        
                         {/* ConfirmModal : cm */}
                         <ConfirmModal id={"cmClientRemove"}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
