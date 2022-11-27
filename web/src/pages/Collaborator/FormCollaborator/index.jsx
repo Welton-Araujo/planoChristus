@@ -1,6 +1,6 @@
 // OBS: CRIAR UM FORM DINAMICO NO FUTURO!
 // USANDO CLASS DO BOOTSTRAP:
-import { Button } from 'rsuite'
+import { Button, TagPicker } from 'rsuite'
 
 import './Form.css'
 import Alert from '../../../components/Pieces/Alert'
@@ -19,15 +19,16 @@ const MyForm = (props) =>{
             message: "Colaborador já cadastro!",
             style:{}
         },
-        page={}, 
+        page={},
+        services=[], 
         form={},
         behavior={},
         buttonSubmit={},
         setPage=()=>{}, 
     } = props    
     const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
-    const {bankAccount={}} = page
-    console.log("MyForm ### page", page)
+    const {bankAccount={} } = page
+    console.log("MyForm ### ", services, page)
 
     return(
         <div className={`formBuilder`}>
@@ -39,6 +40,21 @@ const MyForm = (props) =>{
 
             <b className={`fbTitle`}>{"LOGIN"}</b>
             <div className={`fbGroup`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                    <b>{"ID"}</b>
+                    <input
+                    className={`form-control`}
+                    name={"id"}
+                    type={"text"}
+                    placeholder={"ID do colaborador"}
+                    disabled={true}
+                    defaultValue={page['_id']}
+                    autoFocus={focus==='id'}
+                    onChange={(e)=>{
+                        focus = e.target.name
+                        setPage('_id', e.target.value)
+                    }}/>
+                </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Nome"}</b>
                     <input
@@ -293,7 +309,23 @@ const MyForm = (props) =>{
                     }}/>                
                 </div>
             </div>
-         
+            <b className={`fbTitle`}>{"SERVIÇOS"}</b>
+            <div className={`fbGroup`}>
+                <TagPicker key={`${Math.random()}`} className={`fbItem form-group`}
+                name={"services"}
+                size={"lg"}
+                data={services}
+                disabled={form.disabled}
+                value={page.services}
+                // autoFocus={focus==="services"}
+                onChange={(services)=>{
+                    console.log('onchange e ....', services)
+                    focus="services"
+                    setPage('services', services)
+                }}
+                />
+            </div>
+
             <div className={`fbBtnGroup`}>
                 <Button className={`fbBtnSubmit`} style={buttonSubmit.style}
                 name    = {'btnSubmit'}

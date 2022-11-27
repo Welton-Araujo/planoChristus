@@ -247,14 +247,15 @@ export function* allServicesCollaborator(){
     //BUSCAR STATE.COLLABORATOR:
     const { current, form, components } = yield select(state=>state.collaborator)
     // const { salonClient={} } = current
-    const endPointALLService = `/salao/${login.salon._id}/serviços`
+    const endPointALLService = `/salao/${login.salon._id}/servicos`
     console.log('SAGAS::allServicesCollaborator', endPointALLService, current)
+    
     try {
         //ATUALIZAR FORM: loading
         yield put(refreshCollaborator({ form:{ ...form, filtering:true } }))
 
         //REQUEST COLLABORATORES PARA API:
-        const { data } = yield call(api.post, endPointALLService)
+        const { data } = yield call(api.get, endPointALLService)
         
         //ATUALIZAR FORM: loading
         yield put(refreshCollaborator({ form:{ ...form, filtering:false } }))
@@ -268,7 +269,7 @@ export function* allServicesCollaborator(){
         //RECARREGAR A TABLE:
         // yield put(allCollaboratorAction())
         //FECHAR O COMPONENTE:
-        yield put(refreshCollaborator({ services: data.services, components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } } }))
+        yield put(refreshCollaborator({ services:data.services, components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } } }))
         //LIMPAR FORM:
         // yield put(resetCollaborator())
 

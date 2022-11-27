@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { 
     useDispatch, 
@@ -5,7 +6,7 @@ import {
 } from 'react-redux'
 import { Button } from 'rsuite'
 
-import useEffectDispatch from '../../hooks/UseEffect'
+// import useEffectDispatch from '../../hooks/UseEffect'
 import { 
     // API
     allCollaborator, 
@@ -13,6 +14,7 @@ import {
     filterCollaborator,
     updateCollaborator,
     unlinkCollaborator,
+    allServicesCollaborator,
 
     // STATE LOCAL
     refreshCollaborator, 
@@ -35,13 +37,13 @@ const { name:salonName } = loginFake.salon
 let stap = 0
 
 
-const Client = (props)=>{
+const Collaborator = (props)=>{
     const { style } = props
-    // console.log('Client', collaboratorTable)
+    // console.log('Collaborator', collaboratorTable)
     
     //STATE: inicial=[] e atualizado=[...]
-    const { all, current, form, components, behavior } = useSelector((state)=>state.collaborator)
-    console.log('COLLAB #### ', current, all)
+    const { all, current, services, form, components, behavior } = useSelector((state)=>state.collaborator)
+    console.log('COLLAB #### ', current, services, all)
         
     //FUNCOES:
     const dispatch     = useDispatch()
@@ -63,17 +65,24 @@ const Client = (props)=>{
         dispatch(unlinkCollaborator())
     }
     // ATUALIZAR STATE NO LOAD DA PAGE: API
-    useEffectDispatch(allCollaborator, null, load(all))
+    // useEffectDispatch(allCollaborator, null, load(all))
+    // useEffectDispatch(allServicesCollaborator, null, load(services))
+    useEffect(() => {
+        if(load(all)){ 
+            dispatch(allCollaborator())
+            dispatch(allServicesCollaborator()) 
+        }
+    },[])
 
     return(
         <div className={`content ${styles.collaboratorContent}`}>  
-            {/* CLIENT HEADER */}
+            {/* COLLABORATOR HEADER */}
             <div className={styles.collaboratorHeader}>
                 <div className={styles.collaboratorTitle}>
                     <h1>Colaborador</h1>
                     <small>{salonName}</small>
                 </div>
-                {/* Client Panel */}
+                {/* Collaborator Panel */}
                 <div className={styles.collaboratorPanel}>
                     {/* Drawer */}
                     <MyDrawer className={styles.collaboratorDrawer} style={{}}
@@ -134,6 +143,7 @@ const Client = (props)=>{
                         {/* Form */}
                         <FormCollaborator                        
                         page={current}
+                        services={services}
                         form={form}
                         behavior={behavior}
                         setPage={setCollaborator}
@@ -146,7 +156,7 @@ const Client = (props)=>{
                                 }else if(behavior==='update'){
                                     update()
                                 }else{
-                                    setComponent('modal',{id:"cmClientRemove", open:true}) 
+                                    setComponent('modal',{id:"cmCollaboratorRemove", open:true}) 
                                 } 
                             },
                             style: { backgroundColor: getBehavior(behavior).color }
@@ -155,7 +165,7 @@ const Client = (props)=>{
                     </MyDrawer>                        
                 </div>
             </div>
-            {/* CLIENT BODY */}
+            {/* COLLABORATOR BODY */}
             <div className={styles.collaboratorBody} style={style}>
                 <MyTable 
                 loading={form.filtering}
@@ -206,7 +216,7 @@ const Client = (props)=>{
                         </MyModal>
 
                         {/* ConfirmModal : cm */}
-                        <ConfirmModal id={"cmClientRemove"}
+                        <ConfirmModal id={"cmCollaboratorRemove"}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
                         buttonOpen={{
                             disabled:false,
@@ -218,7 +228,7 @@ const Client = (props)=>{
                             component: components.modal,
                             handleOpen: ()=>{
                                 dispatch(refreshCollaborator({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
-                                setComponent('modal',{id:"cmClientRemove", open:true})
+                                setComponent('modal',{id:"cmCollaboratorRemove", open:true})
                             },
                             handleConfirm:()=>{remove()},
                             handleCancel :()=>setComponent('modal',{id:null, open:false})
@@ -254,4 +264,4 @@ const getBehavior = (behavior) =>{
 }
 
 
-export default Client
+export default Collaborator

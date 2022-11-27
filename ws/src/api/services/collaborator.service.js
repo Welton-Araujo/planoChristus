@@ -151,7 +151,8 @@ const put = async ( collaboratorId, status, salColId , services )=>{
     if( !oldCollaborator ){ return{ error:true, message:'Colaborador não existe.' } }
     
     //ATUALIZA RELACIONAMENTO: (UPDATE STATUS)
-    await SalonCollaboratorRepository.findByIdAndUpdate(salColId, { status })
+    const { upSalonCollaborator } = await SalonCollaboratorRepository.findByIdAndUpdate(salColId, { status })
+    if( !upSalonCollaborator ){ return{ error:true, message:'Erro na atualização do colaborador com o salão.' } }
 
     //DELETAR RELACIONAMENTO: (DEL SERVICES)
     const { delCollaboratorServices } = await CollaboratorServiceRepository.deleteMany({collaboratorId})
@@ -165,7 +166,7 @@ const put = async ( collaboratorId, status, salColId , services )=>{
     await session.commitTransaction()
     session.endSession()
 
-    return { error: true, message: 'Atualizado com sucesso.' }
+    return { error:false, message:'Atualizado com sucesso.' }
  }
 
 /** AULA **/

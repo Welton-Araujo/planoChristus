@@ -66,5 +66,15 @@
           "637ea7a82f700bffc0e24b19"
         ]
       }
+    ],
+    "services":[
+      {
+        "label": "Corte de cabelo feminino",
+        "value": "634d739910870d4af9ec1109"
+      },
+      {
+        "label": "Corte de cabelo feminino",
+        "value": "634d75078544ede7dfcc5956"
+      }
     ]
 }
