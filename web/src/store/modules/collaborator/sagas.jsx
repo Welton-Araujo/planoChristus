@@ -160,7 +160,7 @@ export function* updateCollaborator(){
     const { current, form, components } = yield select(state=>state.collaborator)
     const { services=[], salonCollaborator={} } = current
     const endPointUpdate       = `/colaborador/${current.id}`
-    console.log('SAGAS::updateCollaborator:', endPointUpdate, current )
+    // console.log('SAGAS::updateCollaborator:', endPointUpdate, current )
 
     try {
         //ATUALIZAR FORM: loading:
@@ -260,7 +260,7 @@ export function* allServicesCollaborator(){
         //ATUALIZAR FORM: loading
         yield put(refreshCollaborator({ form:{ ...form, filtering:false } }))
 
-        console.log('SAGAS allServicesCollaborator ...',data)
+        console.log('SAGAS allSalonServices::Collaborator ...',data)
         if( data.error ){
             alert('SAGA COLLABORATOR erro ... ' + data.message)
             return false
@@ -278,6 +278,7 @@ export function* allServicesCollaborator(){
         yield put(refreshCollaborator({ form:{ ...form, filtering:false } }))
     }
 }
+
 
 export default all([
     takeLatest(ALL_COLLABORATOR, allCollaborator),

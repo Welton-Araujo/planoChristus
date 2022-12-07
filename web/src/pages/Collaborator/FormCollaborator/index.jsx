@@ -1,6 +1,6 @@
 // OBS: CRIAR UM FORM DINAMICO NO FUTURO!
 // USANDO CLASS DO BOOTSTRAP:
-import { Button, TagPicker } from 'rsuite'
+import { Button, TagPicker, SelectPicker } from 'rsuite'
 
 import './Form.css'
 import Alert from '../../../components/Pieces/Alert'
@@ -20,6 +20,7 @@ const MyForm = (props) =>{
             style:{}
         },
         page={},
+        banks=[],
         services=[], 
         form={},
         behavior={},
@@ -27,7 +28,7 @@ const MyForm = (props) =>{
         setPage=()=>{}, 
     } = props    
     const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
-    const {bankAccount={} } = page
+    const {bankAccount={}, salonCollaborator={} } = page
     console.log("MyForm ### ", services, page)
 
     return(
@@ -232,17 +233,17 @@ const MyForm = (props) =>{
                 </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Banco"}</b>
-                    <input
+                    <SelectPicker
                     className={`form-control`}
                     name={"bankAccount-bank"}
-                    type={"text"}
-                    placeholder={"Nº do banco"}
+                    placeholder={"Selecione o seu banco"}
                     disabled={form.disabled}
-                    value={bankAccount["bank"]}
+                    data={banks}
+                    defaultValue={bankAccount["bank"]}
                     autoFocus={focus==='bankAccount-bank'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("bankAccount", {...page.bankAccount, bank:e.target.value})
+                    onChange={(value)=>{
+                        focus = 'bankAccount-bank'
+                        setPage("bankAccount", {...page.bankAccount, bank:value})
                     }}/>                
                 </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
@@ -306,6 +307,41 @@ const MyForm = (props) =>{
                     onChange={(e)=>{
                         focus = e.target.name
                         setPage("bankAccount", {...page.bankAccount, dv:e.target.value})
+                    }}/>                
+                </div>
+            </div>
+            {/* ATUALIZAVEL */}
+            <b className={`fbTitle`}>{"SALÃO COLABORADOR"}</b>
+            <div className={`fbGroup`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                    <b>{"Sãlao status"}</b>
+                    <select
+                    className={"form-control"}
+                    name={"salon-status"}
+                    disabled={form.disabled}
+                    defaultValue={salonCollaborator["status"]}
+                    autoFocus={focus==='salon-status'}
+                    onChange={(e)=>{
+                        focus="salon-status"
+                        setPage("salonCollaborator", { ...salonCollaborator, status:e.target.value })
+                    }}>
+                        <option value={"a"}>{"Ativo"}</option>
+                        <option value={"i"}>{"Inativo"}</option>
+                    </select>                
+                </div>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                    <b>{"Data cadastro"}</b>
+                    <input
+                    className={`form-control`}
+                    name={"date-registration"}
+                    type={"text"}
+                    placeholder={"Salão status"}
+                    disabled={form.disabled}
+                    value={salonCollaborator["dateRegistration"]}
+                    autoFocus={focus==='date-registration'}
+                    onChange={(e)=>{
+                        focus = e.target.name
+                        setPage("salonCollaborator", { ...salonCollaborator, dateRegistration:e.target.value })
                     }}/>                
                 </div>
             </div>
