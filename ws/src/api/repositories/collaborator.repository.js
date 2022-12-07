@@ -7,7 +7,9 @@ const CollaboratorModel = require('../models/collaborator.model')
 
 const find = async ( query={}, fields='', populate='' ) => {
     try {
-        const collaborators = await CollaboratorModel.find(query).select(fields)
+        const collaborators = await CollaboratorModel.find(query)
+                                        .select(fields)
+                                        .populate(populate)
         return { error:false, collaborators }
     } catch (error) {
         return { error:true, message:error.message, collaborators:[] }
@@ -54,9 +56,9 @@ const save = async (query) => {
 const findByIdAndUpdate = async (id, collaborator) => {    
     try {
        const upCollaborator = await CollaboratorModel.findByIdAndUpdate(id, collaborator)
-       return { error:false, collaborator }
+       return { error:false, upCollaborator }
    } catch (error) {
-       return { error:true, message:error.message, collaborator:null }
+       return { error:true, message:error.message, upCollaborator:null }
    }
 }
 

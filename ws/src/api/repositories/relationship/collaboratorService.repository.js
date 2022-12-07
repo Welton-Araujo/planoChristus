@@ -14,7 +14,6 @@ const CollaboratorServiceModel = require('../../models/relationship/collaborator
  * @returns 
  */
  const find = async ( query={}, fields='', populate="" ) => {
-    // console.log('CollaboratorServiceModel::find ...', fields, populate)
     try {
         const collaboratorServices = await CollaboratorServiceModel.find(query)
                                             .select(fields)
@@ -34,9 +33,11 @@ const findById = async () => {
  * @param {*} query
  * @returns 
  */
-const findOne = async (query) => {
+const findOne = async (query, fields="", populate="") => {
     try {
         const oldCollaboratorService = await CollaboratorServiceModel.findOne(query)
+                                              .select(fields)
+                                              .populate(populate)
         return { error:false, oldCollaboratorService }  
     } catch (error) {
         return { error:true, message:error.message, oldCollaboratorService:null }  
@@ -88,7 +89,6 @@ const findByIdAndUpdate = async (id, collaboratorService) => {
 const deleteMany = async (query) => {
     try {
         const delCollaboratorService = await CollaboratorServiceModel.deleteMany(query)
-        console.log('delllll', delCollaboratorService)
         return { error:false, delCollaboratorService }  
     } catch (error) {
         return { error:true, message:error.message, delCollaboratorService:null }  

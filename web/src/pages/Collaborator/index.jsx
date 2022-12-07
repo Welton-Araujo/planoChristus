@@ -30,7 +30,8 @@ import MyModal          from '../../components/Modal'
 import ConfirmModal     from '../../components/Modal/ConfirmModal'
 
 // STATIC TEST
-import loginFake   from '../../data/fakeReq/login.json' 
+import loginFake    from '../../data/fakeReq/login.json' 
+import bankInfo     from '../../data/componentTest/bankInfo.json'
 import collaboratorTable from '../../data/componentTest/collaboratorTable.json' 
 
 const { name:salonName } = loginFake.salon
@@ -144,6 +145,7 @@ const Collaborator = (props)=>{
                         {/* Form */}
                         <FormCollaborator                        
                         page={current}
+                        banks={bankInfo}
                         services={services}
                         form={form}
                         behavior={behavior}
@@ -192,7 +194,7 @@ const Collaborator = (props)=>{
                         {/* Modal: see */}
                         <MyModal style={{}}
                         id={rowData.id}                        
-                        config={{title:'DETALHES'}}
+                        config={{title:'DETALHES SALÃO::COLABORADOR'}}
                         buttonOpen={{
                             title:<span className="mdi mdi-eye"></span>,
                         }}
@@ -216,7 +218,7 @@ const Collaborator = (props)=>{
                             />
                         </MyModal>
 
-                        {/* ConfirmModal : cm */}
+                        {/* ConfirmModal: cm */}
                         <ConfirmModal id={"cmCollaboratorRemove"}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
                         buttonOpen={{

@@ -357,7 +357,7 @@ const MyForm = (props) =>{
                     type={"text"}
                     placeholder={"Long: -38.526669"}
                     disabled={form.disabled}
-                    value={coordinates[1] || "-3.731862"}
+                    value={coordinates[1] || "-38.526669"}
                     autoFocus={focus==='coordinates1'}
                     onChange={(e)=>{
                         focus = e.target.name
