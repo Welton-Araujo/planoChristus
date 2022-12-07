@@ -21,7 +21,7 @@ import api   from '../../../utils/external/api'
 
 // TESTE STATIC
 import login from '../../../data/fakeReq/login.json'
-import collaboratorTest from '../../../data/fakeReq/collaboratorTest.json'
+// import collaboratorTest from '../../../data/fakeReq/collaboratorTest.json'
 
 
 /**
@@ -127,7 +127,7 @@ export function* filterCollaborator(){
         //ATUALIZAR FORM: loading
         yield put(refreshCollaborator({ form:{ ...form, filtering:false }}))
 
-        console.log('SAGAS::filterCollaborators ...',data)
+        console.log('SAGAS::filterCollaborators ... DATA',data)
         if( data.error ){
             alert('SAGA COLLABORATOR erro ... ' + data.message)
             return false
@@ -158,8 +158,7 @@ export function* filterCollaborator(){
 export function* updateCollaborator(){        
     //BUSCAR STATE.COLLABORATOR:
     const { current, form, components } = yield select(state=>state.collaborator)
-    const { salonClient={} } = current
-    const collaboratorServices = collaboratorTest.put.services
+    const { services=[], salonCollaborator={} } = current
     const endPointUpdate       = `/colaborador/${current.id}`
     console.log('SAGAS::updateCollaborator:', endPointUpdate, current )
 
@@ -169,9 +168,9 @@ export function* updateCollaborator(){
 
         //REQUEST COLLABORATORES PARA API:
         const { data } = yield call(api.put, endPointUpdate,{
-            bondId: salonClient.salonClientId,
-            status: salonClient.status,
-            services: collaboratorServices
+            bondId: salonCollaborator.id,
+            status: salonCollaborator.status,
+            services,
         })
         
         //ATUALIZAR FORM: loading:
@@ -205,8 +204,8 @@ export function* updateCollaborator(){
 export function* unlinkCollaborator(){
     //BUSCAR STATE.COLLABORATOR:
     const { current, form, components } = yield select(state=>state.collaborator)
-    const { salonClient={} } = current
-    const endPointUnlink = `/colaborador/servico/${salonClient.salonClientId}`
+    const { salonCollaborator={} } = current
+    const endPointUnlink = `/colaborador/servico/${salonCollaborator.id}`
     console.log('SAGAS::unlinkCollaborator', endPointUnlink, current)
 
     try {
@@ -219,7 +218,7 @@ export function* unlinkCollaborator(){
         //ATUALIZAR FORM: loading
         yield put(refreshCollaborator({ form:{ ...form, saving:false } }))
 
-        console.log('SAGAS unlinkCollaborator ...',data)
+        console.log('SAGAS unlinkCollaborator ... DATA',data)
         if( data.error ){
             alert('SAGA COLLABORATOR erro ... ' + data.message)
             return false
@@ -228,7 +227,8 @@ export function* unlinkCollaborator(){
         //RECARREGAR A TABLE:
         yield put(allCollaboratorAction())
         //FECHAR O COMPONENTE:
-        yield put(refreshCollaborator({ components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } } }))
+        yield put(refreshCollaborator({ components:{ ...components, modal:{ id:null, open:false } } }))
+        console.log('SAGAS::refreshCollaborator: components', components)
         //LIMPAR FORM:
         yield put(resetCollaborator())
 
@@ -246,15 +246,16 @@ export function* unlinkCollaborator(){
 export function* allServicesCollaborator(){
     //BUSCAR STATE.COLLABORATOR:
     const { current, form, components } = yield select(state=>state.collaborator)
-    const { salonClient={} } = current
-    const endPointALLService = `/salao/${login.salon._id}/serviços`
+    // const { salonClient={} } = current
+    const endPointALLService = `/salao/${login.salon._id}/servicos`
     console.log('SAGAS::allServicesCollaborator', endPointALLService, current)
+    
     try {
         //ATUALIZAR FORM: loading
         yield put(refreshCollaborator({ form:{ ...form, filtering:true } }))
 
         //REQUEST COLLABORATORES PARA API:
-        const { data } = yield call(api.post, endPointALLService)
+        const { data } = yield call(api.get, endPointALLService)
         
         //ATUALIZAR FORM: loading
         yield put(refreshCollaborator({ form:{ ...form, filtering:false } }))
@@ -268,7 +269,7 @@ export function* allServicesCollaborator(){
         //RECARREGAR A TABLE:
         // yield put(allCollaboratorAction())
         //FECHAR O COMPONENTE:
-        yield put(refreshCollaborator({ services: data.services, components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } } }))
+        yield put(refreshCollaborator({ services:data.services, components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } } }))
         //LIMPAR FORM:
         // yield put(resetCollaborator())
 

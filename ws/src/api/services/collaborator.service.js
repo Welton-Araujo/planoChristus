@@ -42,10 +42,15 @@ const getSalonCollaborators = async ( salonId, fields='collaboratorId status dat
             )
             
             if(oldCollaboratorService){ services = oldCollaboratorService.serviceId }
-            
+            // console.log('salCol ###', salCol)
             listCollaborador.push({
                 ...collaborator._doc,
                 services,
+                salonCollaborator:{
+                    id:salCol._id,
+                    status: salCol.status,
+                    dateRegistration: salCol.dateRegistration
+                }
             })
         }
     }
@@ -71,7 +76,7 @@ const getSalonCollaborators = async ( salonId, fields='collaboratorId status dat
  * @returns 
  */
 const post = async ( salonId, collaboratorCandidate, services=[] )=>{    
-    console.log('CollaboratorService::post Pagar.me' )
+    console.log('CollaboratorService::post Pagar.me', salonId, collaboratorCandidate )
     const db = mongoose.connection
     const session = await db.startSession()
     session.startTransaction()
@@ -83,7 +88,7 @@ const post = async ( salonId, collaboratorCandidate, services=[] )=>{
             { phone: collaboratorCandidate.phone }
         ]
     })
-    if( oldCollaborator ){   return{ error:true, message:'Colaborador já cadastrado.' }   }
+    if( oldCollaborator ){  return{ error:true, message:'Colaborador já cadastrado.' }  }
     
     //CRIAR CONTA Pagar.me:
     const { bankAccount }  = collaboratorCandidate
@@ -95,16 +100,17 @@ const post = async ( salonId, collaboratorCandidate, services=[] )=>{
         ...collaboratorCandidate,
         recipientId: pagarmeRecipient.id || '0'
     })
-    
+    if( !newCollaborator ){ return{ error:true, message:'Erro ao criar colaborador.' }  }
     //BUSCAR RELACIONAMENTO NO DB:
     //....
 
     //CRIAR RELACIONAMENTO: 
-    await SalonCollaboratorRepository.save({
+    const { newSalonCollaborator } = await SalonCollaboratorRepository.save({
         salonId,
         collaboratorId: newCollaborator.id,
-        status: collaboratorCandidate.status
+        status: newCollaborator.status
     })
+    if( !newSalonCollaborator ){ return{ error:true, message:'Erro ao cadastrar colaborador ao salão.' }  }
     
     if( isEmpty(services) ){ return { error:false, message:'Colaborador cadastro sem serviços.', collaborator:newCollaborator } }
     //BUSCAR RELACIONAMENTO NO DB:
@@ -145,7 +151,8 @@ const put = async ( collaboratorId, status, salColId , services )=>{
     if( !oldCollaborator ){ return{ error:true, message:'Colaborador não existe.' } }
     
     //ATUALIZA RELACIONAMENTO: (UPDATE STATUS)
-    await SalonCollaboratorRepository.findByIdAndUpdate(salColId, { status })
+    const { upSalonCollaborator } = await SalonCollaboratorRepository.findByIdAndUpdate(salColId, { status })
+    if( !upSalonCollaborator ){ return{ error:true, message:'Erro na atualização do colaborador com o salão.' } }
 
     //DELETAR RELACIONAMENTO: (DEL SERVICES)
     const { delCollaboratorServices } = await CollaboratorServiceRepository.deleteMany({collaboratorId})
@@ -159,23 +166,23 @@ const put = async ( collaboratorId, status, salColId , services )=>{
     await session.commitTransaction()
     session.endSession()
 
-    return { error: true, message: 'Atualizado com sucesso.' }
+    return { error:false, message:'Atualizado com sucesso.' }
  }
 
 /** AULA **/
 const deleteById = async (id) => {
-    console.log('CollaboratorService::deleteById')
+    console.log('CollaboratorService::deleteById', id)
     //BUSCAR RELACIONAMENTO:
     const { upSalonCollaborator } = await SalonCollaboratorRepository.findByIdAndUpdate(id,{status:'e'})
-    if( !upSalonCollaborator ){ return { error: true, message: 'Erro ao deletar.' } }
+    if( !upSalonCollaborator ){ return { error:true, message:'Erro ao deletar colaborador.' } }
     
-    return { error: true, message: 'Deletado com sucesso.' }
+    return { error:false, message:'Deletado com sucesso.' }
 }
 
 
-const filters = async (filters={}) => {
+const filters = async (query={}, filters={}) => {
     console.log('CollaboratorService::filters')
-    return CollaboratorRepository.filters(filters)
+    return CollaboratorRepository.filters(query, filters)
 }
 
 module.exports = {

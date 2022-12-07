@@ -1,10 +1,11 @@
-footer {
+.footer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     /* color: #e1e1e1; */
     /* height: 185px; */
+    background-color: var(--dark-gray2);
 }
 
 /*Main Footer*/

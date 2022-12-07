@@ -1,6 +1,6 @@
 // OBS: CRIAR UM FORM DINAMICO NO FUTURO!
 // USANDO CLASS DO BOOTSTRAP:
-import { Button } from 'rsuite'
+import { Button, TagPicker } from 'rsuite'
 
 import './Form.css'
 import Alert from '../../../components/Pieces/Alert'
@@ -19,14 +19,16 @@ const MyForm = (props) =>{
             message: "Colaborador já cadastro!",
             style:{}
         },
-        page={}, 
+        page={},
+        services=[], 
         form={},
         behavior={},
         buttonSubmit={},
         setPage=()=>{}, 
     } = props    
     const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
-    console.log("MyForm ### page", page)
+    const {bankAccount={} } = page
+    console.log("MyForm ### ", services, page)
 
     return(
         <div className={`formBuilder`}>
@@ -38,6 +40,21 @@ const MyForm = (props) =>{
 
             <b className={`fbTitle`}>{"LOGIN"}</b>
             <div className={`fbGroup`}>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                    <b>{"ID"}</b>
+                    <input
+                    className={`form-control`}
+                    name={"id"}
+                    type={"text"}
+                    placeholder={"ID do colaborador"}
+                    disabled={true}
+                    defaultValue={page['_id']}
+                    autoFocus={focus==='id'}
+                    onChange={(e)=>{
+                        focus = e.target.name
+                        setPage('_id', e.target.value)
+                    }}/>
+                </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Nome"}</b>
                     <input
@@ -165,37 +182,6 @@ const MyForm = (props) =>{
                         <option value={"f"}>{"Feminino"}</option>
                     </select>
                 </div>
-                {/* <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Tipo de documento"}</b>
-                    <select
-                    className="form-control"
-                    name={"document-type"}
-                    disabled={form.disabled}
-                    defaultValue={page["document"]["type"]}
-                    // autoFocus={focus==='status'}
-                    onChange={(e)=>{
-                        focus="document-type"
-                        setPage("document", { ...page.document, type:e.target.value})
-                    }}>
-                        <option value={"cpf"}>{"CPF"}</option>
-                        <option value={"cnpj"}>{"CNPJ"}</option>
-                    </select>
-                </div> */}
-                {/* <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Nº do documento"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"document-number"}
-                    type={"text"}
-                    placeholder={"Nº do documento"}
-                    disabled={form.disabled}
-                    value={page["document"]["number"]}
-                    autoFocus={focus==='document-number'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("document", { ...page.document, number:e.target.value})
-                    }}/>                
-                </div> */}
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"ID Recipient"}</b>
                     <input
@@ -212,119 +198,134 @@ const MyForm = (props) =>{
                     }}/>                
                 </div>
             </div>
-            {/* <b className={`fbTitle`}>{"ENDEREÇO"}</b>
+            <b className={`fbTitle`}>{"Conta bancária"}</b>
             <div className={`fbGroup`}>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Rua"}</b>
+                    <b>{"Titular"}</b>
                     <input
                     className={`form-control`}
-                    name={"street"}
+                    name={"bankAccount-owner"}
                     type={"text"}
-                    placeholder={"Logradouro"}
+                    placeholder={"Titular"}
                     disabled={form.disabled}
-                    value={page["address"]["street"]}
-                    autoFocus={focus==='street'}
+                    value={bankAccount["owner"]}
+                    autoFocus={focus==='bankAccount-owner'}
                     onChange={(e)=>{
                         focus = e.target.name
-                        setPage("address", {...page.address, street:e.target.value})
+                        setPage("bankAccount", {...page.bankAccount, owner:e.target.value})
                     }}/>                
                 </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Número da casa"}</b>
+                    <b>{"CPF/CNPJ"}</b>
                     <input
                     className={`form-control`}
-                    name={"address-number"}
+                    name={"bankAccount-cpfCnpj"}
                     type={"text"}
-                    placeholder={"Número da casa"}
+                    placeholder={"CPF/CNPJ"}
                     disabled={form.disabled}
-                    value={page["address"]["number"]}
-                    autoFocus={focus==='address-number'}
+                    value={bankAccount["cpfCnpj"]}
+                    autoFocus={focus==='bankAccount-cpfCnpj'}
                     onChange={(e)=>{
                         focus = e.target.name
-                        setPage("address", {...page.address, number:e.target.value})
+                        setPage("bankAccount", {...page.bankAccount, cpfCnpj:e.target.value})
                     }}/>                
                 </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Bairro"}</b>
+                    <b>{"Banco"}</b>
                     <input
                     className={`form-control`}
-                    name={"district"}
+                    name={"bankAccount-bank"}
                     type={"text"}
-                    placeholder={"Bairro"}
+                    placeholder={"Nº do banco"}
                     disabled={form.disabled}
-                    value={page["address"]["district"]}
-                    autoFocus={focus==='district'}
+                    value={bankAccount["bank"]}
+                    autoFocus={focus==='bankAccount-bank'}
                     onChange={(e)=>{
                         focus = e.target.name
-                        setPage("address", {...page.address, district:e.target.value})
+                        setPage("bankAccount", {...page.bankAccount, bank:e.target.value})
                     }}/>                
                 </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"CEP"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"zipCode"}
-                    type={"number"}
-                    placeholder={"Ex. 10111222"}
-                    disabled={form.disabled}
-                    value={page["address"]["zipCode"]}
-                    autoFocus={focus==='zipCode'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("address", {...page.address, zipCode:e.target.value})
-                    }}/>                
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Cidade"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"city"}
-                    type={"text"}
-                    placeholder={"Cidade"}
-                    disabled={form.disabled}
-                    value={page["address"]["city"]}
-                    autoFocus={focus==='city'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("address", {...page.address, city:e.target.value})
-                    }}/>                
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"UF"}</b>
+                    <b>{"Tipo de conta"}</b>
                     <select
                     className="form-control"
-                    name={"state"}
+                    name={"bankAccount-type"}
                     disabled={form.disabled}
-                    defaultValue={page["address"]["state"]}
+                    defaultValue={bankAccount["type"]}
                     // autoFocus={focus==='state'}
                     onChange={(e)=>{
-                        focus="state"
-                        setPage("address", { ...page.address, state:e.target.value})
+                        focus="bankAccount-type"
+                        setPage("bankAccount", { ...page.bankAccount, type:e.target.value})
                     }}>
-                        <option value={"ce"}>{"Ceará"}</option>
-                        <option value={"rj"}>{"Rio de janeiro"}</option>
-                        <option value={"sp"}>{"São Paulo"}</option>
+                        <option value={"conta_corrente"}>{"Conta corrente"}</option>
+                        <option value={"conta_poupanca"}>{"Conta poupança"}</option>
+                        <option value={"conta_corrente_conjunta"}>{"Conta corrente conjunta"}</option>
+                        <option value={"conta_poupanca_conjunta"}>{"Conta poupança conjunta"}</option>
                     </select>
                 </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"País"}</b>
-                    <select
-                    className="form-control"
-                    name={"country"}
+                    <b>{"Agência"}</b>
+                    <input
+                    className={`form-control`}
+                    name={"bankAccount-agency"}
+                    type={"number"}
+                    placeholder={"Nº da agência"}
                     disabled={form.disabled}
-                    value={page["address"]["country"]}
-                    // autoFocus={focus==='country'}
+                    value={bankAccount["agency"]}
+                    autoFocus={focus==='bankAccount-agency'}
                     onChange={(e)=>{
-                        focus="country"
-                        setPage("address", {...page.address, country:e.target.value})
-                    }}>
-                        <option value={"br"}>{"Brasil"}</option>
-                        <option value={"isr"}>{"Israel"}</option>
-                        <option value={"usa"}>{"Estados Unidos"}</option>
-                    </select>
+                        focus = e.target.name
+                        setPage("bankAccount", {...page.bankAccount, agency:e.target.value})
+                    }}/>                
                 </div>
-            </div> */}
-         
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                    <b>{"Número"}</b>
+                    <input
+                    className={`form-control`}
+                    name={"bankAccount-number"}
+                    type={"text"}
+                    placeholder={"Nº da conta"}
+                    disabled={form.disabled}
+                    value={bankAccount["number"]}
+                    autoFocus={focus==='bankAccount-number'}
+                    onChange={(e)=>{
+                        focus = e.target.name
+                        setPage("bankAccount", {...page.bankAccount, number:e.target.value})
+                    }}/>                
+                </div>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                    <b>{"Dígito"}</b>
+                    <input
+                    className={`form-control`}
+                    name={"bankAccount-dv"}
+                    type={"text"}
+                    placeholder={"Dígito validador"}
+                    disabled={form.disabled}
+                    value={bankAccount["dv"]}
+                    autoFocus={focus==='bankAccount-dv'}
+                    onChange={(e)=>{
+                        focus = e.target.name
+                        setPage("bankAccount", {...page.bankAccount, dv:e.target.value})
+                    }}/>                
+                </div>
+            </div>
+            <b className={`fbTitle`}>{"SERVIÇOS"}</b>
+            <div className={`fbGroup`}>
+                <TagPicker key={`${Math.random()}`} className={`fbItem form-group`}
+                name={"services"}
+                size={"lg"}
+                data={services}
+                disabled={form.disabled}
+                value={page.services}
+                // autoFocus={focus==="services"}
+                onChange={(services)=>{
+                    console.log('onchange e ....', services)
+                    focus="services"
+                    setPage('services', services)
+                }}
+                />
+            </div>
+
             <div className={`fbBtnGroup`}>
                 <Button className={`fbBtnSubmit`} style={buttonSubmit.style}
                 name    = {'btnSubmit'}

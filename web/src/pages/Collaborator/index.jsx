@@ -1,10 +1,12 @@
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { 
     useDispatch, 
     useSelector,
 } from 'react-redux'
 import { Button } from 'rsuite'
 
-import useEffectDispatch from '../../hooks/UseEffect'
+// import useEffectDispatch from '../../hooks/UseEffect'
 import { 
     // API
     allCollaborator, 
@@ -12,6 +14,7 @@ import {
     filterCollaborator,
     updateCollaborator,
     unlinkCollaborator,
+    allServicesCollaborator,
 
     // STATE LOCAL
     refreshCollaborator, 
@@ -34,13 +37,13 @@ const { name:salonName } = loginFake.salon
 let stap = 0
 
 
-const Client = (props)=>{
+const Collaborator = (props)=>{
     const { style } = props
-    // console.log('Client', collaboratorTable)
+    // console.log('Collaborator', collaboratorTable)
     
     //STATE: inicial=[] e atualizado=[...]
-    const { all, current, form, components, behavior } = useSelector((state)=>state.collaborator)
-    console.log('COLLAB #### ', current, all)
+    const { all, current, services, form, components, behavior } = useSelector((state)=>state.collaborator)
+    console.log('COLLAB #### ', current, services, all)
         
     //FUNCOES:
     const dispatch     = useDispatch()
@@ -62,17 +65,25 @@ const Client = (props)=>{
         dispatch(unlinkCollaborator())
     }
     // ATUALIZAR STATE NO LOAD DA PAGE: API
-    useEffectDispatch(allCollaborator, null, load(all))
+    const allLoad = load(all)
+    // useEffectDispatch(allCollaborator, null, load(all))
+    // useEffectDispatch(allServicesCollaborator, null, load(services))
+    useEffect(() => {
+        if(allLoad){ 
+            dispatch(allCollaborator())
+            dispatch(allServicesCollaborator()) 
+        }
+    },[dispatch, allLoad])
 
     return(
         <div className={`content ${styles.collaboratorContent}`}>  
-            {/* CLIENT HEADER */}
+            {/* COLLABORATOR HEADER */}
             <div className={styles.collaboratorHeader}>
                 <div className={styles.collaboratorTitle}>
                     <h1>Colaborador</h1>
                     <small>{salonName}</small>
                 </div>
-                {/* Client Panel */}
+                {/* Collaborator Panel */}
                 <div className={styles.collaboratorPanel}>
                     {/* Drawer */}
                     <MyDrawer className={styles.collaboratorDrawer} style={{}}
@@ -111,7 +122,7 @@ const Client = (props)=>{
                                     onKeyUp={(e)=>{
                                         if(e.key==="Enter"){
                                             dispatch(filterCollaborator())
-                                            dispatch(resetCollaborator())
+                                            // dispatch(resetCollaborator())
                                         }
                                     }}
                                     />
@@ -133,6 +144,7 @@ const Client = (props)=>{
                         {/* Form */}
                         <FormCollaborator                        
                         page={current}
+                        services={services}
                         form={form}
                         behavior={behavior}
                         setPage={setCollaborator}
@@ -145,7 +157,7 @@ const Client = (props)=>{
                                 }else if(behavior==='update'){
                                     update()
                                 }else{
-                                    setComponent('modal',{id:"cmClientRemove", open:true}) 
+                                    setComponent('modal',{id:"cmCollaboratorRemove", open:true}) 
                                 } 
                             },
                             style: { backgroundColor: getBehavior(behavior).color }
@@ -154,7 +166,7 @@ const Client = (props)=>{
                     </MyDrawer>                        
                 </div>
             </div>
-            {/* CLIENT BODY */}
+            {/* COLLABORATOR BODY */}
             <div className={styles.collaboratorBody} style={style}>
                 <MyTable 
                 loading={form.filtering}
@@ -167,28 +179,16 @@ const Client = (props)=>{
                 actions={(rowData)=>{
                     return(
                         <>
-                        <a href={"#"} 
-                        style={{
-                            display:"flex", 
-                            justifyContent:"center",
-                            alignItems: "center",
-                            width:"100%", 
-                            height: "35px",
-                            // margin:"5px", 
-                            padding: "8px 12px",
-                            borderRadius:"6px",
-                            fontSize:"16px",
-                            textDecoration:"none",
-                            color:"inherit", 
-                            backgroundColor:"var(--rs-btn-default-bg)",
-                        }}>
-                            <span className="mdi mdi-account-edit" 
-                            onClick={(e) =>{
-                                dispatch(refreshCollaborator({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
-                                setComponent('drawer',{id:'drawer-collaborator',open:true})                                                              
-                            }}>
-                            </span>                                
-                        </a>
+                        {/* Link: edit */}
+                        <Link className={styles.collaboratorBtnEdit} 
+                        href={"#"} 
+                        onClick={(e) =>{
+                            dispatch(refreshCollaborator({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                            setComponent('drawer',{id:'drawer-collaborator',open:true})                                                              
+                        }} > 
+                            <span className="mdi mdi-account-edit"></span>
+                        </Link>
+
                         {/* Modal: see */}
                         <MyModal style={{}}
                         id={rowData.id}                        
@@ -206,7 +206,7 @@ const Client = (props)=>{
                             },
                             handleClose:()=>setComponent('modal',{id:null, open:false})
                         }} >
-                            <TableOneRow objData={rowData.salonClient}
+                            <TableOneRow objData={rowData.salonCollaborator}
                             config={{
                                 uppercase: true, 
                                 rootLabel: true,
@@ -215,8 +215,9 @@ const Client = (props)=>{
                             }}
                             />
                         </MyModal>
+
                         {/* ConfirmModal : cm */}
-                        <ConfirmModal id={"cmClientRemove"}
+                        <ConfirmModal id={"cmCollaboratorRemove"}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
                         buttonOpen={{
                             disabled:false,
@@ -228,7 +229,7 @@ const Client = (props)=>{
                             component: components.modal,
                             handleOpen: ()=>{
                                 dispatch(refreshCollaborator({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
-                                setComponent('modal',{id:"cmClientRemove", open:true})
+                                setComponent('modal',{id:"cmCollaboratorRemove", open:true})
                             },
                             handleConfirm:()=>{remove()},
                             handleCancel :()=>setComponent('modal',{id:null, open:false})
@@ -257,11 +258,11 @@ const getBehavior = (behavior) =>{
         case 'delete':
             return {title:" Deletar"   , color:"var(--danger)"}
         case 'update':
-                return {title:" Atualizar" , color:"var(--warning)"} 
+            return {title:" Atualizar" , color:"var(--warning)"} 
         default://create
             return {title:" Salvar"    , color:"var(--success)"}
     }
 }
 
 
-export default Client
+export default Collaborator

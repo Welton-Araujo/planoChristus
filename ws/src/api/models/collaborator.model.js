@@ -32,12 +32,12 @@ const collaborator = new Schema({
     },
     sex:{
         type: String,
-        enum:['m','v'],
+        enum:['m','f'],
         required: true
     },
     status:{
         type: String,
-        enum:['a','i'],
+        enum:['a','i','e'],
         required: true,
         default: 'a'
     },

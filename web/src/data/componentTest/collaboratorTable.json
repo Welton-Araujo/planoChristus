@@ -26,354 +26,55 @@
         ]
     },
     "data":[
-        {
-        "_id": "6351a60603a643053e1e9dff",
-        "name": "Roberto 55",
+      {
+        "bankAccount": {},
+        "_id": "637ea6b02f700bffc0e24b0b",
+        "name": "Xico colaborador",
         "phone": "85 900011155",
-        "email": "roberto@email.com",
-        "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-        "dateBirth": "2020-10-10",
-        "sex": "M",
-        "status": "A",
-        "customerId": "0",
-        "dateRegistration": "2022-10-20T19:48:22.826Z"
+        "email": "xico@email.com",
+        "photo": "https://c4.wallpaperflare.com/wallpaper/469/917/206/soccer-sociedade-esportiva-palmeiras-logo-wallpaper-preview.jpg",
+        "dateBirth": "2020-02-20",
+        "sex": "m",
+        "status": "a",
+        "recipientId": "0",
+        "dateRegistration": "1669244592603",
+        "__v": 0,
+        "services": []
+      },
+      {
+        "bankAccount": {
+          "owner": "Silvio rico",
+          "cpfCnpj": "12312312321",
+          "bank": "0932",
+          "type": "conta_corrente",
+          "agency": "001",
+          "number": "50054",
+          "dv": "1"
         },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "1 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "2 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "3 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "4 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "5 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "6 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "7 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "8 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "9 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "10 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "11 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "12 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "13 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "14 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "15 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "16 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "17 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "18 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "19 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "20 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "21 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "22 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "23 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "24 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "25 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "26 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "27 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        },
-        {
-          "_id": "6351a60603a643053e1e9dff",
-          "name": "28 PAulo ",
-          "phone": "85 902211155",
-          "email": "paulo@email.com",
-          "photo": "https://licensingcon.com.br/wp-content/uploads/2022/04/palmeiras.jpg",
-          "dateBirth": "2020-11-11",
-          "sex": "M",
-          "status": "I",
-          "customerId": "1",
-          "dateRegistration": "2022-10-25T19:48:22.826Z"
-        }
-
+        "_id": "637ea8222f700bffc0e24b27",
+        "name": "Silvo colaborador",
+        "phone": "85 900011179",
+        "email": "silvo@email.com",
+        "photo": "https://c4.wallpaperflare.com/wallpaper/469/917/206/soccer-sociedade-esportiva-palmeiras-logo-wallpaper-preview.jpg",
+        "dateBirth": "2020-02-20",
+        "sex": "m",
+        "status": "a",
+        "recipientId": "0",
+        "dateRegistration": "1669244962498",
+        "__v": 0,
+        "services": [
+          "637ea7a82f700bffc0e24b19"
+        ]
+      }
+    ],
+    "services":[
+      {
+        "label": "Corte de cabelo feminino",
+        "value": "634d739910870d4af9ec1109"
+      },
+      {
+        "label": "Corte de cabelo feminino",
+        "value": "634d75078544ede7dfcc5956"
+      }
     ]
 }
