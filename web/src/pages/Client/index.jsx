@@ -169,7 +169,7 @@ const Client = (props)=>{
                     return(
                         <>
                         {/* Link: edit */}
-                        <Link 
+                        <Link className={styles.clientBtnEdit}
                         href={"#"}
                         onClick={(e) =>{
                             dispatch(refreshClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
