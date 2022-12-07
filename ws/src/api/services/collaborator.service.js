@@ -6,6 +6,7 @@ const CollaboratorRepository        = require('../repositories/collaborator.repo
 const SalonCollaboratorRepository   = require('../repositories/relationship/salonCollaborator.repository')
 const CollaboratorServiceRepository = require('../repositories/relationship/collaboratorService.repository')
 
+
 /**  **/
 const get = async ( query={}, fields='' )=>{    
     console.log('CollaboratorService::post Pagar.me' )
@@ -38,10 +39,12 @@ const getSalonCollaborators = async ( salonId, fields='collaboratorId status dat
             const { oldCollaboratorService } = await CollaboratorServiceRepository.findOne(
                 { collaboratorId: collaborator._id },//query
                 '',//fields
-                // { path:'collaboratorId', select:'-passwd' }//populate
+                // { path:'serviceId', select:'_id' }//populate
             )
-            
+
+            // ATUALIZAR SERVICOS: 
             if(oldCollaboratorService){ services = oldCollaboratorService.serviceId }
+
             // console.log('salCol ###', salCol)
             listCollaborador.push({
                 ...collaborator._doc,
@@ -159,15 +162,16 @@ const put = async ( collaboratorId, status, salColId , services )=>{
     console.log('delCollaboratorServices', delCollaboratorServices)
 
     //INSERIR RELACIONAMENTO: (INSERT SERVICES) 
-    await CollaboratorServiceRepository.insertMany(
+    const { newCollaboratorServices } = await CollaboratorServiceRepository.insertMany(
         services.map((serviceId)=>({ serviceId, collaboratorId }))
     )
+    console.log('newCollaboratorServices', newCollaboratorServices)
 
     await session.commitTransaction()
     session.endSession()
 
-    return { error:false, message:'Atualizado com sucesso.' }
- }
+    return { error:false, message:'Serviço(s) atualizado(s) com sucesso.' }
+}
 
 /** AULA **/
 const deleteById = async (id) => {
@@ -179,7 +183,12 @@ const deleteById = async (id) => {
     return { error:false, message:'Deletado com sucesso.' }
 }
 
-
+/** AULA **
+ * 
+ * @param {*} query 
+ * @param {*} filters 
+ * @returns 
+ */
 const filters = async (query={}, filters={}) => {
     console.log('CollaboratorService::filters')
     return CollaboratorRepository.filters(query, filters)
