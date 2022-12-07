@@ -3,6 +3,7 @@ app/
 resources/
 web/
 ws/
+ResumoAulas.json
 
 ### ATENCAO: PARA MANTER (FILE ou DIR) USE NA FRENTE: !
 ### EXEMPLO (README.md): !*.md 
