@@ -65,14 +65,15 @@ const Collaborator = (props)=>{
         dispatch(unlinkCollaborator())
     }
     // ATUALIZAR STATE NO LOAD DA PAGE: API
+    const allLoad = load(all)
     // useEffectDispatch(allCollaborator, null, load(all))
     // useEffectDispatch(allServicesCollaborator, null, load(services))
     useEffect(() => {
-        if(load(all)){ 
+        if(allLoad){ 
             dispatch(allCollaborator())
             dispatch(allServicesCollaborator()) 
         }
-    },[])
+    },[dispatch, allLoad])
 
     return(
         <div className={`content ${styles.collaboratorContent}`}>  
