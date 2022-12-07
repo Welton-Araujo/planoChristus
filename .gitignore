@@ -1,3 +1,9 @@
+### BULD IGNORE:
+app/
+resources/
+web/
+ws/
+
 ### ATENCAO: PARA MANTER (FILE ou DIR) USE NA FRENTE: !
 ### EXEMPLO (README.md): !*.md 
 
