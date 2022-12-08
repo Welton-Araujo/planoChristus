@@ -29,7 +29,7 @@
       "layout":{
         "display": "grid",
         "minHeight": "100vh",
-        "gridTemplateRows": "100px 1fr 185px",
+        "gridTemplateRows": "auto 1fr auto",
         "gridTemplateColumns": "220px 1fr",
         "gridTemplateAreas":"'header header' 'navigation content' 'navigation footer'"
       },

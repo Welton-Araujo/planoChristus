@@ -34,6 +34,8 @@
     --pc-light-blue: #D0DFEA;
     --pc-glass-smoked:#424c5a33;
     --pc-glass: #0b19262e;
-    --pc-transparent: ;
+    --pc-transparent: #eef2f42e;
+    --pc-lead: #708690;
+    --pc-gradient-primary: linear-gradient(to right, #004bac, #46a5e9, #63b3ed,#9ccbec);
 }
 

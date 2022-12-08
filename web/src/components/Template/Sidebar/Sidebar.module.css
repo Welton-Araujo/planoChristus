@@ -7,6 +7,9 @@
   background-color: var(--dark);
   background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(2, 8, 32, 0.3) ), 
               url("../../../assets/img/bg-health-min.jpg");
+  /* background-repeat: round;
+  background-attachment: fixed; */
+  background-size: cover;
   color: inherit;
 }
 
