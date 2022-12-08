@@ -1,6 +1,6 @@
 import MainMenu from '../MainMenu'
 
-import logo from '../../../assets/img/logo-wide.png'
+// import logo from '../../../assets/img/logo-wide.png'
 import styles from './Sidebar.module.css'
 
 const Sidebar = (props)=>{
