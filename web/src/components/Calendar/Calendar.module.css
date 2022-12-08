@@ -13,7 +13,6 @@
 /* CLASS DA LIB: react-big-calendar*/
 .calendar > .rbc-time-view > .rbc-time-content > .rbc-time-column{
     min-width: 105px!important;
-    background-color: blue;
 }
 
 

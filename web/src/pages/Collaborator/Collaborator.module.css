@@ -63,17 +63,10 @@
 
 /* COMPONENT QUERIES */
 /* Extra large devices (large desktops, 1200px and up) */
-@media only screen and (max-width: 1200px) {
-    .collaboratorContent {
-        background-color: rgb(230, 217, 173);
-    }
-}
+@media only screen and (max-width: 1200px) { }
 
 /* Large devices (desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
-    .collaboratorContent {
-        background-color: rgb(173, 230, 181);
-    }
     .collaboratorHeader .rs-drawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
         width: 100%!important;
     }
@@ -81,17 +74,10 @@
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
-    .collaboratorContent {
-        background-color: rgb(207, 173, 230);
-    }
     .collaboratorDrawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
         width: 100%!important;
     }
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media only screen and (max-width: 576px) {
-    .collaboratorContent {
-        background-color: lightblue;
-    }
-}
+@media only screen and (max-width: 576px) { }

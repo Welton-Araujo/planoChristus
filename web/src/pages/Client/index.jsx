@@ -70,7 +70,7 @@ const Client = (props)=>{
             {/* CLIENT HEADER */}
             <div className={styles.clientHeader}>
                 <div className={styles.clientTitle}>
-                    <h1>Clientes</h1>
+                    <h1 className='pageTitle'>Clientes</h1>
                     <small>{salonName}</small>
                 </div>
                 {/* Client Panel */}

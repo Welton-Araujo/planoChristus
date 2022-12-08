@@ -33,29 +33,13 @@
 
 /* COMPONENT QUERIES */
 /* Extra large devices (large desktops, 1200px and up) */
-@media only screen and (max-width: 1200px) {
-  .schedulingContent {
-    background-color: rgb(173, 230, 181);
-  }
-}
+@media only screen and (max-width: 1200px) { }
 
 /* Large devices (desktops, 992px and up) */
-@media only screen and (max-width: 992px) {
-  .schedulingContent {
-    background-color: rgb(230, 217, 173);
-  }
-}
+@media only screen and (max-width: 992px) { }
 
 /* Medium devices (tablets, 768px and up) */
-@media only screen and (max-width: 728px) {
-  .schedulingContent {
-    background-color: lightblue;
-  }
-}
+@media only screen and (max-width: 728px) { }
 
 /* Small devices (landscape phones, 576px and up) */
-@media only screen and (max-width: 576px) {
-  .schedulingContent {
-    background-color: rgb(207, 173, 230);
-  }
-}
+@media only screen and (max-width: 576px) { }
