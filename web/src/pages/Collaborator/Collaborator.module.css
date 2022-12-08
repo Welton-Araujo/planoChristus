@@ -17,11 +17,9 @@
     display: flex;
     flex-direction: column;
     margin: 0 5px;
-    text-transform: uppercase;
 }
 .collaboratorTitle h1{
     font-size: 1.5rem;
-    color: var(--white);
 }
 .collaboratorBody{
     display: flex;

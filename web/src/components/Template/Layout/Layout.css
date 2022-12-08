@@ -53,6 +53,7 @@ footer {
 }
 .pageTitle{
   text-transform: uppercase;
+  color: var(--white-ice);
   text-shadow: 2px 2px 3px #87898e70;
 }
 
