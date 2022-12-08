@@ -40,7 +40,7 @@ const Scheduling = (props)=>{
     return(
         <div className={`content ${styles.schedulingContent}`}>
             <div className={styles.schedulingHeader}>
-                <h1>Agendamentos</h1>
+                <h1 className='pageTitle'>Agendamentos</h1>
             </div>
             <div className={styles.schedulingBody} style={style}>
                 <Calendar style={{padding:'5px'}} 

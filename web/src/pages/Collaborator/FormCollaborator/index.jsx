@@ -314,7 +314,7 @@ const MyForm = (props) =>{
             <b className={`fbTitle`}>{"SALÃO COLABORADOR"}</b>
             <div className={`fbGroup`}>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Sãlao status"}</b>
+                    <b>{"Status"}</b>
                     <select
                     className={"form-control"}
                     name={"salon-status"}

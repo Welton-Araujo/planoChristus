@@ -2,8 +2,9 @@ import SidebarMobile from '../SidebarMobile'
 
 import styles from './Header.module.css'
 
-import logo from '../../../assets/img/logo-small.png'
+import logoInfo from '../../../data/componentTest/logoInfo.json'
 import avatar from '../../../assets/img/avatar.png'
+import Logo from '../Logo'
 
 
 const Header = (props)=>{
@@ -17,12 +18,12 @@ const Header = (props)=>{
     
     return (
         <header className="" >
-            <div className={styles.logo}>
-                <a href='/'>
-                    <img src={logo} alt="logo" className="img-fluid px-3 py-1"/>
-                </a>
-                <span>{companyInfo.fantasyName||'Company'}</span>
-            </div>
+            <Logo 
+                title={logoInfo.title}
+                splitTitle={logoInfo.splitTitle}
+                subtitle={logoInfo.subtitle}
+                img={logoInfo.img}
+            />
             <div className={styles.mainMenu}>
                 <div className={styles.secondaryMenu} style={style}>
                     <div className="">

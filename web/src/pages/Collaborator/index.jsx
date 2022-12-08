@@ -81,7 +81,7 @@ const Collaborator = (props)=>{
             {/* COLLABORATOR HEADER */}
             <div className={styles.collaboratorHeader}>
                 <div className={styles.collaboratorTitle}>
-                    <h1>Colaborador</h1>
+                    <h1 className='pageTitle'>Colaborador</h1>
                     <small>{salonName}</small>
                 </div>
                 {/* Collaborator Panel */}

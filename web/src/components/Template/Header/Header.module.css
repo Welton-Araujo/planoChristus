@@ -1,15 +1,13 @@
-/*
- * COMMON:  OS NOMES_DAS_CLASS SERAO COMUNS. 
- *          Ex: import './index.css'
- *              <div classeName="subtitle"> => .subtitle
-*/
-
 header{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    background-color: var(--primary);
+    background-color: var(--pc-transparent);
+    background: 
+    linear-gradient(
+      rgba(210, 213, 243, 0.3),rgba(57, 60, 73, 0.3)
+    ), url("../../../assets/img/banner-main.png");
 }
 
 /* FILHOS DIRETOS DO HEADER */
@@ -39,13 +37,13 @@ header small{
     margin-top: -4px;
 }
 
-header .logo{
+/* header .logo{
     display: flex;
     flex: none;
     flex-direction: column;
     align-items: center;
     width: 140px;
-}
+} */
 
 .secondaryMenu{
     display: flex;

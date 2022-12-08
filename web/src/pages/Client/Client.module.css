@@ -17,11 +17,9 @@
     display: flex;
     flex-direction: column;
     margin: 0 5px;
-    text-transform: uppercase;
 }
 .clientTitle h1{
     font-size: 1.5rem;
-    color: var(--white);
 }
 .clientBody{
     display: flex;
@@ -62,17 +60,10 @@
 
 /* COMPONENT QUERIES */
 /* Extra large devices (large desktops, 1200px and up) */
-@media only screen and (max-width: 1200px) {
-    .clientContent {
-        background-color: rgb(230, 217, 173);
-    }
-}
+@media only screen and (max-width: 1200px) { }
 
 /* Large devices (desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
-    .clientContent {
-        background-color: rgb(173, 230, 181);
-    }
     .clientHeader .rs-drawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
         width: 100%!important;
     }
@@ -80,17 +71,10 @@
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
-    .clientContent {
-        background-color: rgb(207, 173, 230);
-    }
     .clientDrawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
         width: 100%!important;
     }
 }
 
 /* Small devices (landscape phones, 576px and up) */
-@media only screen and (max-width: 576px) {
-    .clientContent {
-        background-color: lightblue;
-    }
-}
+@media only screen and (max-width: 576px) { }

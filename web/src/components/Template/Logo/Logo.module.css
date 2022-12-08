@@ -1,0 +1,38 @@
+.logo{
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 5px 20px;
+    font-size: inherit;
+    text-align: center;
+}
+.boxImg{
+    display: inline-flex;
+    border: 1px double aliceblue;
+    border-radius: 4px;
+    margin: 0px 0px 7px 0px;
+    padding: 5px;
+}
+.logo img{
+    /* border: 1px solid aliceblue; */
+    border-radius: 4px;
+}
+
+.title{    
+    margin: 0px;
+    font-size: 10px;
+    color: var(--pc-primary);
+}
+.title span{
+    color: var(--white);
+}
+
+.subtitle{
+    margin-top: -1px;
+    font-size: 8.2px;
+    color: #64779d;
+}
+
+.info{
+    display: grid;
+}
