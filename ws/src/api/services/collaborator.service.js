@@ -162,10 +162,12 @@ const put = async ( collaboratorId, status, salColId , services )=>{
     console.log('delCollaboratorServices', delCollaboratorServices)
 
     //INSERIR RELACIONAMENTO: (INSERT SERVICES) 
-    const { newCollaboratorServices } = await CollaboratorServiceRepository.insertMany(
-        services.map((serviceId)=>({ serviceId, collaboratorId }))
-    )
-    console.log('newCollaboratorServices', newCollaboratorServices)
+    // const { newCollaboratorServices } = await CollaboratorServiceRepository.insertMany(
+    //     services.map((serviceId)=>({ serviceId, collaboratorId }))
+    // )
+    // console.log('newCollaboratorServices', newCollaboratorServices)
+    const { newCollaboratorService } = await CollaboratorServiceRepository.save({collaboratorId, serviceId:services})
+    console.log('newCollaboratorServices', newCollaboratorService)
 
     await session.commitTransaction()
     session.endSession()
