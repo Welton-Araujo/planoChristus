@@ -14,7 +14,10 @@ const MyTable = (props) => {
         actions=undefined, 
         onRowClick=undefined,
     } = props
-    const { main:{style={}}, header=[] } = config
+    const { 
+        main:{ style={} },
+        header=[] 
+    } = config
     // console.log('MyTable #### ', data)
     
     //MUDAR DE _ID PARA ID:

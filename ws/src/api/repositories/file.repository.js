@@ -10,12 +10,14 @@ const FileModel = require('../models/file.model')
  * @param {*} query { field_0, ... }
  * @returns Jobj { error, file }
  */
-const find = async (query={}) => {
+const find = async (query={}, fields='', populate='' ) => {
     try {
-        const file = await FileModel.find(query)
-        return { error:false, file }
+        const files = await FileModel.find(query)
+                                .select(fields)
+                                .populate(populate)
+        return { error:false, files }
     } catch (error) {
-        return { error:true, message:error.message }
+        return { error:true, message:error.message, files:[] }
     }
 }
 

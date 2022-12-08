@@ -17,7 +17,7 @@ const TableOneRow = (props) =>{
         ignore=[] 
     } = config
 
-    // console.log('TableOneRow ....', objData, config)
+    console.log('TableOneRow ....', objData)
 
     const flatData = flattenObj(objData, rootLabel, char, ignore)
 

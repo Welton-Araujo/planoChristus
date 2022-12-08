@@ -1,0 +1,79 @@
+.serviceContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0px;
+    padding: 0px ;
+}
+.serviceHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}  
+.serviceTitle{
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+}
+.serviceTitle h1{
+    font-size: 1.5rem;
+}
+.serviceBody{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+/* PANEL */
+.servicePanel{
+    color: inherit;
+}
+.serviceSearch{
+    padding: 15px;
+    border-radius: 5px;
+    background-color: var(--form-gray);
+    /* margin-bottom: 20px; */
+    border-radius: 5px;
+    border: 1px solid aliceblue;
+}
+
+.serviceBtnEdit{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    width:100%;
+    height: 36px;
+    /* margin:5px;  */
+    padding: 8px 12px;
+    border-radius:6px;
+    font-size:16px;
+    text-decoration:none;
+    color:inherit;
+    background-color:var(--rs-btn-default-bg);
+}
+
+
+/* COMPONENT QUERIES */
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) { }
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+    .serviceHeader .rs-drawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+        width: 100%!important;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (max-width: 728px) {
+    .serviceDrawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+        width: 100%!important;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) { }
