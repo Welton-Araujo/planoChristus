@@ -93,7 +93,7 @@ const MyForm = (props) =>{
                     hideMinutes={(min)=>![0,30].includes(min)}
                     // placeholder={"Duração"}
                     disabled={form.disabled}
-                    value={moment(page["duration"]).date()}
+                    value={moment(page["duration"]).toDate()}
                     autoFocus={focus==='duration'}
                     onChange={(e)=>{
                         focus = "duration"
