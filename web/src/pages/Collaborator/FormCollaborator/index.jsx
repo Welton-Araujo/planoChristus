@@ -165,7 +165,7 @@ const MyForm = (props) =>{
                     onChange={(e)=>{
                         focus = e.target.name
                         setPage("dateBirth", e.target.value)
-                    }}/>                
+                    }}/>
                 </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Sexo"}</b>
@@ -334,15 +334,15 @@ const MyForm = (props) =>{
                     <input
                     className={`form-control`}
                     name={"date-registration"}
-                    type={"text"}
-                    placeholder={"Salão status"}
+                    type={"date"}
+                    placeholder={"Data cadastro"}
                     disabled={form.disabled}
-                    value={salonCollaborator["dateRegistration"]}
+                    value={salonCollaborator["dateRegistration"].split('T')[0]}
                     autoFocus={focus==='date-registration'}
                     onChange={(e)=>{
                         focus = e.target.name
                         setPage("salonCollaborator", { ...salonCollaborator, dateRegistration:e.target.value })
-                    }}/>                
+                    }}/>
                 </div>
             </div>
             <b className={`fbTitle`}>{"SERVIÇOS"}</b>

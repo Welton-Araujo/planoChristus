@@ -29,6 +29,14 @@ const FILTER_SCHEDULING = '@scheduling/FILTER'
 const UPDATE_SCHEDULING = '@scheduling/UPDATE'
 
 //SERVICE
+const ALL_SERVICE     = '@service/ALL'
+const ADD_SERVICE     = '@service/ADD'
+const UPDATE_SERVICE  = '@service/UPDATE'
+const UNLINK_SERVICE  = '@service/UNLINK'
+const DELETEFILE_SERVICE  = '@service/DELETE_FILE'
+
+const REFRESH_SERVICE = '@service/REFRESH'
+const RESET_SERVICE   = '@service/RESET'
 
 
 export {
@@ -50,11 +58,21 @@ export {
     UPDATE_COLLABORATOR,
     UNLINK_COLLABORATOR,
     ALL_SERVICES_COLLAB,    
-    
+
+    ALL_SERVICE,
+    ADD_SERVICE,
+    UPDATE_SERVICE,
+    UNLINK_SERVICE,  
+    DELETEFILE_SERVICE,
+
     // STATE LOCAL
     REFRESH_CLIENT,
     RESET_CLIENT,
     
     REFRESH_COLLABORATOR,
     RESET_COLLABORATOR,
+
+    REFRESH_SERVICE,
+    RESET_SERVICE,
+    
 }

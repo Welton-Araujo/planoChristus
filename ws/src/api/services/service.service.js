@@ -15,28 +15,28 @@ const FileRepository    = require('../repositories/file.repository')
  * @param {*} fields 
  * @returns 
  */
-const getFullSalonServices = async (salonId, query={}, fields='')=>{
+const getFullSalonServices = async (salonId, query={}, fields='-__v')=>{
     console.log('Service::getFullSalonServices', salonId)
     
-    let servicesFull = []
     //BUSCAR SERVICOS:
-    const { services } = await ServiceRepository.find({ 
-        salonId,
-        status: { $ne: 'e'},
-        ...query
-    }, fields)
+    const { services } = await ServiceRepository.find(
+        { salonId, status:{ $ne:'e' }, ...query }, 
+        fields,
+    )
     // console.log('services...', services)
+    if( !services ){ return { erros:true, message:"Erro na busca dos serviços.", services:null } }
 
     //BUSCAR OS ARQUIVOS DOS SERVICOS:
+    let servicesFull = []
     for (const service of services) {
-        const files = await FileRepository.find({
-            model: 'Service',
-            referenceId: service._id,
-        })
+        const { files } = await FileRepository.find(
+            { model:'Service', referenceId:service._id },
+            "-model -referenceId -__v",//fields
+        )
         servicesFull.push({ ...service._doc, files })
     }
 
-    return { erros: false, salonId, servicos: servicesFull }
+    return { erros:false, message:"Todos serviço(s) do salão.", salonId, services:servicesFull }
 }
 
 /*** AWS ***

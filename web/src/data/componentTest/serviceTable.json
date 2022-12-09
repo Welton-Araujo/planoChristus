@@ -1,0 +1,22 @@
+{
+    "config":{
+        "main":{
+          "style":{"height":447}
+        },
+        "header":[
+          {"label":"id", "fixed":true, "style":{"width":80,"align":"center"}},
+          {"label":"title","fixed":false, "style":{"width":250,"align":"left"}},
+          {"label":"price","fixed":false, "style":{"width":100,"align":"left"}},
+          {"label":"duration", "fixed":false,"style":{"width":200,"align":"left"}},
+          {"label":"comission", "fixed":false, "style":{"width":90,"align":"left"}},
+          {"label":"recurrence", "fixed":false, "style":{"width":100,"align":"left"}},
+          {"label":"description", "fixed":false,"style":{"width":300,"align":"left"}},
+          {"label":"status", "fixed":false,"style":{"width":80,"align":"left"}},
+          {"label":"dateRegistration", "fixed":false,"style":{"width":200,"align":"left"}},
+
+          {"label":"file", "fixed":false,"style":{"width":300,"align":"left"}}
+
+        ]
+    },
+    "data":[ ]
+}

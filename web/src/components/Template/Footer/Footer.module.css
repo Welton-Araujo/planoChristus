@@ -3,8 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    /* height: 185px; */
-    background-color: var(--pc-blue);
+    background-color: var(--pc-lead);
     color: var(--white);
 }
 
@@ -16,20 +15,21 @@
     align-items: initial;
     width: 100%;
     padding: 10px;
-    background-color: var(--pc-blue);
+    background-color: var(--pc-lead);
+    border-bottom: 0.1rem solid var(--pc-light-blue);
 }
-
 .mainFooter h2 {
     min-height: 25px;
     font-size: .9em;
     line-height: inherit;
 }
-
 .mainFooter h6 {
     font-size: .67rem;
     margin: 1.0px;
 }
-
+.mainFooter .navmenu{
+    margin: 0 1px;
+}
 /*Main Footer Company*/
 .mainFooterCompany {
     width: 30%;
@@ -47,7 +47,6 @@
     align-items: initial;
     width: 50%;
 }
-
 /*Button Footer*/
 .buttonFooter {
     display: flex;
@@ -55,16 +54,18 @@
     justify-content: center;
     text-align: center;
     width: 100%;
-    background-color: var(--pc-primary);
+    /* background: var(--pc-gradient-primary); */
+    background: var(--pc-primary);
     color: var(--white);
-    /* position: relative;
-    bottom: -18px; */
+    /* position: fixed;
+    bottom: 0px; */
 }
-
 .buttonFooter span {
     padding: 7px 0;
     font-size: 0.62em;
 }
+
+
 
 /* CONPONENT QUERIES */
 /* Extra large devices (large desktops, 1200px and up) */

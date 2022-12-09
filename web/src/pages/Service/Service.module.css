@@ -1,25 +1,25 @@
-.collaboratorContent {
+.serviceContent {
     display: flex;
     flex-direction: column;
     height: 100%;
     margin: 0px;
     padding: 0px ;
 }
-.collaboratorHeader{
+.serviceHeader{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px;
 }  
-.collaboratorTitle{
+.serviceTitle{
     display: flex;
     flex-direction: column;
     margin: 0 5px;
 }
-.collaboratorTitle h1{
+.serviceTitle h1{
     font-size: 1.5rem;
 }
-.collaboratorBody{
+.serviceBody{
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -28,11 +28,11 @@
     padding: 10px;
 }
 
-/* CLIENTPANEL */
-.collaboratorPanel{
+/* PANEL */
+.servicePanel{
     color: inherit;
 }
-.collaboratorSearch{
+.serviceSearch{
     padding: 15px;
     border-radius: 5px;
     background-color: var(--form-gray);
@@ -41,7 +41,7 @@
     border: 1px solid aliceblue;
 }
 
-.collaboratorBtnEdit{
+.serviceBtnEdit{
     display:flex;
     justify-content:center;
     align-items: center;
@@ -63,14 +63,14 @@
 
 /* Large devices (desktops, 992px and up) */
 @media only screen and (max-width: 992px) {
-    .collaboratorHeader .rs-drawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+    .serviceHeader .rs-drawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
         width: 100%!important;
     }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media only screen and (max-width: 728px) {
-    .collaboratorDrawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+    .serviceDrawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
         width: 100%!important;
     }
 }
