@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { 
     useDispatch, 
     useSelector,
 } from 'react-redux'
-// import { Button } from 'rsuite'
+import { Button } from 'rsuite'
 
 // import useEffectDispatch from '../../hooks/UseEffect'
 import { 
@@ -29,8 +28,10 @@ import MyDrawer         from '../../components/Drawer'
 import ConfirmModal     from '../../components/Modal/ConfirmModal'
 
 // STATIC TEST
-import loginFake    from '../../data/fakeReq/login.json' 
-import serviceTable from '../../data/componentTest/serviceTable.json' 
+import loginFake        from '../../data/fakeReq/login.json' 
+import { 
+    serviceTable as tableConfig
+} from '../../constants/components/table' 
 
 const { name:salonName } = loginFake.salon
 let stap = 0
@@ -132,20 +133,24 @@ const Service = (props)=>{
                 <MyTable 
                 loading={form.filtering}
                 data={all}
-                config={serviceTable.config}
+                config={tableConfig}
                 onRowClick={(rowData)=>{}}
                 actions={(rowData)=>{
                     return(
                         <>
-                        {/* Link: edit */}
-                        <Link className={styles.serviceBtnEdit} 
-                        href={"#"} 
-                        onClick={(e) =>{
-                            dispatch(refreshService({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
-                            setComponent('drawer',{id:'drawer-service',open:true})                                                              
-                        }} > 
-                            <span className="mdi mdi-account-edit"></span>
-                        </Link>
+                        {/* BUTTON: edit */}
+                        <div className={styles.serviceBtnEdit}>
+                            <Button 
+                            appearance="default"
+                            loading={form.filtering}
+                            disabled={form.filtering}
+                            onClick={()=>{
+                                dispatch(refreshService({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                                setComponent('drawer',{id:'drawer-service',open:true})
+                            }} > 
+                                <span className="mdi mdi-account-edit"></span>
+                            </Button>
+                        </div>
 
                         {/* ConfirmModal: cm */}
                         <ConfirmModal id={"cmServiceRemove"}

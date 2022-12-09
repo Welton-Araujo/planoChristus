@@ -38,7 +38,10 @@ const SidebarMobile = (props) => {
             }} 
             >
                 <div className={styles.sideMobileMenu}>
-                    <MainMenu menu={menus.itemsMainMenu} onClose={handleClose}/>
+                    <MainMenu 
+                    className={styles.itemsMainMenu} 
+                    menu={menus.itemsMainMenu}
+                    onClose={handleClose}/>
                 </div>
             </MyDrawer>
         </div>

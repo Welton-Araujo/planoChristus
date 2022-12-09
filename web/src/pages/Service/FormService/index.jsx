@@ -1,13 +1,13 @@
 // OBS: CRIAR UM FORM DINAMICO NO FUTURO!
 // USANDO CLASS DO BOOTSTRAP:
-import { Button, DatePicker } from 'rsuite'
+import { Button, DatePicker, Tag } from 'rsuite'
 import moment from 'moment'
 
 import './Form.css'
 import Alert from '../../../components/Pieces/Alert'
 
 // import { isPrimitive } from '../../../utils/validation'
-// import { formInfo } from '../../../constants/pages/collaborator'
+// import { formInfo } from '../../../constants/pages/service'
 
 let focus = ""
 
@@ -91,7 +91,6 @@ const MyForm = (props) =>{
                     name={"duration"}
                     format={"HH:mm"}
                     hideMinutes={(min)=>![0,30].includes(min)}
-                    // placeholder={"Duração"}
                     disabled={form.disabled}
                     value={moment(page["duration"]).toDate()}
                     autoFocus={focus==='duration'}

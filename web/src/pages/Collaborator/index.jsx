@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { 
     useDispatch, 
     useSelector,
@@ -24,15 +23,17 @@ import {
 import styles           from './Collaborator.module.css'
 import FormCollaborator from './FormCollaborator'
 import MyTable          from '../../components/Table'
-import TableOneRow      from '../../components/TableOneRow'
+// import TableOneRow      from '../../components/TableOneRow'
 import MyDrawer         from '../../components/Drawer'
-import MyModal          from '../../components/Modal'
+// import MyModal          from '../../components/Modal'
 import ConfirmModal     from '../../components/Modal/ConfirmModal'
 
 // STATIC TEST
 import loginFake    from '../../data/fakeReq/login.json' 
 import bankInfo     from '../../data/componentTest/bankInfo.json'
-import collaboratorTable from '../../data/componentTest/collaboratorTable.json' 
+import { 
+    collaboratorTable as tableConfig
+} from '../../constants/components/table' 
 
 const { name:salonName } = loginFake.salon
 let stap = 0
@@ -173,7 +174,7 @@ const Collaborator = (props)=>{
                 <MyTable 
                 loading={form.filtering}
                 data={all}
-                config={collaboratorTable.config}
+                config={tableConfig}
                 onRowClick={(rowData)=>{
                     // dispatch(refreshCollaborator({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
                     // setComponent('drawer', {id:"drawer-collaborator", open:true})
@@ -181,18 +182,43 @@ const Collaborator = (props)=>{
                 actions={(rowData)=>{
                     return(
                         <>
-                        {/* Link: edit */}
-                        <Link className={styles.collaboratorBtnEdit} 
-                        href={"#"} 
-                        onClick={(e) =>{
-                            dispatch(refreshCollaborator({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                        {/* BUTTON: edit */}
+                        <div className={styles.collaboratorBtnEdit}>
+                            <Button 
+                            appearance="default"
+                            loading={form.filtering}
+                            disabled={form.filtering}
+                            onClick={()=>{
+                                dispatch(refreshCollaborator({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
                             setComponent('drawer',{id:'drawer-collaborator',open:true})                                                              
-                        }} > 
-                            <span className="mdi mdi-account-edit"></span>
-                        </Link>
+                            }} > 
+                                <span className="mdi mdi-account-edit"></span>
+                            </Button>
+                        </div>
+
+                        {/* ConfirmModal: cm */}
+                        <ConfirmModal id={"cmCollaboratorRemove"}
+                        config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
+                        buttonOpen={{
+                            disabled:false,
+                            title: <span className="mdi mdi-delete"></span> 
+                        }}
+                        buttonConfirm={{title:"",loading:form.saving}}
+                        buttonCancel ={{titel:""}}
+                        customState={{
+                            component: components.modal,
+                            handleOpen: ()=>{
+                                dispatch(refreshCollaborator({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
+                                setComponent('modal',{id:"cmCollaboratorRemove", open:true})
+                            },
+                            handleConfirm:()=>{remove()},
+                            handleCancel :()=>setComponent('modal',{id:null, open:false})
+                        }}
+                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
+                        />
 
                         {/* Modal: see */}
-                        <MyModal style={{}}
+                        {/* <MyModal style={{}}
                         id={rowData.id}                        
                         config={{title:'DETALHES SALÃO::COLABORADOR'}}
                         buttonOpen={{
@@ -216,28 +242,7 @@ const Collaborator = (props)=>{
                                 ignore:[ '_id', ] 
                             }}
                             />
-                        </MyModal>
-
-                        {/* ConfirmModal: cm */}
-                        <ConfirmModal id={"cmCollaboratorRemove"}
-                        config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
-                        buttonOpen={{
-                            disabled:false,
-                            title: <span className="mdi mdi-delete"></span> 
-                        }}
-                        buttonConfirm={{title:"",loading:form.saving}}
-                        buttonCancel ={{titel:""}}
-                        customState={{
-                            component: components.modal,
-                            handleOpen: ()=>{
-                                dispatch(refreshCollaborator({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
-                                setComponent('modal',{id:"cmCollaboratorRemove", open:true})
-                            },
-                            handleConfirm:()=>{remove()},
-                            handleCancel :()=>setComponent('modal',{id:null, open:false})
-                        }}
-                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
-                        />
+                        </MyModal> */}
                         </>
                     )
                 }}/>
