@@ -1,7 +1,8 @@
 const Busboy  = require('busboy')
 
 const AWS = require('../../utils/external/aws')
-// const { isEmpty } = require('../../utils/validations')
+const { isFilled:have } = require ('../../utils/validations')
+const { createMetadata:createMeta } = require ('../../utils/operations/image')
 
 const ServiceRepository = require('../repositories/service.repository')
 const SalonRepository   = require('../repositories/salon.repository')
@@ -31,9 +32,22 @@ const getFullSalonServices = async (salonId, query={}, fields='-__v')=>{
     for (const service of services) {
         const { files } = await FileRepository.find(
             { model:'Service', referenceId:service._id },
-            "-model -referenceId -__v",//fields
+            "-model -__v",//fields
         )
-        servicesFull.push({ ...service._doc, files })
+        // console.log("FILE ###", files)
+        servicesFull.push({
+            ...service._doc, 
+            files
+            // files: files.map((file, i)=>({
+            //     id:file._id,
+            //     serviceId:file.referenceId, 
+            //     name:file.path, 
+            //     fileKey:i+1, 
+            //     url:file.path,
+            //     path:file.path, 
+            //     dataRegistration:file.dataRegistration, 
+            // })) 
+        })
     }
 
     return { erros:false, message:"Todos serviço(s) do salão.", salonId, services:servicesFull }
@@ -46,17 +60,29 @@ const getFullSalonServices = async (salonId, query={}, fields='-__v')=>{
  * @returns 
  */
 const post = async ( service, files, headers )=>{
-    console.log('Service::post AWS')    
+    console.log('Service::post AWS', )    
     // let busboy      = Busboy({ headers })
     
     // busboy.on('pipe', async () => {
         //SALVAR NA AWS:
         const { files:AWSFiles } = await AWS.pushSafe(service, files)
-        console.log('AWSFiles...',AWSFiles )
+
+        //ADD METADATA:
+        const AWSFilesMeta = []
+        for await (const obj of AWSFiles) {
+            AWSFilesMeta.push({...obj, meta:createMeta(obj.file)})
+        }
+        // console.log('AWSFilesMeta...', AWSFilesMeta )
 
         //SAVAR NO DB:
-        const { service:DBService, files:DBFiles } = await ServiceRepository.saveFull(service, AWSFiles)
-        if( !DBService || !DBFiles ){ return { error:true, message:"Error ao salvar no DB."} }
+        const { 
+            error, 
+            message,
+            service:DBService, 
+            files:DBFiles 
+        } = await ServiceRepository.saveFull(service, AWSFilesMeta)
+        console.log("Service::post: saveFull ### error:", error, message)
+        if( !DBService || !DBFiles ){ return { error:true, message:"Error ao salvar no DB." } }
 
         return { error:false, service:DBService, files:DBFiles }
     // })

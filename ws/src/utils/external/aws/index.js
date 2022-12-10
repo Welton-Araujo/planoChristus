@@ -26,7 +26,7 @@ const defaultFilenames = async (name, id, files)=>{
     try {
         let errorFile   = true
         const defaultFiles = []  
-        for (const key of Object.keys(files)) {
+        for await (const key of Object.keys(files)) {
             //Arquivo:
             const file     = files[key]//[0]// Com Multi ativado
             //A lib express-busboy, esta ativa?
