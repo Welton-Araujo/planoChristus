@@ -98,7 +98,7 @@ const Service = (props)=>{
                     customState={{
                         component: components.drawer,
                         handleOpen:()=>{
-                            dispatch(refreshService({ behavior:'create' }))
+                            dispatch(refreshService({ behavior:'create', form:{ ...form, disabled:false } }))
                             dispatch(resetService())
                             setComponent('drawer',{id:'drawer-service', open:true})
                         },

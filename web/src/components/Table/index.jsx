@@ -18,7 +18,7 @@ const MyTable = (props) => {
         style:styleConf={},
         header=[] 
     } = config
-    console.log('MyTable #### ', config, styleConf)
+    // console.log('MyTable #### ', config, styleConf)
     
     //MUDAR DE _ID PARA ID:
     const newData  = data.map((item)=>({ ...item, id:(item._id||item.id) }))
@@ -32,15 +32,10 @@ const MyTable = (props) => {
         rowExpandedHeight={440}
         onRowClick={onRowClick}>
         {   
-        header.map(({label, key, content, fixed, style},i) => (
+        header.map(({label, key, content:fnContent, fixed, style}, i) => (
             <Column key={`${i}`} flexGrow={style.width ? 0:1} width={style.width} align={style.align} fixed={fixed}>
                 <HeaderCell >{getFormattedLabel(label)}</HeaderCell>
-                {   
-                    content 
-                    ? <Cell>{ content }</Cell>
-                    : <Cell dataKey={key} />
-                }
-                
+                <Cell dataKey={key}>{fnContent}</Cell>
             </Column>
         ))       
         }
