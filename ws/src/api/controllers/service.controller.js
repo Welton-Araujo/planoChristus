@@ -24,7 +24,7 @@ const post = async (req, res)=>{
 const put = async (req, res)=>{
     console.log('ServiceController::put (Multidata)')
     const { id } = req.params
-    const { salonId, service } = req.body
+    const { service } = req.body
     const { files, headers } = req
     const response = await serviceService.put(id, JSON.parse(service), files, headers)
     res.json(response)
@@ -33,18 +33,18 @@ const put = async (req, res)=>{
 /*** AULA File ***/
 const deleteFile = async (req, res)=>{
     console.log('ServiceController::deleteFile')
-    const { referenceId } = req.params
-    const { id, salonId, path } = req.body
-    const response = await serviceService.deleteFile(id, referenceId, salonId, path)
+    const { serviceId } = req.params
+    const { salonId, id, path } = req.body
+    const response = await serviceService.deleteFile(salonId, { id, referenceId:serviceId, path })
     res.json(response)
 }
 
 /*** AULA File ***/
-const deleteFileById = async (req, res)=>{
-    console.log('ServiceController::delFileById')
-    const { id } = req.params
-    const { referenceId, salonId, path } = req.body
-    const response = await serviceService.deleteFileById(id, referenceId, salonId, path)
+const deleteById = async (req, res)=>{
+    const { serviceId } = req.params
+    const { salonId } = req.body
+    console.log('ServiceController::deleteById', serviceId, salonId)
+    const response = await serviceService.deleteById(serviceId, salonId)
     res.json(response)
 }
 
@@ -55,6 +55,6 @@ module.exports = {
     post,
     put,
     deleteFile,
-    deleteFileById,    
+    deleteById,    
 
 }

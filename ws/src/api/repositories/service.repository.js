@@ -79,16 +79,19 @@ const saveFull = async (service, files) => {
     const session = await db.startSession()
     session.startTransaction()
     try {
-        //Insert service:
+        //INSERT SERVICE:
         const savedService = await ServiceModel(service).save()
         if( !savedService ) { return {error:true, service:null, files:null } }
 
-        //Insert File: Criar files[] do service para salvar no db:
-        const filesToDB = await files.map(({folderPath})=>({
-            referenceId: savedService._id,
-            model: 'Service',
-            path: folderPath,
-        }))        
+        //INSERT FILE: Criar files[] do service para salvar no db:
+        const filesToDB = await files.map(({folderPath, meta})=>{
+            return{
+                referenceId: savedService._id,
+                model: 'Service',
+                path: folderPath,
+                meta
+            }
+        })
         const savedFiles = await FileModel.insertMany(filesToDB)
         if( !savedFiles ) { return {error:true, service:null, files:null } }
 
@@ -143,10 +146,11 @@ const updateFull = async (id, service, files) => {
         console.log('oldFile', oldFile)
         
         //Insert File: Criar files[] do service para salvar no db:
-        const filesToDB = await files.map(({folderPath})=>({
+        const filesToDB = await files.map(({folderPath, meta})=>({
             referenceId: id,
             model: 'Service',
             path: folderPath,
+            meta
         }))
         const upFiles = await FileModel.insertMany(filesToDB)
 

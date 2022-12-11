@@ -20,6 +20,25 @@ const file = new Schema({
         type: String,
         required: true
     },
+    meta:{
+        name: String,
+        encoding: {
+            type: String,
+            // enum:["7bit"]
+        },
+        mimetype: {
+            type: String,
+            enum:[
+                "image/png",
+                "image/jpg",
+                "image/jpeg",
+                "image/gif",
+                "image/webp"
+            ]
+        },
+        truncated: Boolean,
+        size: Number
+    },
     dateRegistration:{
         type: Date,
         default: Date.now,

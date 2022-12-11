@@ -12,7 +12,7 @@ export const INITIAL_STATE = {
         "description": "",
         "status": "a",
         "dateRegistration": "",
-        "files":[]
+        "files":[]//[{ name:"", fileKey:0, url:""}]
     },
     form: {
         filtering: false,

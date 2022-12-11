@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { 
     useDispatch, 
     useSelector,
 } from 'react-redux'
-// import { Button } from 'rsuite'
+import { Button } from 'rsuite'
 
 // import useEffectDispatch from '../../hooks/UseEffect'
 import { 
@@ -29,8 +28,10 @@ import MyDrawer         from '../../components/Drawer'
 import ConfirmModal     from '../../components/Modal/ConfirmModal'
 
 // STATIC TEST
-import loginFake    from '../../data/fakeReq/login.json' 
-import serviceTable from '../../data/componentTest/serviceTable.json' 
+import loginFake        from '../../data/fakeReq/login.json' 
+import { 
+    serviceTable as tableConfig
+} from '../../constants/components/table' 
 
 const { name:salonName } = loginFake.salon
 let stap = 0
@@ -97,7 +98,7 @@ const Service = (props)=>{
                     customState={{
                         component: components.drawer,
                         handleOpen:()=>{
-                            dispatch(refreshService({ behavior:'create' }))
+                            dispatch(refreshService({ behavior:'create', form:{ ...form, disabled:false } }))
                             dispatch(resetService())
                             setComponent('drawer',{id:'drawer-service', open:true})
                         },
@@ -118,7 +119,7 @@ const Service = (props)=>{
                                 }else if(behavior==='update'){
                                     update()
                                 }else{
-                                    setComponent('modal',{id:"cmServiceRemove", open:true}) 
+                                    alert("Função não implementada: behavior===delete")
                                 } 
                             },
                             style: { backgroundColor: getBehavior(behavior).color }
@@ -132,23 +133,27 @@ const Service = (props)=>{
                 <MyTable 
                 loading={form.filtering}
                 data={all}
-                config={serviceTable.config}
+                config={tableConfig}
                 onRowClick={(rowData)=>{}}
                 actions={(rowData)=>{
                     return(
                         <>
-                        {/* Link: edit */}
-                        <Link className={styles.serviceBtnEdit} 
-                        href={"#"} 
-                        onClick={(e) =>{
-                            dispatch(refreshService({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
-                            setComponent('drawer',{id:'drawer-service',open:true})                                                              
-                        }} > 
-                            <span className="mdi mdi-account-edit"></span>
-                        </Link>
+                        {/* BUTTON: edit */}
+                        <div className={styles.serviceBtnEdit}>
+                            <Button 
+                            appearance="default"
+                            loading={form.filtering}
+                            disabled={form.filtering}
+                            onClick={()=>{
+                                dispatch(refreshService({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                                setComponent('drawer',{id:'drawer-service',open:true})
+                            }} > 
+                                <span className="mdi mdi-account-edit"></span>
+                            </Button>
+                        </div>
 
                         {/* ConfirmModal: cm */}
-                        <ConfirmModal id={"cmServiceRemove"}
+                        <ConfirmModal id={`cmServiceRemove-${rowData.id}`}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
                         buttonOpen={{
                             disabled:false,
@@ -160,7 +165,7 @@ const Service = (props)=>{
                             component: components.modal,
                             handleOpen: ()=>{
                                 dispatch(refreshService({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
-                                setComponent('modal',{id:"cmServiceRemove", open:true})
+                                setComponent('modal',{id:`cmServiceRemove-${rowData.id}`, open:true})
                             },
                             handleConfirm:()=>{remove()},
                             handleCancel :()=>setComponent('modal',{id:null, open:false})

@@ -15,31 +15,31 @@ const MyTable = (props) => {
         onRowClick=undefined,
     } = props
     const { 
-        main:{ style={} },
+        style:styleConf={},
         header=[] 
     } = config
-    // console.log('MyTable #### ', data)
+    // console.log('MyTable #### ', config, styleConf)
     
     //MUDAR DE _ID PARA ID:
     const newData  = data.map((item)=>({ ...item, id:(item._id||item.id) }))
 
     return (
-        <Table className={styles.table} style={style} 
+        <Table className={styles.table} style={styleConf} 
         loading={loading}
-        height={style.height}
+        height={styleConf.height}
         data={newData}
         // autoHeight={autoHeight}
         rowExpandedHeight={440}
         onRowClick={onRowClick}>
         {   
-            header.map(({label, fixed, style},i) => (
-                <Column key={`${i}`} flexGrow={style.width ? 0:1} width={style.width} align={style.align} fixed={fixed}>
-                    <HeaderCell >{getFormattedLabel(label)}</HeaderCell>
-                    <Cell dataKey={label} />
-                </Column>
-            ))       
+        header.map(({label, key, content:fnContent, fixed, style}, i) => (
+            <Column key={`${i}`} flexGrow={style.width ? 0:1} width={style.width} align={style.align} fixed={fixed}>
+                <HeaderCell >{getFormattedLabel(label)}</HeaderCell>
+                <Cell dataKey={key}>{fnContent}</Cell>
+            </Column>
+        ))       
         }
-            <Column width={120} fixed={"right"} style={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>
+            <Column width={100} fixed={"right"} style={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>
                 <HeaderCell>...</HeaderCell>
                 <Cell style={{padding:'0px'}}>
                     {actions}

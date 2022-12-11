@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { 
     useDispatch, 
     useSelector,
@@ -22,14 +21,16 @@ import {
 import styles      from './Client.module.css'
 import FormClient  from './FormClient'
 import MyTable     from '../../components/Table'
-import TableOneRow from '../../components/TableOneRow'
+// import TableOneRow from '../../components/TableOneRow'
 import MyDrawer    from '../../components/Drawer'
-import MyModal       from '../../components/Modal'
+// import MyModal       from '../../components/Modal'
 import ConfirmModal from '../../components/Modal/ConfirmModal'
 
 // STATIC TEST
-import loginFake   from '../../data/fakeReq/login.json' 
-import clientTable from '../../data/componentTest/clientTable.json' 
+import loginFake       from '../../data/fakeReq/login.json' 
+import { 
+    clientTable as tableConfig
+} from '../../constants/components/table' 
 
 const { name:salonName } = loginFake.salon
 let stap = 0
@@ -160,7 +161,7 @@ const Client = (props)=>{
                 <MyTable 
                 loading={form.filtering}
                 data={all}
-                config={clientTable.config}
+                config={tableConfig}
                 onRowClick={(rowData)=>{
                     // dispatch(refreshClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
                     // setComponent('drawer', {id:"drawer-client", open:true})
@@ -168,18 +169,43 @@ const Client = (props)=>{
                 actions={(rowData)=>{
                     return(
                         <>
-                        {/* Link: edit */}
-                        <Link className={styles.clientBtnEdit}
-                        href={"#"}
-                        onClick={(e) =>{
-                            dispatch(refreshClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
-                            setComponent('drawer',{id:'drawer-client',open:true})                                                              
-                        }} >
-                            <span className="mdi mdi-account-edit"></span>
-                        </Link>
-
+                        {/* BUTTON: edit */}
+                        <div className={styles.clientBtnEdit}>
+                            <Button 
+                            appearance="default"
+                            loading={form.filtering}
+                            disabled={form.filtering}
+                            onClick={()=>{
+                                dispatch(refreshClient({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
+                                setComponent('drawer',{id:'drawer-client',open:true})   
+                            }} >
+                                <span className="mdi mdi-account-edit"></span>
+                            </Button>
+                        </div>
+                                           
+                        {/* ConfirmModal : cm */}
+                        <ConfirmModal id={"cmClientRemove"}
+                        config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
+                        buttonOpen={{
+                            disabled:false,
+                            title: <span className="mdi mdi-delete"></span> 
+                        }}
+                        buttonConfirm={{title:"",loading:form.saving}}
+                        buttonCancel ={{titel:""}}
+                        customState={{
+                            component: components.modal,
+                            handleOpen: ()=>{
+                                dispatch(refreshClient({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
+                                setComponent('modal',{id:"cmClientRemove", open:true})
+                            },
+                            handleConfirm:()=>{remove()},
+                            handleCancel :()=>setComponent('modal',{id:null, open:false})
+                        }}
+                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
+                        />
+                        
                         {/* Modal: see */}
-                        <MyModal style={{}}
+                        {/* <MyModal style={{}}
                         id={rowData.id}                        
                         config={{title:'DETALHES'}}
                         buttonOpen={{
@@ -203,28 +229,7 @@ const Client = (props)=>{
                                 ignore:[ '_id', ] 
                             }}
                             />
-                        </MyModal>
-                        
-                        {/* ConfirmModal : cm */}
-                        <ConfirmModal id={"cmClientRemove"}
-                        config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
-                        buttonOpen={{
-                            disabled:false,
-                            title: <span className="mdi mdi-delete"></span> 
-                        }}
-                        buttonConfirm={{title:"",loading:form.saving}}
-                        buttonCancel ={{titel:""}}
-                        customState={{
-                            component: components.modal,
-                            handleOpen: ()=>{
-                                dispatch(refreshClient({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
-                                setComponent('modal',{id:"cmClientRemove", open:true})
-                            },
-                            handleConfirm:()=>{remove()},
-                            handleCancel :()=>setComponent('modal',{id:null, open:false})
-                        }}
-                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
-                        />
+                        </MyModal> */}
                         </>
                     )
                 }}/>

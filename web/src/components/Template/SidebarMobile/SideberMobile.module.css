@@ -18,6 +18,14 @@
 .sideMobileMenu a:last-child{
     border-bottom: none;    
 }
+.itemsMainMenu{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    line-height: 30px;
+    /* background-color: var(--pc-glass);
+    color: var(--white); */
+ }
 
 
 

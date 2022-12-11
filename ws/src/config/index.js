@@ -20,7 +20,7 @@ module.exports = Object.freeze({
 
   SECRET:           process.env.APP_SECRET,
   NODE_ENV:         process.env.NODE_ENV,
-  UPLOAD_DIR:       process.env.UPLOAD_DIR,
+  UPLOAD_DIR:      (process.env.UPLOAD_DIR) ? process.env.UPLOAD_DIR:"./storage/upload",
   UPLOAD_ENABLED:  (process.env.UPLOAD_ENABLED==="true") ? true : false,//CAST Bool
 
   TOKEN:      process.env.JWT_SECRET,

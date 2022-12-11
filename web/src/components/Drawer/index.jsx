@@ -66,7 +66,7 @@ const MyDrawer = (props)=>{
                         </Drawer.Actions>
                         }
                 </Drawer.Header>
-                <Drawer.Body>
+                <Drawer.Body className={styles.myDrawerBody}>
                     {children}
                 </Drawer.Body>
             </Drawer>

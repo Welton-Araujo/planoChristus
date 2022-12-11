@@ -1,13 +1,13 @@
 // OBS: CRIAR UM FORM DINAMICO NO FUTURO!
 // USANDO CLASS DO BOOTSTRAP:
-import { Button, DatePicker } from 'rsuite'
+import { Button, DatePicker, Uploader } from 'rsuite'
 import moment from 'moment'
 
 import './Form.css'
 import Alert from '../../../components/Pieces/Alert'
 
 // import { isPrimitive } from '../../../utils/validation'
-// import { formInfo } from '../../../constants/pages/collaborator'
+// import { formInfo } from '../../../constants/pages/service'
 
 let focus = ""
 
@@ -27,7 +27,7 @@ const MyForm = (props) =>{
     } = props    
     const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
     const { files=[] } = page
-    console.log("MyForm ### ", page)
+    console.log("MyForm ### ", files)
 
     return(
         <div className={`formBuilder`}>
@@ -71,6 +71,7 @@ const MyForm = (props) =>{
                 </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Preço"}</b>
+                    {/* DEU ERRO NO SERVIDOR: 33,33 CORRIGIR: 33.33  */}
                     <input
                     className={`form-control`}
                     name={"price"}
@@ -91,7 +92,6 @@ const MyForm = (props) =>{
                     name={"duration"}
                     format={"HH:mm"}
                     hideMinutes={(min)=>![0,30].includes(min)}
-                    // placeholder={"Duração"}
                     disabled={form.disabled}
                     value={moment(page["duration"]).toDate()}
                     autoFocus={focus==='duration'}
@@ -167,61 +167,34 @@ const MyForm = (props) =>{
             {/* ARQUIVOS */}
             <b className={`fbTitle`}>{"ARQUIVOS"}</b>
             <div className={`fbGroup`}>
-            {
-                files.length===0 ? "SEM ARQUIVO" :
-                files.map((file, i)=>{
-                    return(
-                        <div key={i} className={`fbGroup`}>
-                            <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                                <b>{"ID"}</b>
-                                <input
-                                className={`form-control`}
-                                name={`id=${file._id}`}
-                                type={"text"}
-                                placeholder={"ID do service"}
-                                disabled={true}
-                                defaultValue={file['_id']}
-                                autoFocus={focus===`id=${file._id}`}
-                                onChange={(e)=>{
-                                    focus = e.target.name
-                                    setPage('files',[...files, {...file,_id:e.target.value}])
-                                }}/>
-                            </div>
-                            <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                                <b>{"Caminho do arquivo"}</b>
-                                <input
-                                className={`form-control`}
-                                name={`path-${files._id}`}
-                                type={"text"}
-                                placeholder={"Caminho do arquivo"}
-                                disabled={form.disabled}
-                                defaultValue={file['path']}
-                                autoFocus={focus===`path-${files._id}`}
-                                onChange={(e)=>{
-                                    focus = e.target.name
-                                    setPage('files',[...files, {...file,title:e.target.value}])
-                                }}/>
-                            </div>
-                            {/* <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                                <b>{"Data cadastro"}</b>
-                                <input
-                                className={`form-control`}
-                                name={`dateRegistration-${files._id}`}
-                                type={"text"}
-                                placeholder={"Nome do service"}
-                                disabled={form.disabled}
-                                defaultValue={file['dateRegistration']}
-                                autoFocus={focus===`dateRegistration-${files._id}`}
-                                onChange={(e)=>{
-                                    focus = e.target.name
-                                    setPage('files',[...files, {...file,dateRegistration:e.target.value}])
-                                }}/>
-                            </div> */}
-                        </div>
-                    )
-                })
-            }
-            </div>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                    <Uploader
+                    listType="picture-text"
+                    defaultFileList={
+                    files.map((file, i)=>{
+                        console.log("DEFAULT", file)
+                        return { 
+                            ...file,
+                            name: file.meta ? file.meta.name : file.name, 
+                            fileKey:i+1, 
+                            url:  file.meta ? file.url : null 
+                        }
+                    })}
+                    action="//jsonplaceholder.typicode.com/posts/"
+                    autoUpload={false}
+                    multiple={true}
+                    renderFileInfo={(file, fileElement) => {
+                        // console.log("REDER ### ", file)
+                        return  <div className={"fileInfo"}>
+                                    <span>Nome: {file?.name}</span>
+                                    <p>URL: {file?.url}</p>
+                                </div>
+                    }}
+                    onChange={(files)=>{ setPage("files", files) }}
+                    // onRemove={(files)=>{ setPage("files", files) }}
+                    />                   
+                </div>
+            </div>            
             {/* BOTAO */}
             <div className={`fbBtnGroup`}>
                 <Button className={`fbBtnSubmit`} style={buttonSubmit.style}
