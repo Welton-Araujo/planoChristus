@@ -146,10 +146,11 @@ const updateFull = async (id, service, files) => {
         console.log('oldFile', oldFile)
         
         //Insert File: Criar files[] do service para salvar no db:
-        const filesToDB = await files.map(({folderPath})=>({
+        const filesToDB = await files.map(({folderPath, meta})=>({
             referenceId: id,
             model: 'Service',
             path: folderPath,
+            meta
         }))
         const upFiles = await FileModel.insertMany(filesToDB)
 

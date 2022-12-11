@@ -1,8 +1,11 @@
 const Busboy  = require('busboy')
 
 const AWS = require('../../utils/external/aws')
-const { isFilled:have } = require ('../../utils/validations')
-const { createMetadata:createMeta } = require ('../../utils/operations/image')
+const { 
+    createMetadata:createMeta,
+    saveImg,
+} = require ('../../utils/operations/image')
+const { UPLOAD_DIR } = require('../../config')
 
 const ServiceRepository = require('../repositories/service.repository')
 const SalonRepository   = require('../repositories/salon.repository')
@@ -37,16 +40,17 @@ const getFullSalonServices = async (salonId, query={}, fields='-__v')=>{
         // console.log("FILE ###", files)
         servicesFull.push({
             ...service._doc, 
-            files
-            // files: files.map((file, i)=>({
-            //     id:file._id,
-            //     serviceId:file.referenceId, 
-            //     name:file.path, 
-            //     fileKey:i+1, 
-            //     url:file.path,
-            //     path:file.path, 
-            //     dataRegistration:file.dataRegistration, 
-            // })) 
+            // files
+            files: files.map((file, i)=>({
+                id:file._id,
+                referenceId:file.referenceId, 
+                name:file.path, 
+                fileKey:i+1, 
+                url:file.path,
+                // path:file.path, 
+                meta:file.meta,
+                dataRegistration:file.dataRegistration, 
+            })) 
         })
     }
 
@@ -84,6 +88,14 @@ const post = async ( service, files, headers )=>{
         console.log("Service::post: saveFull ### error:", error, message)
         if( !DBService || !DBFiles ){ return { error:true, message:"Error ao salvar no DB." } }
 
+        //SALVAR ARQUIVO FISICAMENTE:
+        const fileErros = []
+        for await (const obj of AWSFilesMeta) { 
+            const error = saveImg(obj.file, UPLOAD_DIR).then(resp=>resp.error).catch(e=>e.error) 
+            fileErros.push(error)    
+        }
+        if( fileErros.includes(true) ){ return { error:true, message:"Error ao salvar arquivo(s) de imagem(ns)." } }
+
         return { error:false, service:DBService, files:DBFiles }
     // })
     // req.pipe(busboy)
@@ -102,7 +114,13 @@ const put = async (id, service, files, headers)=>{
     
     // busboy.on('finish', async ()=>{
         //PUBLICAR ARQUIVOS NA AWS:
-        const { error:AWSError, files:AWSfiles } = await AWS.pushSafe(service, files)
+        const { files:AWSFiles } = await AWS.pushSafe(service, files)
+
+        //ADD METADATA:
+        const AWSFilesMeta = []
+        for await (const obj of AWSFiles) {
+            AWSFilesMeta.push({...obj, meta:createMeta(obj.file)})
+        }
 
         //UPDATE SERVICO:
         const { 
@@ -110,13 +128,14 @@ const put = async (id, service, files, headers)=>{
             message, 
             service:DBservice, 
             files:DBFiles 
-        } = await ServiceRepository.updateFull(id, service, AWSfiles)
+        } = await ServiceRepository.updateFull(id, service, AWSFilesMeta)
+        console.log("Service::post: updateFull ### error:", error, message)
         if( error||!DBservice||!DBFiles ){ return { error:true, message, files:null } }
 
         return { error:false, service:DBservice, files:DBFiles }
     // })
     // req.pipe(busboy)        
-}/** */
+}
 
 /*** AULA ***
  * 
@@ -126,8 +145,8 @@ const put = async (id, service, files, headers)=>{
  * @param {*} path 
  * @returns 
  */
-const deleteFile = async (id, referenceId, salonId, path)=>{
-    console.log('Service::deleteFile AWS', id, referenceId, salonId, path)
+const deleteFile = async ( salonId, { id, referenceId, path })=>{
+    console.log('Service::deleteFile AWS', salonId, {id, referenceId, path})
 
     //BUSCAR SALAO:
     const { salon } = await SalonRepository.findById(salonId, '_id name')
@@ -155,23 +174,16 @@ const deleteFile = async (id, referenceId, salonId, path)=>{
  * @param {*} path 
  * @returns 
  */
-const deleteFileById = async (id, referenceId, salonId, path)=>{    
-    console.log('Service::deleteAwsFileById AWS', id, referenceId, salonId, path)
+const deleteById = async (id, salonId)=>{    
+    console.log('Service::deleteById', id, salonId)
 
     //BUSCAR SALAO:
-    const { salon } = await SalonRepository.findById(salonId,'_id name')
-    if( !salon ) return { error:true, message:'Erro, o salão não existe.', salon }
+    // const { salon } = await SalonRepository.findById(salonId,'_id name')
+    // if( !salon ) return { error:true, message:'Erro, o salão não existe.', salon }
 
-    // const { service } = await ServiceRepository.findById(referenceId)    
-    // if( !service ){ return { error:true, message:'Erro, o serviço não existe.', delete:false } })
-    
-    //DELETAR ARQUIVO:
-    const { oldFile } = await FileRepository.deleteById(id)//{ status: 'e' })
-    if( !!oldFile ){ resp = { error:false, message:'Arquivo deletado com sucesso.', delete:true } }
-    
-    //DELETAR ARQUIVO NA AWS:
-    const { file } = await AWS.deleteFile(path)
-    if( !file ){ resp = { error:true, message:'Arquivo deletado no DB. Erro, ao deletar da AWS!', delete:undefined } }
+    //DELETAR SERVICO: STATUS E
+    const { upService } = await ServiceRepository.findByIdAndUpdate(id,{ status:'e'})
+    if( !upService ){ resp = { error:true, message:'Erro ao deletar o serviço.', delete:true } }
 
     return { error:false, message:'Arquivo deletado com sucesso.', delete:true }
 }
@@ -183,6 +195,6 @@ module.exports = {
     post,
     put,
     deleteFile,
-    deleteFileById,
+    deleteById,
 
 }
