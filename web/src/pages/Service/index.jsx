@@ -119,7 +119,7 @@ const Service = (props)=>{
                                 }else if(behavior==='update'){
                                     update()
                                 }else{
-                                    setComponent('modal',{id:"cmServiceRemove", open:true}) 
+                                    alert("Função não implementada: behavior===delete")
                                 } 
                             },
                             style: { backgroundColor: getBehavior(behavior).color }
@@ -153,7 +153,7 @@ const Service = (props)=>{
                         </div>
 
                         {/* ConfirmModal: cm */}
-                        <ConfirmModal id={"cmServiceRemove"}
+                        <ConfirmModal id={`cmServiceRemove-${rowData.id}`}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
                         buttonOpen={{
                             disabled:false,
@@ -165,7 +165,7 @@ const Service = (props)=>{
                             component: components.modal,
                             handleOpen: ()=>{
                                 dispatch(refreshService({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
-                                setComponent('modal',{id:"cmServiceRemove", open:true})
+                                setComponent('modal',{id:`cmServiceRemove-${rowData.id}`, open:true})
                             },
                             handleConfirm:()=>{remove()},
                             handleCancel :()=>setComponent('modal',{id:null, open:false})

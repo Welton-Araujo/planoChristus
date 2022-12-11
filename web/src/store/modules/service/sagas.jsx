@@ -69,7 +69,8 @@ export function* addService(){
     //BUSCAR STATE.SERVICE:
     const { current, form, components } = yield select(state=>state.service) 
     const service = { ...current }
-    const endPointAdd = `/servico`
+    const { files=[] } = service
+    const endPointAdd  = `/servico`
     console.log('SAGAS::addService::', endPointAdd, service)
 
     try {
@@ -80,10 +81,7 @@ export function* addService(){
         const formData = new FormData()
 
         //ADD ARQUIVOS:
-        service.files.forEach((file, i)=>{            
-            const key = `file_${i}`
-            formData.append(key, file)
-        })
+        files.forEach((file, i)=>{ formData.append(`file_${i}`, file.blobFile) })
 
         formData.append('service', JSON.stringify({
             ...service,
@@ -124,20 +122,25 @@ export function* addService(){
 export function* updateService(){        
     //BUSCAR STATE.SERVICE:
     const { current, form, components } = yield select(state=>state.service)
-    const { services=[], salonService={} } = current
-    const endPointUpdate       = `/colaborador/${current.id}`
-    // console.log('SAGAS::updateService:', endPointUpdate, current )
+    const service = { ...current }
+    const { files=[] }   = service
+    const endPointUpdate = `/servico/${service._id}`
+    console.log('SAGAS::updateService:', endPointUpdate, service )
 
     try {
         //ATUALIZAR FORM: loading:
         yield put(refreshService({ form:{ ...form, saving:true } }))
 
+        //CRIAR FORMDATA:
+        const formData = new FormData()
+
+        //ADD ARQUIVOS:
+        files.forEach((file, i)=>{ formData.append(`file_${i}`, file.blobFile) })
+
+        formData.append('service', JSON.stringify(service))
+
         //REQUEST SERVICEES PARA API:
-        const { data } = yield call(api.put, endPointUpdate,{
-            bondId: salonService.id,
-            status: salonService.status,
-            services,
-        })
+        const { data } = yield call(api.put, endPointUpdate, formData)
         
         //ATUALIZAR FORM: loading:
         yield put(refreshService({ form:{ ...form, saving:false } }))
@@ -170,16 +173,18 @@ export function* updateService(){
 export function* unlinkService(){
     //BUSCAR STATE.SERVICE:
     const { current, form, components } = yield select(state=>state.service)
-    const { salonService={} } = current
-    const endPointUnlink = `/colaborador/servico/${salonService.id}`
-    console.log('SAGAS::unlinkService', endPointUnlink, current)
+    const service = { ...current }
+    const endPointUnlink = `/servico/${service._id}`
+    console.log('SAGAS::unlinkService', endPointUnlink, service)
 
     try {
         //ATUALIZAR FORM: loading
         yield put(refreshService({ form:{ ...form, saving:true } }))
 
         //REQUEST SERVICEES PARA API:
-        const { data } = yield call(api.delete, endPointUnlink)
+        const { data } = yield call(api.delete, endPointUnlink,{
+            salonId:login.salon._id,
+        })
         
         //ATUALIZAR FORM: loading
         yield put(refreshService({ form:{ ...form, saving:false } }))
@@ -194,7 +199,6 @@ export function* unlinkService(){
         yield put(allServiceAction())
         //FECHAR O COMPONENTE:
         yield put(refreshService({ components:{ ...components, modal:{ id:null, open:false } } }))
-        console.log('SAGAS::refreshService: components', components)
         //LIMPAR FORM:
         yield put(resetService())
 
@@ -205,24 +209,30 @@ export function* unlinkService(){
 }
 
 /**
+ * @ATENCAO ARQUIVO PODE SER DELETADO NO UPDATE_SERVICE!!!
+ *          SEM UTILIDADE ATE O MOMENTO!!!   
  * @Info Delete de Arquivo do service do salao logado.
  *       Delete Model:FileService
  * @returns 
  */
 
-export function* deleteFileService(){
+export function* deleteFileService({ file }){
     //BUSCAR STATE.SERVICE:
     const { current, form, components } = yield select(state=>state.service)
-    const { salonService={} } = current
-    const endPointUnlink = `/colaborador/servico/${salonService.id}`
-    console.log('SAGAS::unlinkService', endPointUnlink, current)
+    const service = { ...current }
+    const endPointUnlink = `/servico/${service._id}/deletar-arquivo`
+    console.log('SAGAS::deleteFileService', endPointUnlink, file, service)
 
     try {
         //ATUALIZAR FORM: loading
         yield put(refreshService({ form:{ ...form, saving:true } }))
 
         //REQUEST SERVICEES PARA API:
-        const { data } = yield call(api.delete, endPointUnlink)
+        const { data } = yield call(api.delete, endPointUnlink, {
+            salonId: login.salon._id,
+            id: file.id,
+            path: file.url
+        })
         
         //ATUALIZAR FORM: loading
         yield put(refreshService({ form:{ ...form, saving:false } }))
@@ -237,7 +247,6 @@ export function* deleteFileService(){
         yield put(allServiceAction())
         //FECHAR O COMPONENTE:
         yield put(refreshService({ components:{ ...components, modal:{ id:null, open:false } } }))
-        console.log('SAGAS::refreshService: components', components)
         //LIMPAR FORM:
         yield put(resetService())
 

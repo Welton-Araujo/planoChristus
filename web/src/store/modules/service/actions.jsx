@@ -44,10 +44,11 @@ const unlinkService = () =>{
     }
 }
 
-const deleteFileService = () =>{
+const deleteFileService = (file) =>{
     console.log('ACTIONS deleteFileService', )
     return {
-        type:DELETEFILE_SERVICE 
+        type:DELETEFILE_SERVICE,
+        file 
     }
 }
 

@@ -32,6 +32,11 @@
     background-color: var(--secondary);
     color: var(--white);
 }
+.fileInfo{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 
 

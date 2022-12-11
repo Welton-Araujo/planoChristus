@@ -71,6 +71,7 @@ const MyForm = (props) =>{
                 </div>
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <b>{"Preço"}</b>
+                    {/* DEU ERRO NO SERVIDOR: 33,33 CORRIGIR: 33.33  */}
                     <input
                     className={`form-control`}
                     name={"price"}
@@ -169,24 +170,28 @@ const MyForm = (props) =>{
                 <div key={`${Math.random()}`} className={`fbItem form-group`}>
                     <Uploader
                     listType="picture-text"
-                    defaultFileList={files.map((file, i)=>({
-                        name:file?.path,
-                        fileKey:i+1,
-                        url:file?.path
-                    }))}
+                    defaultFileList={
+                    files.map((file, i)=>{
+                        console.log("DEFAULT", file)
+                        return { 
+                            ...file,
+                            name: file.meta ? file.meta.name : file.name, 
+                            fileKey:i+1, 
+                            url:  file.meta ? file.url : null 
+                        }
+                    })}
                     action="//jsonplaceholder.typicode.com/posts/"
                     autoUpload={false}
                     multiple={true}
-                    renderFileInfo={(file, fileElement) => (
-                        <>
-                            <span>Nome: {file.name.split(".",1)[0]}</span>
-                            <p>URL: {file.url}</p>
-                        </>
-                    )}
-                    onChange={(files)=>{
-                        console.log('UPLOADER...',files)
-                        setPage("files", files)
+                    renderFileInfo={(file, fileElement) => {
+                        // console.log("REDER ### ", file)
+                        return  <div className={"fileInfo"}>
+                                    <span>Nome: {file?.name}</span>
+                                    <p>URL: {file?.url}</p>
+                                </div>
                     }}
+                    onChange={(files)=>{ setPage("files", files) }}
+                    // onRemove={(files)=>{ setPage("files", files) }}
                     />                   
                 </div>
             </div>            
