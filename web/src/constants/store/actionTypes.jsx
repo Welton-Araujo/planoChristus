@@ -14,7 +14,7 @@ const ADD_COLLABORATOR     = '@collaborator/ADD'
 const FILTER_COLLABORATOR  = '@collaborator/FILTER'
 const UPDATE_COLLABORATOR  = '@collaborator/UPDATE'
 const UNLINK_COLLABORATOR  = '@collaborator/UNLINK'
-const ALL_SERVICES_COLLAB  = '@collaborator/SERVICES'
+const ALLSERVICES_COLLABORATOR = '@collaborator/SERVICES'
 
 const REFRESH_COLLABORATOR = '@collaborator/REFRESH'
 const RESET_COLLABORATOR   = '@collaborator/RESET'
@@ -22,6 +22,15 @@ const RESET_COLLABORATOR   = '@collaborator/RESET'
 //SALON
 
 //SCHEDULE
+const ALL_SCHEDULE     = '@schedule/ALL'
+const ADD_SCHEDULE     = '@schedule/ADD'
+const FILTER_SCHEDULE  = '@schedule/FILTER'
+const UPDATE_SCHEDULE  = '@schedule/UPDATE'
+const UNLINK_SCHEDULE  = '@schedule/UNLINK'
+const ALLSERVICES_SCHEDULE = '@schedule/SERVICES'
+
+const REFRESH_SCHEDULE = '@schedule/REFRESH'
+const RESET_SCHEDULE   = '@schedule/RESET'
 
 //SCHEDULING
 const ALL_SCHEDULING    = '@scheduling/ALL'
@@ -46,6 +55,13 @@ export {
     FILTER_SCHEDULING,
     UPDATE_SCHEDULING,
 
+    ALL_SCHEDULE,
+    ADD_SCHEDULE,
+    FILTER_SCHEDULE,
+    UPDATE_SCHEDULE,
+    UNLINK_SCHEDULE,
+    ALLSERVICES_SCHEDULE,
+
     ALL_CLIENT,
     ADD_CLIENT,
     FILTER_CLIENT,
@@ -57,7 +73,7 @@ export {
     FILTER_COLLABORATOR,
     UPDATE_COLLABORATOR,
     UNLINK_COLLABORATOR,
-    ALL_SERVICES_COLLAB,    
+    ALLSERVICES_COLLABORATOR,    
 
     ALL_SERVICE,
     ADD_SERVICE,
@@ -66,6 +82,9 @@ export {
     DELETEFILE_SERVICE,
 
     // STATE LOCAL
+    REFRESH_SCHEDULE,
+    RESET_SCHEDULE,
+
     REFRESH_CLIENT,
     RESET_CLIENT,
     

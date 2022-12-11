@@ -5,7 +5,7 @@ import {
     FILTER_COLLABORATOR,
     UPDATE_COLLABORATOR,
     UNLINK_COLLABORATOR,
-    ALL_SERVICES_COLLAB,
+    ALLSERVICES_COLLABORATOR,
 
     // STATE LOCAL
     REFRESH_COLLABORATOR,
@@ -56,7 +56,7 @@ const unlinkCollaborator = () =>{
 const allServicesCollaborator = () =>{
     console.log('ACTIONS unlinkCollaborator', )
     return {
-        type: ALL_SERVICES_COLLAB
+        type: ALLSERVICES_COLLABORATOR
     }
 }
 

@@ -102,11 +102,11 @@ export function* addService(){
         }
         
         //RECARREGAR A TABLE:
-        // yield put(allServiceAction())
+        yield put(allServiceAction())
         //FECHAR O COMPONENTE:
-        // yield put(refreshService({ components:{ ...components, drawer:{ id:null, open:false } } }))
+        yield put(refreshService({ components:{ ...components, drawer:{ id:null, open:false } } }))
         //LIMPAR FORM:
-        // yield put(resetService())
+        yield put(resetService())
 
     } catch (error) {
         alert('SAGA SERVICE erro ... ' + error)
