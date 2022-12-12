@@ -371,7 +371,8 @@ const MyForm = (props) =>{
                 // autoFocus={focus==='btnSubmit'}
                 onClick = {buttonSubmit.onClick}
                 loading = {buttonSubmit.loading || false}
-                appearance={buttonSubmit.appearance||"primary"} >
+                appearance  = {buttonSubmit.appearance||"primary"}
+                color       = {buttonSubmit.color|| "blue"} >
                     {buttonSubmit.title||"OK"}
                 </Button>
             </div>

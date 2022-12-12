@@ -86,21 +86,19 @@ const Service = (props)=>{
                     <MyDrawer className={styles.serviceDrawer} style={{}}
                     id={'drawer-service'}
                     title={`${getServiceBehavior(behavior).title} serviço`}
+                    component={components.drawer}
                     placement={'left'}
                     buttonOpen={{
-                        title: <span className="mdi mdi-plus-thick"></span>,                        
-                    }}
-                    buttonSubmit={{
-                        disabled: false,
-                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,                        
-                    }} 
-                    customState={{
-                        component: components.drawer,
+                        title: <span className="mdi mdi-plus-thick"></span>,
                         handleOpen:()=>{
                             dispatch(refreshService({ behavior:'create', form:{ ...form, disabled:false } }))
                             dispatch(resetService())
                             setComponent('drawer',{id:'drawer-service', open:true})
-                        },
+                        },                        
+                    }}
+                    buttonSubmit={{
+                        disabled: false,
+                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,                        
                         handleClose:()=>setComponent('drawer',{id:null, open:false})
                     }} >
                         {/* Form */}
@@ -112,14 +110,14 @@ const Service = (props)=>{
                         buttonSubmit={{
                             title:  <span className="mdi mdi-zip-disk">{getServiceBehavior(behavior).title} </span>,
                             loading: form.saving,
+                            appearance:"primary",
+                            color: behavior==='create' ? "blue":"yellow",
                             onClick: ()=>{ 
                                 if(behavior==='create'){
                                     save() 
                                 }else if(behavior==='update'){
                                     update()
-                                }else{
-                                    alert("Função não implementada: behavior===delete")
-                                } 
+                                }
                             },
                             style: { backgroundColor: getServiceBehavior(behavior).color }
                         }}
@@ -140,8 +138,9 @@ const Service = (props)=>{
                         {/* BUTTON: edit */}
                         <div className={styles.serviceBtnEdit}>
                             <Button 
-                            appearance="default"
                             loading={form.filtering}
+                            appearance={"ghost"}
+                            color={"yellow"}
                             disabled={form.filtering}
                             onClick={()=>{
                                 dispatch(refreshService({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
