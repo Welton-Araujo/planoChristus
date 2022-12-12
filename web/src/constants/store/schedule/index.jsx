@@ -7,19 +7,22 @@ export const INITIAL_STATE = {
         "services": [],
         "collaborators": [],
         "day": [],
-        "start": "",
-        "end": "",
+        "start": moment(),
+        "end": moment(),
         "dateRegistration": "",
     },
+    services:[],
+    collaborators:[],
     form: {
         filtering: false,
-        disabled: true,
+        disabled: false,
         saving: false
     },
     behavior: "create",
     components: {
         drawer: { id: 0, open: false },
         modal: { id: 0, open: false },
+        calendar: {view:"week"},
         // confirmDelete: false
     }
 }

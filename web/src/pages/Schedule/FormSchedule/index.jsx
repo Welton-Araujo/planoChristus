@@ -1,6 +1,7 @@
 // OBS: CRIAR UM FORM DINAMICO NO FUTURO!
 // USANDO CLASS DO BOOTSTRAP:
-import { Button, TagPicker, SelectPicker } from 'rsuite'
+import moment from 'moment'
+import { Button, TagPicker, DatePicker } from 'rsuite'
 
 import './Form.css'
 import Alert from '../../../components/Pieces/Alert'
@@ -9,7 +10,6 @@ import Alert from '../../../components/Pieces/Alert'
 // import { formInfo } from '../../../constants/pages/collaborator'
 
 let focus = ""
-let seePasswd = false
 
 
 const MyForm = (props) =>{
@@ -19,16 +19,18 @@ const MyForm = (props) =>{
             message: "Colaborador já cadastro!",
             style:{}
         },
+        daysWeek=[],
         page={},
-        services=[], 
+        services=[],
+        collaborators=[], 
         form={},
         behavior={},
         buttonSubmit={},
+        buttonDelete={},
         setPage=()=>{}, 
     } = props    
     const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
-    const { salonCollaborator={} } = page
-    console.log("MyForm ### ", services, page)
+    // console.log("MyForm ### ", services, page)
 
     return(
         <div className={`formBuilder`}>
@@ -38,206 +40,25 @@ const MyForm = (props) =>{
             style={{}}
             />
 
-            <b className={`fbTitle`}>{"LOGIN"}</b>
+            <b className={`fbTitle`}>{"DADOS DO SERVIÇO"}</b>
             <div className={`fbGroup`}>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"ID"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"id"}
-                    type={"text"}
-                    placeholder={"ID do colaborador"}
-                    disabled={true}
-                    defaultValue={page['_id']}
-                    autoFocus={focus==='id'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage('_id', e.target.value)
-                    }}/>
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Nome"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"name"}
-                    type={"text"}
-                    placeholder={"Nome do colaborador"}
-                    disabled={form.disabled}
-                    defaultValue={page['name']}
-                    autoFocus={focus==='name'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage('name', e.target.value)
-                    }}/>
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Fone / WhatsApp"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"phone"}
-                    type={"tel"}
-                    placeholder={"Telefone"}
-                    disabled={form.disabled}
-                    value={page["phone"]}
-                    autoFocus={focus==='phone'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("phone", e.target.value)
-                    }}/>                
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Email"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"email"}
-                    type={"email"}
-                    placeholder={"name@email.com"}
-                    disabled={form.disabled}
-                    value={page["email"]}
-                    autoFocus={focus==='email'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("email", e.target.value)
-                    }}/>                
-                </div>            
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Senha"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"passwd"}
-                    type={seePasswd ? "text":"password"}
-                    placeholder={"Senha"}
-                    disabled={form.disabled}
-                    value={page["passwd"]}
-                    autoFocus={focus==='passwd'}
-                    onDoubleClick={(e)=>{ seePasswd = !seePasswd }}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("passwd", e.target.value)
-                    }}/>
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Foto"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"photo"}
-                    type={"text"}
-                    placeholder={"Link da foto"}
-                    disabled={form.disabled}
-                    value={page["photo"]}
-                    autoFocus={focus==='photo'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("photo", e.target.value)
-                    }}/>
-                </div>
-
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Status"}</b>
-                    <select
-                    className={"form-control"}
-                    name={"status"}
-                    disabled={form.disabled}
-                    defaultValue={page["status"]}
-                    autoFocus={focus==='status'}
-                    onChange={(e)=>{
-                        focus="status"
-                        setPage("status", e.target.value)
-                    }}>
-                        <option value={"a"}>{"Ativo"}</option>
-                        <option value={"i"}>{"Inativo"}</option>
-                    </select>
-                </div>
-            </div>
-            <b className={`fbTitle`}>{"DADOS"}</b>
-            <div className={`fbGroup`}>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Data de nasc."}</b>
-                    <input
-                    className={`form-control`}
-                    name={"dateBirth"}
-                    type={"date"}
-                    placeholder={"Data de nascimento"}
-                    disabled={form.disabled}
-                    value={page["dateBirth"]}
-                    autoFocus={focus==='dateBirth'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("dateBirth", e.target.value)
-                    }}/>
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Sexo"}</b>
-                    <select
-                    className="form-control"
-                    name={"sex"}
-                    disabled={form.disabled}
-                    defaultValue={page["sex"]}
-                    // autoFocus={focus==='sex'}
-                    onChange={(e)=>{
-                        focus="sex"
-                        setPage("sex", e.target.value)
-                    }}>
-                        <option value={"a"}>{"Masculino"}</option>
-                        <option value={"f"}>{"Feminino"}</option>
-                    </select>
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"ID Recipient"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"recipientId"}
-                    type={"text"}
-                    placeholder={"ID Recipient"}
-                    disabled={form.disabled}
-                    value={page["recipientId"]}
-                    autoFocus={focus==='recipientId'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("recipientId", e.target.value)
-                    }}/>                
-                </div>
-            </div>
-            {/* ATUALIZAVEL */}
-            <b className={`fbTitle`}>{"SALÃO COLABORADOR"}</b>
-            <div className={`fbGroup`}>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Status"}</b>
-                    <select
-                    className={"form-control"}
-                    name={"salon-status"}
-                    disabled={form.disabled}
-                    defaultValue={salonCollaborator["status"]}
-                    autoFocus={focus==='salon-status'}
-                    onChange={(e)=>{
-                        focus="salon-status"
-                        setPage("salonCollaborator", { ...salonCollaborator, status:e.target.value })
-                    }}>
-                        <option value={"a"}>{"Ativo"}</option>
-                        <option value={"i"}>{"Inativo"}</option>
-                    </select>                
-                </div>
-                <div key={`${Math.random()}`} className={`fbItem form-group`}>
-                    <b>{"Data cadastro"}</b>
-                    <input
-                    className={`form-control`}
-                    name={"date-registration"}
-                    type={"date"}
-                    placeholder={"Data cadastro"}
-                    disabled={form.disabled}
-                    value={salonCollaborator["dateRegistration"].split('T')[0]}
-                    autoFocus={focus==='date-registration'}
-                    onChange={(e)=>{
-                        focus = e.target.name
-                        setPage("salonCollaborator", { ...salonCollaborator, dateRegistration:e.target.value })
-                    }}/>
-                </div>
-            </div>
-            <b className={`fbTitle`}>{"SERVIÇOS"}</b>
-            <div className={`fbGroup`}>
+                <TagPicker key={`${Math.random()}`} className={`fbItem form-group`}
+                name={"days-week"}
+                size={"lg"}
+                placeholder={"Dias da semana"}
+                data={daysWeek.map((label, value)=>({label, value}))}
+                disabled={form.disabled}
+                value={page.day}
+                autoFocus={focus==="days-week"}
+                onChange={(daysData)=>{
+                    // focus="days-week"
+                    setPage('day', daysData)
+                }}
+                />
                 <TagPicker key={`${Math.random()}`} className={`fbItem form-group`}
                 name={"services"}
                 size={"lg"}
+                placeholder={"Serviços"}
                 data={services}
                 disabled={form.disabled}
                 value={page.services}
@@ -248,10 +69,69 @@ const MyForm = (props) =>{
                     setPage('services', services)
                 }}
                 />
+                <TagPicker key={`${Math.random()}`} className={`fbItem form-group`}
+                name={"collaborators"}
+                size={"lg"}
+                placeholder={"Colaborador(s)"}
+                data={collaborators}
+                disabled={form.disabled}
+                value={page.collaborators}
+                // autoFocus={focus==="collaborators"}
+                onChange={(collaborators)=>{
+                    console.log('onchange e ....', collaborators)
+                    focus="collaborators"
+                    setPage('collaborators', collaborators)
+                }}
+                />
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                    <b>{"Início"}</b>
+                    <DatePicker
+                    className={`form-control`}
+                    name={"start"}
+                    format={"HH:mm"}
+                    hideMinutes={(min)=>![0,30].includes(min)}
+                    disabled={form.disabled}
+                    value={moment(page["start"]).toDate()}
+                    autoFocus={focus==='start'}
+                    onChange={(e)=>{
+                        focus = "start"
+                        setPage("start", e)
+                    }}/>  
+                </div>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                    <b>{"Fim"}</b>
+                    <DatePicker
+                    className={`form-control`}
+                    name={"end"}
+                    format={"HH:mm"}
+                    hideMinutes={(min)=>![0,30].includes(min)}
+                    disabled={form.disabled}
+                    value={moment(page["end"]).toDate()}
+                    autoFocus={focus==='end'}
+                    onChange={(e)=>{
+                        focus = "end"
+                        setPage("end", e)
+                    }}/>  
+                </div>
+                <div key={`${Math.random()}`} className={`fbItem form-group`}>
+                    <b>{"Data cadastro"}</b>
+                    <input
+                    className={`form-control`}
+                    name={"date-registration"}
+                    type={"date"}
+                    placeholder={"Data cadastro"}
+                    disabled={form.disabled}
+                    value={page["dateRegistration"].split('T')[0]}
+                    autoFocus={focus==='date-registration'}
+                    onChange={(e)=>{
+                        focus = e.target.name
+                        setPage("dateRegistration", e.target.value )
+                    }}/>
+                </div>         
             </div>
 
             <div className={`fbBtnGroup`}>
-                <Button className={`fbBtnSubmit`} style={buttonSubmit.style}
+                <Button className={`fbBtnSubmit mb-3`} style={buttonSubmit.style}
                 name    = {'btnSubmit'}
                 disabled= {form.disabled}
                 onFocus = {()=>{focus='btnSubmit'}} 
@@ -260,6 +140,16 @@ const MyForm = (props) =>{
                 loading = {buttonSubmit.loading || false}
                 appearance={buttonSubmit.appearance||"primary"} >
                     {buttonSubmit.title||"OK"}
+                </Button>
+                <Button className={`fbBtnDelete`} style={buttonDelete.style}
+                name    = {'btnDelete'}
+                disabled= {form.disabled}
+                onFocus = {()=>{focus='btnDelete'}} 
+                // autoFocus={focus==='btnDelete'}
+                onClick = {buttonDelete.onClick}
+                loading = {buttonDelete.loading || false}
+                appearance={buttonDelete.appearance||"primary"} >
+                    {buttonDelete.title||"OK"}
                 </Button>
             </div>
         </div>

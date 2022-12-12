@@ -216,7 +216,7 @@ export function* unlinkService(){
  * @returns 
  */
 
-export function* deleteFileService({ file }){
+export function* deleteFileService({ payload:file }){
     //BUSCAR STATE.SERVICE:
     const { current, form, components } = yield select(state=>state.service)
     const service = { ...current }

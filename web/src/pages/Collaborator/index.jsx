@@ -68,8 +68,6 @@ const Collaborator = (props)=>{
     }
     // ATUALIZAR STATE NO LOAD DA PAGE: API
     const allLoad = load(all)
-    // useEffectDispatch(allCollaborator, null, load(all))
-    // useEffectDispatch(allServicesCollaborator, null, load(services))
     useEffect(() => {
         if(allLoad){ 
             dispatch(allCollaborator())

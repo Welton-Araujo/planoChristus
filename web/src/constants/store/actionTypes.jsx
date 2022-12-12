@@ -24,10 +24,10 @@ const RESET_COLLABORATOR   = '@collaborator/RESET'
 //SCHEDULE
 const ALL_SCHEDULE     = '@schedule/ALL'
 const ADD_SCHEDULE     = '@schedule/ADD'
-const FILTER_SCHEDULE  = '@schedule/FILTER'
 const UPDATE_SCHEDULE  = '@schedule/UPDATE'
 const UNLINK_SCHEDULE  = '@schedule/UNLINK'
 const ALLSERVICES_SCHEDULE = '@schedule/SERVICES'
+const FILTERCOLLABORATORS_SCHEDULE  = '@schedule/COLLABORATORS'
 
 const REFRESH_SCHEDULE = '@schedule/REFRESH'
 const RESET_SCHEDULE   = '@schedule/RESET'
@@ -57,10 +57,10 @@ export {
 
     ALL_SCHEDULE,
     ADD_SCHEDULE,
-    FILTER_SCHEDULE,
     UPDATE_SCHEDULE,
     UNLINK_SCHEDULE,
     ALLSERVICES_SCHEDULE,
+    FILTERCOLLABORATORS_SCHEDULE,
 
     ALL_CLIENT,
     ADD_CLIENT,

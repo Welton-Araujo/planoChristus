@@ -4,10 +4,10 @@ import {
     // API
     ALL_SCHEDULE, 
     ADD_SCHEDULE,
-    FILTER_SCHEDULE,
     UPDATE_SCHEDULE,
     UNLINK_SCHEDULE,
     ALLSERVICES_SCHEDULE,
+    FILTERCOLLABORATORS_SCHEDULE,
     // STATE LOCAL
 
 } from '../../../constants/store/actionTypes'
@@ -47,7 +47,7 @@ export function* allSchedule(){
 
         console.log('SAGAS allSchedule ...',data)
         if( data.error ){
-            alert('SAGAS SCHEDULE erro ... ' + data.message)
+            alert('SAGAS allSchedule erro ... ' + data.message)
             return false
         }
 
@@ -55,7 +55,7 @@ export function* allSchedule(){
         yield put(refreshSchedule({ all:data.schedules }))
 
     } catch (error) {
-        alert('SAGA SCHEDULE erro ... ' + error)
+        alert('SAGA allSchedule erro ... ' + error)
         yield put(refreshSchedule({ form:{ ...form, filterring:false } }))
     }
 }
@@ -77,8 +77,8 @@ export function* addSchedule(){
 
         //REQUEST SCHEDULE PARA API:
         const { data } = yield call(api.post, endPointAdd,{
+            ...current,
             salonId: login.salon._id,
-            schedule: current
         })
         
         //ATUALIZAR FORM: loading:
@@ -86,11 +86,11 @@ export function* addSchedule(){
 
         // console.log('SAGAS addSchedules ...',data)
         if( data.error ){
-            alert('SAGA SCHEDULE erro ... ' + data.message)
+            alert('SAGA addSchedules erro ... ' + data.message)
             return false
         }
         
-        //RECARREGAR A TABLE:
+        //RECARREGAR:
         yield put(allScheduleAction())
         //FECHAR O COMPONENTE:
         yield put(refreshSchedule({ components:{ ...components, drawer:{ id:null, open:false } } }))
@@ -98,55 +98,8 @@ export function* addSchedule(){
         yield put(resetSchedule())
 
     } catch (error) {
-        alert('SAGA SCHEDULE erro ... ' + error)
+        alert('SAGA addSchedules erro ... ' + error)
         yield put(refreshSchedule({ form:{ ...form, saving:false } }))
-    }
-}
-
-/**
- * @Info Busca um horario do salao logado.
- *       Post Model:Schedule ou Get Model:Schedule
- * @returns 
- */
-export function* filterSchedule(){
-    //BUSCAR STATE.SCHEDULE:
-    const { current, form } = yield select(state=>state.schedule) 
-    const endPointFilter = `/horario/filtro`//?email=${current.email}&status=a
-    console.log('SAGAS::filterSchedules: ###', endPointFilter, current, form )
-
-    try {
-        //ATUALIZAR FORM: loading
-        yield put(refreshSchedule({ form:{ ...form, filtering:true }}))
-
-        //REQUEST SCHEDULE PARA API:
-        const { data } = yield call(api.post, endPointFilter,{
-            email: current.email,
-            status: "a"
-        })
-        
-        //ATUALIZAR FORM: loading
-        yield put(refreshSchedule({ form:{ ...form, filtering:false }}))
-
-        console.log('SAGAS::filterSchedules ... DATA',data)
-        if( data.error ){
-            alert('SAGA SCHEDULE erro ... ' + data.message)
-            return false
-        }
-        
-        //ATUALIZAR STATE:
-        if(data.schedules.length > 0){
-            yield put(refreshSchedule({ 
-                current: data.schedules[0],//PRIMEIRO
-                form:{ ...form, filtering:false, disabled:true } 
-            }))
-        }else{
-            //LIBERTAR OS CAMPOS DO FORM: clients:[empty]
-            yield put(refreshSchedule({ form:{ ...form, disabled:false } }))
-        }
-
-    } catch (error) {
-        alert('SAGA SCHEDULE erro ... ' + error)
-        yield put(refreshSchedule({ form:{ ...form, filterring:false } }))
     }
 }
 
@@ -158,8 +111,7 @@ export function* filterSchedule(){
 export function* updateSchedule(){        
     //BUSCAR STATE.SCHEDULE:
     const { current, form, components } = yield select(state=>state.schedule)
-    const { services=[], salonSchedule={} } = current
-    const endPointUpdate       = `/horario/${current.id}`
+    const endPointUpdate = `/horario/${current._id}`
     // console.log('SAGAS::updateSchedule:', endPointUpdate, current )
 
     try {
@@ -168,9 +120,8 @@ export function* updateSchedule(){
 
         //REQUEST SCHEDULE PARA API:
         const { data } = yield call(api.put, endPointUpdate,{
-            bondId: salonSchedule.id,
-            status: salonSchedule.status,
-            services,
+            ...current,
+            salonId: login.salon._id,
         })
         
         //ATUALIZAR FORM: loading:
@@ -178,11 +129,11 @@ export function* updateSchedule(){
 
         console.log('SAGAS updateSchedule ...',data)
         if( data.error ){
-            alert('SAGA SCHEDULE erro ... ' + data.message)
+            alert('SAGA updateSchedule erro ... ' + data.message)
             return false
         }
         
-        //RECARREGAR A TABLE:
+        //RECARREGAR:
         yield put(allScheduleAction())
         //FECHAR O COMPONENTE:
         yield put(refreshSchedule({ components:{ ...components, drawer:{ id:null, open:false } } }))
@@ -190,7 +141,7 @@ export function* updateSchedule(){
         yield put(resetSchedule())
 
     } catch (error) {
-        alert('SAGA SCHEDULE erro ... ' + error)
+        alert('SAGA updateSchedule erro ... ' + error)
         yield put(refreshSchedule({ form:{ ...form, saving:false } }))
     }
 }
@@ -205,7 +156,7 @@ export function* unlinkSchedule(){
     //BUSCAR STATE.SCHEDULE:
     const { current, form, components } = yield select(state=>state.schedule)
     const { salonSchedule={} } = current
-    const endPointUnlink = `/horario/servico/${salonSchedule.id}`
+    const endPointUnlink = `/horario/${current._id}`
     console.log('SAGAS::unlinkSchedule', endPointUnlink, current)
 
     try {
@@ -213,27 +164,30 @@ export function* unlinkSchedule(){
         yield put(refreshSchedule({ form:{ ...form, saving:true } }))
 
         //REQUEST SCHEDULE PARA API:
-        const { data } = yield call(api.delete, endPointUnlink)
+        const { data } = yield call(api.delete, endPointUnlink,{})
         
         //ATUALIZAR FORM: loading
         yield put(refreshSchedule({ form:{ ...form, saving:false } }))
 
         console.log('SAGAS unlinkSchedule ... DATA',data)
         if( data.error ){
-            alert('SAGA SCHEDULE erro ... ' + data.message)
+            alert('SAGA unlinkSchedule erro ... ' + data.message)
             return false
         }
         
         //RECARREGAR A TABLE:
         yield put(allScheduleAction())
         //FECHAR O COMPONENTE:
-        yield put(refreshSchedule({ components:{ ...components, modal:{ id:null, open:false } } }))
-        console.log('SAGAS::refreshSchedule: components', components)
+        yield put(refreshSchedule({ 
+            components:{ ...components,
+            drawer:{ id:null, open:false },
+            modal:{ id:null, open:false } } 
+        }))
         //LIMPAR FORM:
         yield put(resetSchedule())
 
     } catch (error) {
-        alert('SAGA SCHEDULE erro ... ' + error)
+        alert('SAGA unlinkSchedule erro ... ' + error)
         yield put(refreshSchedule({ form:{ ...form, saving:false } }))
     }
 }
@@ -246,7 +200,6 @@ export function* unlinkSchedule(){
 export function* allServicesSchedule(){
     //BUSCAR STATE.SCHEDULE:
     const { current, form, components } = yield select(state=>state.schedule)
-    // const { salonClient={} } = current
     const endPointALLService = `/salao/${login.salon._id}/servicos`
     console.log('SAGAS::allServicesSchedule', endPointALLService, current)
     
@@ -260,22 +213,61 @@ export function* allServicesSchedule(){
         //ATUALIZAR FORM: loading
         yield put(refreshSchedule({ form:{ ...form, filtering:false } }))
 
-        console.log('SAGAS allSalonServices::Schedule ...',data)
+        console.log('SAGAS allServicesSchedule ...',data)
         if( data.error ){
-            alert('SAGA SCHEDULE erro ... ' + data.message)
+            alert('SAGA allServicesSchedule erro ... ' + data.message)
             return false
         }
         
         //RECARREGAR A TABLE:
         // yield put(allScheduleAction())
         //FECHAR O COMPONENTE:
-        yield put(refreshSchedule({ services:data.services, components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } } }))
+        yield put(refreshSchedule({ 
+            services:data.services, 
+            components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } }
+        }))
         //LIMPAR FORM:
         // yield put(resetSchedule())
 
     } catch (error) {
-        alert('SAGA SCHEDULE erro ... ' + error)
+        alert('SAGA allServicesSchedule erro ... ' + error)
         yield put(refreshSchedule({ form:{ ...form, filtering:false } }))
+    }
+}
+
+/**
+ * @Info Busca um horario do salao logado.
+ *       Post Model:Schedule ou Get Model:Schedule
+ * @returns 
+ */
+export function* filterCollaboratorsSchedule(){
+    //BUSCAR STATE.SCHEDULE:
+    const { current, form } = yield select(state=>state.schedule) 
+    const endPointFilter = `/horario/colaboradores`
+    console.log('SAGAS::filterCollaboratorsSchedule: ###', endPointFilter, current.services )
+
+    try {
+        //ATUALIZAR FORM: loading
+        yield put(refreshSchedule({ form:{ ...form, filtering:true }}))
+
+        //REQUEST COLLAB PARA API:
+        const { data } = yield call(api.post, endPointFilter,{ services:current.services })
+        
+        //ATUALIZAR FORM: loading
+        yield put(refreshSchedule({ form:{ ...form, filtering:false }}))
+
+        console.log('SAGAS::filterCollaboratorsSchedule ... DATA',data)
+        if( data.error ){
+            alert('SAGA filterCollaboratorsSchedule erro ... ' + data.message)
+            return false
+        }
+        
+        //ATUALIZAR:
+        yield put(refreshSchedule({ collaborators:data.collaborators }))
+
+    } catch (error) {
+        alert('SAGA filterCollaboratorsSchedule erro ... ' + error)
+        yield put(refreshSchedule({ form:{ ...form, filterring:false } }))
     }
 }
 
@@ -283,8 +275,8 @@ export function* allServicesSchedule(){
 export default all([
     takeLatest(ALL_SCHEDULE, allSchedule),
     takeLatest(ADD_SCHEDULE, addSchedule),
-    takeLatest(FILTER_SCHEDULE, filterSchedule),
     takeLatest(UPDATE_SCHEDULE, updateSchedule),
     takeLatest(UNLINK_SCHEDULE , unlinkSchedule),
     takeLatest(ALLSERVICES_SCHEDULE , allServicesSchedule),
+    takeLatest(FILTERCOLLABORATORS_SCHEDULE, filterCollaboratorsSchedule),
 ])

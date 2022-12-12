@@ -66,7 +66,6 @@ const Service = (props)=>{
     }
     // ATUALIZAR STATE NO LOAD DA PAGE: API
     const allLoad = load(all)
-    // useEffectDispatch(allService, null, load(all))
     useEffect(() => {
         if(allLoad){ 
             dispatch(allService())
@@ -89,7 +88,7 @@ const Service = (props)=>{
                     title={`${getBehavior(behavior).title} serviço`}
                     placement={'left'}
                     buttonOpen={{
-                        title: <span className="mdi mdi-account-plus"></span>,                        
+                        title: <span className="mdi mdi-plus-thick"></span>,                        
                     }}
                     buttonSubmit={{
                         disabled: false,

@@ -6,8 +6,8 @@ const schedulingService = require('../services/scheduling.service')
 */
 const get = async (req, res)=>{
     console.log('schedulingController::get')
-    const { fields, ...query } = req.query// = { fields, param_1, param_2, ... }
-    const response = await schedulingService.get(fields, query)
+    const { filtro, ...query } = req.query// = { filtro, param_1, param_2, ... }
+    const response = await schedulingService.get(query, filtro)
     res.json(response)
 }
 

@@ -94,6 +94,10 @@ export const serviceTable = {
     ]
 }
 
+
+/**
+ * @AUX FUNÇOES e CONST
+ */
 const getStatus = ({status="a", icon="user"}) =>{    
     return  <Tag color={statusConf.color[status]}>
                 <span className={statusConf[icon][status]}> {statusConf.text[status]}</span>

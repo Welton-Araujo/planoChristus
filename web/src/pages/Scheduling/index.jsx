@@ -12,14 +12,15 @@ import { filterScheduling } from '../../store/modules/scheduling/actions'
 import { dateToMin } from '../../utils/operations/time'
 
 import styles from './Scheduling.module.css'
-import Calendar from '../../components/Calendar'
+import MyCalendar from '../../components/Calendar'
 
 //TEST STATIC:
-// import schedules from '../../data/componentTest/scheduling.json' 
+import loginFake from '../../data/fakeReq/login.json'
 //DATA DE HOJE: (AO CARREGAR A PAGINA)
-const firstWeekday =  moment().weekday(0).format('YYYY-MM-DD')//"2022-11-09"
-const lastweekday  =  moment().weekday(6).format('YYYY-MM-DD')//"2022-12-29"
+const firstWeekday =  moment().weekday(0).format('YYYY-MM-DD')//"2022-12-11"
+const lastweekday  =  moment().weekday(6).format('YYYY-MM-DD')//"2022-12-17"
 
+const { name:salonName } = loginFake.salon
 let stap = 0
 
 
@@ -29,23 +30,30 @@ const Scheduling = (props)=>{
 
     //STATE: inicial=[] e atualizado=[...] 
     const { all, current }  = useSelector((state)=>state.scheduling)
-    console.log('Scheduling:: current', current)
+    console.log('Scheduling:: current', current,{ firstWeekday, lastweekday})
     const formattedEvents   = formatEvents(all)
     // console.log('formattedEvents', formattedEvents)
     
     const dispatch = useDispatch()
     // ATUALIZAR STATE NO LOAD DA PAGE: API
-    useEffectDispatch(filterScheduling, {firstWeekday, lastweekday}, load())
+    useEffectDispatch(filterScheduling, {start:firstWeekday, end:lastweekday}, load())
 
     return(
         <div className={`content ${styles.schedulingContent}`}>
             <div className={styles.schedulingHeader}>
-                <h1 className='pageTitle'>Agendamentos</h1>
+                <div className={styles.schedulingTitle}>
+                    <h1 className='pageTitle'>Agendamentos</h1>
+                    <small>{salonName}</small>
+                </div>
             </div>
             <div className={styles.schedulingBody} style={style}>
-                <Calendar style={{padding:'5px'}} 
-                    events={formattedEvents}
-                    onRangeChange={ ({start, end})=>dispatch(filterScheduling({start, end})) }
+                <MyCalendar
+                events={formattedEvents}
+                onRangeChange={ ({start, end})=>{
+                    console.log("CHANGE ###", {start, end})
+                    dispatch(filterScheduling({start, end}))
+                }}
+                style={{padding:'5px'}} 
                 />
             </div>
         </div>    

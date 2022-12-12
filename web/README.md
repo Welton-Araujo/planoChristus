@@ -12,6 +12,10 @@
 * Create the next immutable state tree by simply modifying the currenttree: `immer`
 * UI design (similar to bootstrap): `rsuitejs`
 
+**DOCS:**
+
+* Calendar: `https://jquense.github.io/react-big-calendar/examples/?path=/story/about-big-calendar--page`
+
 **SETTINGS:**
 
 FRONTEND:

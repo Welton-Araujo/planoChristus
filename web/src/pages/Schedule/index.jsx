@@ -4,36 +4,48 @@ import {
     useSelector,
 } from 'react-redux'
 import { Button } from 'rsuite'
+import moment from 'moment'
 
 // import useEffectDispatch from '../../hooks/UseEffect'
 import { 
     // API
     allSchedule, 
     addSchedule,
-    filterSchedule,
     updateSchedule,
     unlinkSchedule,
     allServicesSchedule,
+    filterCollaboratorsSchedule,
 
     // STATE LOCAL
     refreshSchedule, 
     resetSchedule, 
 } from '../../store/modules/schedule/actions'
 
-import styles           from './Schedule.module.css'
+// COMPONENTS:
+import MyCalendar       from '../../components/Calendar'
 import FormSchedule     from './FormSchedule'
-import MyTable          from '../../components/Table'
+// import MyTable          from '../../components/Table'
 // import TableOneRow      from '../../components/TableOneRow'
 import MyDrawer         from '../../components/Drawer'
 // import MyModal          from '../../components/Modal'
-import ConfirmModal     from '../../components/Modal/ConfirmModal'
+// import ConfirmModal     from '../../components/Modal/ConfirmModal'
 
-// STATIC TEST
-import loginFake    from '../../data/fakeReq/login.json' 
+// CSS:
+import styles           from './Schedule.module.css'
+
+// STATIC TEST:
+import loginFake        from '../../data/fakeReq/login.json'
 import { 
-    scheduleTable as tableConfig
-} from '../../constants/components/table' 
+    daysWeek, 
+    daysWeekData 
+} from '../../constants/pages/schedule' 
+// import { 
+//     scheduleTable as tableConfig 
+// } from '../../constants/components/table' 
 
+//DATA DE HOJE: (AO CARREGAR A PAGINA)
+// const firstWeekday =  moment().weekday(0).format('YYYY-MM-DD')//"2022-11-09"
+// const lastweekday  =  moment().weekday(6).format('YYYY-MM-DD')//"2022-12-29"
 const { name:salonName } = loginFake.salon
 let stap = 0
 
@@ -43,8 +55,9 @@ const Schedule = (props)=>{
     // console.log('Schedule', ScheduleTable)
     
     //STATE: inicial=[] e atualizado=[...]
-    const { all, current, services, form, components, behavior } = useSelector((state)=>state.schedule)
-    console.log('SCHEDULE #### ', current, services, all)
+    const { all, current, services, collaborators, form, components, behavior } = useSelector((state)=>state.schedule)
+    console.log('SCHEDULE #### ', current, services, collaborators, all)
+    const formattedEvents   = formatEvents(all)
         
     //FUNCOES:
     const dispatch     = useDispatch()
@@ -67,14 +80,17 @@ const Schedule = (props)=>{
     }
     // ATUALIZAR STATE NO LOAD DA PAGE: API
     const allLoad = load(all)
-    // useEffectDispatch(allSchedule, null, load(all))
-    // useEffectDispatch(allServicesSchedule, null, load(services))
     useEffect(() => {
         if(allLoad){ 
             dispatch(allSchedule())
             dispatch(allServicesSchedule()) 
         }
     },[dispatch, allLoad])
+
+    // ATUALIZAR DEPOIS DO SERVICES:
+    useEffect(()=>{
+        dispatch(filterCollaboratorsSchedule())
+    },[dispatch, current.services])
 
     return(
         <div className={`content ${styles.ScheduleContent}`}>  
@@ -89,10 +105,10 @@ const Schedule = (props)=>{
                     {/* Drawer */}
                     <MyDrawer className={styles.scheduleDrawer} style={{}}
                     id={'drawer-schedule'}
-                    title={`${getBehavior(behavior).title} colaborador`}
+                    title={`${getBehavior(behavior).title} horário`}
                     placement={'left'}
                     buttonOpen={{
-                        title: <span className="mdi mdi-account-plus"></span>,                        
+                        title: <span className="mdi mdi-calendar-plus"></span>,                        
                     }}
                     buttonSubmit={{
                         disabled: false,
@@ -107,45 +123,12 @@ const Schedule = (props)=>{
                         },
                         handleClose:()=>setComponent('drawer',{id:null, open:false})
                     }} >
-                        {/* Search */}
-                        <div className={`${styles.scheduleSearch}`}>
-                            <div className={"form-group"}>
-                                <b>E-mail</b>
-                                <div className="input-group">
-                                    <input
-                                    className="form-control"
-                                    name={"search"}
-                                    type={'search'}
-                                    placeholder="E-mail"
-                                    defaultValue={current.email}
-                                    autoFocus={true}
-                                    onChange={(e)=>setSchedule('email', e.target.value)}
-                                    onKeyUp={(e)=>{
-                                        if(e.key==="Enter"){
-                                            dispatch(filterSchedule())
-                                            // dispatch(resetSchedule())
-                                        }
-                                    }}
-                                    />
-                                    <div className="input-group-append ">
-                                        <Button
-                                        appearance="primary"
-                                        loading={form.filtering}
-                                        disabled={form.filtering}
-                                        onClick={()=>{
-                                            dispatch(filterSchedule())
-                                            dispatch(resetSchedule())
-                                        }} >
-                                            <span className="mdi mdi-magnify"></span>
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         {/* Form */}
-                        <FormSchedule                        
+                        <FormSchedule
+                        daysWeek={daysWeek}
                         page={current}
                         services={services}
+                        collaborators={collaborators}
                         form={form}
                         behavior={behavior}
                         setPage={setSchedule}
@@ -163,24 +146,43 @@ const Schedule = (props)=>{
                             },
                             style: { backgroundColor: getBehavior(behavior).color }
                         }}
+                        buttonDelete={{
+                            title:  <span className="mdi mdi-trash-can">{"Excluir"} </span>,
+                            loading: form.saving,
+                            onClick: ()=>{
+                                remove()
+                                setComponent('modal',{id:"cmScheduleRemove", open:true})                                  
+                            },
+                            style: { backgroundColor: 'var(--danger)' }
+                        }}
                         />
                     </MyDrawer>                        
                 </div>
             </div>
             {/* SCHEDULE BODY */}
             <div className={styles.scheduleBody} style={style}>
-                <MyTable 
+                <MyCalendar
+                toolbar={false}
+                // formats={}
+                date={daysWeekData[moment().day()]}
+                events={formattedEvents}
+                defaultView={components?.calendar.view}
+                // onRangeChange={ ({start, end})=>dispatch(filterCollaboratorsSchedule()) }
+                onSelectEvent={(e)=>{
+                    dispatch(refreshSchedule({behavior:"update"}))
+                    dispatch(refreshSchedule({current:e.resource}))
+                    setComponent('drawer',{id:'drawer-schedule', open:true})
+                }}
+                style={{padding:'5px'}}
+                />
+                {/* <MyTable 
                 loading={form.filtering}
                 data={all}
                 config={tableConfig}
-                onRowClick={(rowData)=>{
-                    // dispatch(refreshSchedule({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
-                    // setComponent('drawer', {id:"drawer-schedule", open:true})
-                }}
+                onRowClick={(rowData)=>{}}
                 actions={(rowData)=>{
                     return(
                         <>
-                        {/* BUTTON: edit */}
                         <div className={styles.scheduleBtnEdit}>
                             <Button 
                             appearance="default"
@@ -194,7 +196,7 @@ const Schedule = (props)=>{
                             </Button>
                         </div>
 
-                        {/* ConfirmModal: cm */}
+
                         <ConfirmModal id={"cmScheduleRemove"}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
                         buttonOpen={{
@@ -214,40 +216,33 @@ const Schedule = (props)=>{
                         }}
                         style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
                         />
-
-                        {/* Modal: see */}
-                        {/* <MyModal style={{}}
-                        id={rowData.id}                        
-                        config={{title:'DETALHES SALÃO::COLABORADOR'}}
-                        buttonOpen={{
-                            title:<span className="mdi mdi-eye"></span>,
-                        }}
-                        buttonSubmit={{
-                            title:<span className="mdi mdi-exit-to-app"></span>,
-                        }}
-                        customState={{
-                            component: components.modal,
-                            handleOpen:()=>{
-                                setComponent('modal',{id:rowData.id, open:true})
-                            },
-                            handleClose:()=>setComponent('modal',{id:null, open:false})
-                        }} >
-                            <TableOneRow objData={rowData.salonSchedule}
-                            config={{
-                                uppercase: true, 
-                                rootLabel: true,
-                                char: '.',
-                                ignore:[ '_id', ] 
-                            }}
-                            />
-                        </MyModal> */}
                         </>
                     )
-                }}/>
+                }}/>  */}
+
             </div>
         </div>   
     )
 }
+
+const formatEvents = (schedules) =>(schedules.map((schedule)=>schedule.day.map((d)=>{
+        const startHHmm = daysWeekData[d].setHours(
+            parseInt(moment(schedule.start).format('HH')),// So HH
+            parseInt(moment(schedule.start).format('mm')) // So mm
+        )
+        const endHHmm = daysWeekData[d].setHours(
+            parseInt(moment(schedule.end).format('HH')), 
+            parseInt(moment(schedule.end).format('mm')) 
+        )
+        
+        return{
+            resource: schedule,
+            title:  `${schedule.services.length} serviço(s) - ${schedule.collaborators.length} colaborador(es)`,
+            start:  new Date(startHHmm),
+            end:    new Date(endHHmm),
+        }
+    })).flat()
+)
 
 const load = (all=[], qtd=0, attempts=0)=>{
     let ok = false

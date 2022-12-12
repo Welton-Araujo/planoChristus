@@ -2,10 +2,10 @@ import {
     // API
     ALL_SCHEDULE,
     ADD_SCHEDULE,
-    FILTER_SCHEDULE,
     UPDATE_SCHEDULE,
     UNLINK_SCHEDULE,
     ALLSERVICES_SCHEDULE,
+    FILTERCOLLABORATORS_SCHEDULE,
 
     // STATE LOCAL
     REFRESH_SCHEDULE,
@@ -31,14 +31,6 @@ const addSchedule = () =>{
     }
 }
 
-//NAO ESTA USANDO O PAYLOAD: PQ ESTA USANDO O useSelect()
-const filterSchedule = () =>{
-    // console.log('ACTIONS filterSchedule', payload,  )
-    return {
-        type:FILTER_SCHEDULE,
-    }
-}
-
 const updateSchedule = () =>{
     // console.log('ACTIONS refreshSchedule', payload)
     return { 
@@ -59,6 +51,15 @@ const allServicesSchedule = () =>{
         type: ALLSERVICES_SCHEDULE
     }
 }
+
+//NAO ESTA USANDO O PAYLOAD: PQ ESTA USANDO O useSelect()
+const filterCollaboratorsSchedule = () =>{
+    // console.log('filterSchedule', payload,  )
+    return{ 
+        type:FILTERCOLLABORATORS_SCHEDULE, 
+    }
+}
+
 
 /**
  * @STATE_LOCAL
@@ -84,10 +85,10 @@ export {
     // API
     allSchedule,
     addSchedule,
-    filterSchedule,
     updateSchedule,
     unlinkSchedule,
     allServicesSchedule,
+    filterCollaboratorsSchedule,
 
     // STATE LOCAL
     refreshSchedule,
