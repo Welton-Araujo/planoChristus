@@ -80,21 +80,19 @@ const Client = (props)=>{
                     <MyDrawer className={styles.clientDrawer} style={{}}
                     id={'drawer-client'}
                     title={`${getClientBehavior(behavior).title} cliente`}
+                    component={components.drawer}
                     placement={'left'}
                     buttonOpen={{
-                        title: <span className="mdi mdi-account-plus"></span>,                        
-                    }}
-                    buttonSubmit={{
-                        disabled: false,
-                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,                        
-                    }} 
-                    customState={{
-                        component: components.drawer,
+                        title: <span className="mdi mdi-account-plus"></span>,
                         handleOpen:()=>{
                             dispatch(refreshClient({ behavior:'create' }))
                             dispatch(resetClient())
                             setComponent('drawer',{id:'drawer-client', open:true})
-                        },
+                        },                        
+                    }}
+                    buttonSubmit={{
+                        disabled: false,
+                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,
                         handleClose:()=>setComponent('drawer',{id:null, open:false})
                     }} >
                         {/* Search */}
@@ -141,13 +139,12 @@ const Client = (props)=>{
                         buttonSubmit={{
                             title:  <span className="mdi mdi-zip-disk">{getClientBehavior(behavior).title} </span>,
                             loading: form.saving,
+                            color: behavior==='create' ? "blue":"yellow",
                             onClick: ()=>{ 
                                 if(behavior==='create'){
                                     save() 
                                 }else if(behavior==='update'){
                                     update()
-                                }else{
-                                    setComponent('modal',{id:"cmClientRemove", open:true}) 
                                 } 
                             },
                             style: { backgroundColor: getClientBehavior(behavior).color }
@@ -172,7 +169,8 @@ const Client = (props)=>{
                         {/* BUTTON: edit */}
                         <div className={styles.clientBtnEdit}>
                             <Button 
-                            appearance="default"
+                            appearance={"ghost"}
+                            color={"yellow"}
                             loading={form.filtering}
                             disabled={form.filtering}
                             onClick={()=>{

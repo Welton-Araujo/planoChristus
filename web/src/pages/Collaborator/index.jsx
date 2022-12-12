@@ -89,21 +89,19 @@ const Collaborator = (props)=>{
                     <MyDrawer className={styles.collaboratorDrawer} style={{}}
                     id={'drawer-collaborator'}
                     title={`${getCollabBehavior(behavior).title} colaborador`}
+                    component={components.drawer}
                     placement={'left'}
                     buttonOpen={{
-                        title: <span className="mdi mdi-account-plus"></span>,                        
-                    }}
-                    buttonSubmit={{
-                        disabled: false,
-                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,                        
-                    }} 
-                    customState={{
-                        component: components.drawer,
+                        title: <span className="mdi mdi-account-plus"></span>,
                         handleOpen:()=>{
                             dispatch(refreshCollaborator({ behavior:'create' }))
                             dispatch(resetCollaborator())
                             setComponent('drawer',{id:'drawer-collaborator', open:true})
                         },
+                    }}
+                    buttonSubmit={{
+                        disabled: false,
+                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,
                         handleClose:()=>setComponent('drawer',{id:null, open:false})
                     }} >
                         {/* Search */}
@@ -152,13 +150,12 @@ const Collaborator = (props)=>{
                         buttonSubmit={{
                             title:  <span className="mdi mdi-zip-disk">{getCollabBehavior(behavior).title} </span>,
                             loading: form.saving,
+                            color: behavior==='create' ? "blue":"yellow",
                             onClick: ()=>{ 
                                 if(behavior==='create'){
                                     save() 
                                 }else if(behavior==='update'){
                                     update()
-                                }else{
-                                    setComponent('modal',{id:"cmCollaboratorRemove", open:true}) 
                                 } 
                             },
                             style: { backgroundColor: getCollabBehavior(behavior).color }
@@ -173,18 +170,16 @@ const Collaborator = (props)=>{
                 loading={form.filtering}
                 data={all}
                 config={tableConfig}
-                onRowClick={(rowData)=>{
-                    // dispatch(refreshCollaborator({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
-                    // setComponent('drawer', {id:"drawer-collaborator", open:true})
-                }}
+                onRowClick={(rowData)=>{ }}
                 actions={(rowData)=>{
                     return(
                         <>
                         {/* BUTTON: edit */}
                         <div className={styles.collaboratorBtnEdit}>
                             <Button 
-                            appearance="default"
                             loading={form.filtering}
+                            appearance={"ghost"}
+                            color={"yellow"}
                             disabled={form.filtering}
                             onClick={()=>{
                                 dispatch(refreshCollaborator({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))

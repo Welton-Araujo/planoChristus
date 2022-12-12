@@ -23,25 +23,23 @@ const SidebarMobile = (props) => {
             <MyDrawer className={styles.sideMobileDrawer} style={{with:"80%"}}
             id={'drawer-mobile'}
             title={companyInfo.fantasyName || "Menu"} 
+            component={open}
             placement={'right'}
             buttonOpen={{
                 title: <span className="mdi mdi-menu"></span>,
                 appearance:"default",
+                handleOpen
             }}
             buttonSubmit={{
                 title:<span className="mdi mdi-exit-to-app"> Sair</span>,
-            }} 
-            customState={{
-                component: open,
-                handleOpen,
                 handleClose
-            }} 
-            >
+            }} >
                 <div className={styles.sideMobileMenu}>
                     <MainMenu 
                     className={styles.itemsMainMenu} 
                     menu={menus.itemsMainMenu}
-                    onClose={handleClose}/>
+                    onClose={handleClose}                        
+                    />
                 </div>
             </MyDrawer>
         </div>

@@ -7,27 +7,16 @@ import styles from './Drawer.module.css'
 
 const MyDrawer = (props)=>{
     const { 
-        id=null,
+        id="myDrawer",
         className="",
-        title='Lateral', 
+        title='Lateral',
+        component={},
         placement='rigth', 
         buttonOpen={},
         buttonSubmit={},
-        customState={
-            component:{ id:null, open:false },
-            handleOpen:undefined, 
-            handleClose:undefined,
-        },
         children=undefined, 
         style={} 
-    } = props
-    
-    //STATE VIA SAGA(REDUX):
-    const { 
-        component, 
-        handleOpen,
-        handleClose, 
-    } = customState
+    } = props    
     // console.log('MyDrawer ... id', id, customState,  )
     
     //STATE REACT:
@@ -40,7 +29,7 @@ const MyDrawer = (props)=>{
         {   buttonOpen.disabled ? false :
             <ButtonToolbar>
                 <Button className={styles.buttonOpen} style={buttonOpen.style}
-                    onClick    = {handleOpen || _handleOpen}
+                    onClick    = {buttonOpen.handleOpen || _handleOpen}
                     appearance = {buttonOpen.appearance || "primary"} >
                     {buttonOpen.title || 'Open'}
                 </Button>
@@ -51,14 +40,14 @@ const MyDrawer = (props)=>{
             placement = {placement} 
             size      = {"sm"}
             open      = {component.id===id || open}  
-            onClose   = {handleClose       || _handleClose} 
+            onClose   = {buttonSubmit.handleClose || _handleClose} 
             >
                 <Drawer.Header>
                     <Drawer.Title>{title}</Drawer.Title>
                         {   buttonSubmit.disabled ? false :
                         <Drawer.Actions>
                             <Button className = {styles.buttonSubmit} style = {buttonSubmit.style}
-                                onClick     = {handleClose || _handleClose} 
+                                onClick     = {buttonSubmit.handleClose || _handleClose} 
                                 loading     = {buttonSubmit.loading    || false}
                                 appearance  = {buttonSubmit.appearance || "primary"} >
                                     {buttonSubmit.title||'Close'}

@@ -96,21 +96,19 @@ const Schedule = (props)=>{
                     <MyDrawer className={styles.scheduleDrawer} style={{}}
                     id={'drawer-schedule'}
                     title={`${getScheduleBehavior(behavior).title} horário`}
+                    component={components.drawer}
                     placement={'left'}
                     buttonOpen={{
-                        title: <span className="mdi mdi-calendar-plus"></span>,                        
-                    }}
-                    buttonSubmit={{
-                        disabled: false,
-                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,                        
-                    }} 
-                    customState={{
-                        component: components.drawer,
+                        title: <span className="mdi mdi-calendar-plus"></span>,
                         handleOpen:()=>{
                             dispatch(refreshSchedule({ behavior:'create' }))
                             dispatch(resetSchedule())
                             setComponent('drawer',{id:'drawer-schedule', open:true})
                         },
+                    }}
+                    buttonSubmit={{
+                        disabled: false,
+                        title:<span className="mdi mdi-exit-to-app"> Sair</span>,                        
                         handleClose:()=>setComponent('drawer',{id:null, open:false})
                     }} >
                         {/* Form */}
@@ -125,6 +123,8 @@ const Schedule = (props)=>{
                         buttonSubmit={{
                             title:  <span className="mdi mdi-zip-disk">{getScheduleBehavior(behavior).title} </span>,
                             loading: form.saving,
+                            appearance:"primary",
+                            color:behavior==='create' ? "blue":"yellow",
                             onClick: ()=>{ 
                                 if(behavior==='create'){
                                     save() 
@@ -134,8 +134,6 @@ const Schedule = (props)=>{
                                     setComponent('modal',{id:"cmScheduleRemove", open:true}) 
                                 } 
                             },
-                            appearance:behavior==='create' ? "primary":"ghost",
-                            color:behavior==='create' ? "blue":"yellow"
                         }}
                         />
 
