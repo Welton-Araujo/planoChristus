@@ -1,9 +1,9 @@
-.formBuilder,
+.fbTemplate,
 .fbGroup{
     display: flex;
     flex-wrap: wrap;
 }
-.formBuilder{
+.fbTemplate{
     padding: 15px 0;
 }
 .fbTitle{
@@ -32,12 +32,10 @@
     background-color: var(--secondary);
     color: var(--white);
 }
-.fbBtnDelete{
-    width: 100%;
-    padding: 12px;
-    border-radius: 6px;
-    background-color: var(--danger);
-    color: var(--white);
+.fileInfo{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 

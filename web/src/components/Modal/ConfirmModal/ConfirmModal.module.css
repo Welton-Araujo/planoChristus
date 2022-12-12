@@ -20,11 +20,11 @@
     width: 100px;
     font-size: large;
     background-color: transparent;
-    color: var(--white);
+    color: var(--white)!important;
 }
 .cmBtnCancel{
-    background-color: var(--danger);
+    background-color: var(--danger)!important;
 }
 .cmBtnConfirm{
-    background-color: var(--success);
+    background-color: var(--success)!important;
 }

@@ -3,7 +3,6 @@ import {
     useDispatch, 
     useSelector,
 } from 'react-redux'
-import { Button } from 'rsuite'
 import moment from 'moment'
 
 // import useEffectDispatch from '../../hooks/UseEffect'
@@ -24,11 +23,8 @@ import {
 // COMPONENTS:
 import MyCalendar       from '../../components/Calendar'
 import FormSchedule     from './FormSchedule'
-// import MyTable          from '../../components/Table'
-// import TableOneRow      from '../../components/TableOneRow'
 import MyDrawer         from '../../components/Drawer'
-// import MyModal          from '../../components/Modal'
-// import ConfirmModal     from '../../components/Modal/ConfirmModal'
+import ConfirmModal     from '../../components/Modal/ConfirmModal'
 
 // CSS:
 import styles           from './Schedule.module.css'
@@ -39,13 +35,7 @@ import {
     daysWeek, 
     daysWeekData 
 } from '../../constants/pages/schedule' 
-// import { 
-//     scheduleTable as tableConfig 
-// } from '../../constants/components/table' 
 
-//DATA DE HOJE: (AO CARREGAR A PAGINA)
-// const firstWeekday =  moment().weekday(0).format('YYYY-MM-DD')//"2022-11-09"
-// const lastweekday  =  moment().weekday(6).format('YYYY-MM-DD')//"2022-12-29"
 const { name:salonName } = loginFake.salon
 let stap = 0
 
@@ -56,7 +46,7 @@ const Schedule = (props)=>{
     
     //STATE: inicial=[] e atualizado=[...]
     const { all, current, services, collaborators, form, components, behavior } = useSelector((state)=>state.schedule)
-    console.log('SCHEDULE #### ', current, services, collaborators, all)
+    console.log('SCHEDULE #### ', behavior, current, services, collaborators, all)
     const formattedEvents   = formatEvents(all)
         
     //FUNCOES:
@@ -105,7 +95,7 @@ const Schedule = (props)=>{
                     {/* Drawer */}
                     <MyDrawer className={styles.scheduleDrawer} style={{}}
                     id={'drawer-schedule'}
-                    title={`${getBehavior(behavior).title} horário`}
+                    title={`${getScheduleBehavior(behavior).title} horário`}
                     placement={'left'}
                     buttonOpen={{
                         title: <span className="mdi mdi-calendar-plus"></span>,                        
@@ -133,7 +123,7 @@ const Schedule = (props)=>{
                         behavior={behavior}
                         setPage={setSchedule}
                         buttonSubmit={{
-                            title:  <span className="mdi mdi-zip-disk">{getBehavior(behavior).title} </span>,
+                            title:  <span className="mdi mdi-zip-disk">{getScheduleBehavior(behavior).title} </span>,
                             loading: form.saving,
                             onClick: ()=>{ 
                                 if(behavior==='create'){
@@ -144,18 +134,44 @@ const Schedule = (props)=>{
                                     setComponent('modal',{id:"cmScheduleRemove", open:true}) 
                                 } 
                             },
-                            style: { backgroundColor: getBehavior(behavior).color }
-                        }}
-                        buttonDelete={{
-                            title:  <span className="mdi mdi-trash-can">{"Excluir"} </span>,
-                            loading: form.saving,
-                            onClick: ()=>{
-                                remove()
-                                setComponent('modal',{id:"cmScheduleRemove", open:true})                                  
-                            },
-                            style: { backgroundColor: 'var(--danger)' }
+                            appearance:behavior==='create' ? "primary":"ghost",
+                            color:behavior==='create' ? "blue":"yellow"
                         }}
                         />
+
+                        {/* ConfirmModal: Delete */}
+                        {
+                            behavior==="create" ? false :
+                            <ConfirmModal 
+                            id={"cmScheduleRemove"}
+                            config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
+                            component={components.modal}
+                            buttonOpen={{
+                                disabled:false,
+                                className: styles.scheduleCMBtnDelete,
+                                title: <span className="mdi mdi-delete"> {"Excluír"}</span>,
+                                appearance:"primary",
+                                color:"red",
+                                handleOpen: ()=>{
+                                    // dispatch(refreshSchedule({ current, behavior:'delete', form:{ ...form, disabled:false} }))
+                                    setComponent('modal',{id:"cmScheduleRemove", open:true})
+                                },
+                            }}
+                            buttonConfirm={{
+                                title:"",
+                                loading:form.saving,
+                                handleConfirm:()=>{remove()},
+                            }}
+                            buttonCancel ={{
+                                titel:"",
+                                handleCancel :()=>setComponent('modal',{id:null, open:false})
+                            }}
+                            style={{ 
+                                cmModal:{backgroundColor:"#ff00001c", borderRadius:"5px", padding:"10px"}, 
+                                myModal:{ backgroundColor:"#ff00001c"}
+                            }}
+                            />
+                        }
                     </MyDrawer>                        
                 </div>
             </div>
@@ -175,51 +191,6 @@ const Schedule = (props)=>{
                 }}
                 style={{padding:'5px'}}
                 />
-                {/* <MyTable 
-                loading={form.filtering}
-                data={all}
-                config={tableConfig}
-                onRowClick={(rowData)=>{}}
-                actions={(rowData)=>{
-                    return(
-                        <>
-                        <div className={styles.scheduleBtnEdit}>
-                            <Button 
-                            appearance="default"
-                            loading={form.filtering}
-                            disabled={form.filtering}
-                            onClick={()=>{
-                                dispatch(refreshSchedule({ current:rowData, behavior:'update', form:{ ...form, disabled:false} }))
-                            setComponent('drawer',{id:'drawer-schedule',open:true})                                                              
-                            }} > 
-                                <span className="mdi mdi-account-edit"></span>
-                            </Button>
-                        </div>
-
-
-                        <ConfirmModal id={"cmScheduleRemove"}
-                        config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
-                        buttonOpen={{
-                            disabled:false,
-                            title: <span className="mdi mdi-delete"></span> 
-                        }}
-                        buttonConfirm={{title:"",loading:form.saving}}
-                        buttonCancel ={{titel:""}}
-                        customState={{
-                            component: components.modal,
-                            handleOpen: ()=>{
-                                dispatch(refreshSchedule({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
-                                setComponent('modal',{id:"cmScheduleRemove", open:true})
-                            },
-                            handleConfirm:()=>{remove()},
-                            handleCancel :()=>setComponent('modal',{id:null, open:false})
-                        }}
-                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
-                        />
-                        </>
-                    )
-                }}/>  */}
-
             </div>
         </div>   
     )
@@ -253,14 +224,14 @@ const load = (all=[], qtd=0, attempts=0)=>{
     return ok
 }
 
-const getBehavior = (behavior) =>{
+const getScheduleBehavior = (behavior) =>{
     switch (behavior) {
         case 'delete':
-            return {title:" Deletar"   , color:"var(--danger)"}
+            return {title:" Deletar"   , color:"var(--danger)!important"}
         case 'update':
-            return {title:" Atualizar" , color:"var(--warning)"} 
+            return {title:" Atualizar" , color:"var(--warning)!important"} 
         default://create
-            return {title:" Salvar"    , color:"var(--success)"}
+            return {title:" Salvar"    , color:"var(--success)!important"}
     }
 }
 

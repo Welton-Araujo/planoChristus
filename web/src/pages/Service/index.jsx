@@ -85,7 +85,7 @@ const Service = (props)=>{
                     {/* Drawer */}
                     <MyDrawer className={styles.serviceDrawer} style={{}}
                     id={'drawer-service'}
-                    title={`${getBehavior(behavior).title} serviço`}
+                    title={`${getServiceBehavior(behavior).title} serviço`}
                     placement={'left'}
                     buttonOpen={{
                         title: <span className="mdi mdi-plus-thick"></span>,                        
@@ -110,7 +110,7 @@ const Service = (props)=>{
                         behavior={behavior}
                         setPage={setService}
                         buttonSubmit={{
-                            title:  <span className="mdi mdi-zip-disk">{getBehavior(behavior).title} </span>,
+                            title:  <span className="mdi mdi-zip-disk">{getServiceBehavior(behavior).title} </span>,
                             loading: form.saving,
                             onClick: ()=>{ 
                                 if(behavior==='create'){
@@ -121,7 +121,7 @@ const Service = (props)=>{
                                     alert("Função não implementada: behavior===delete")
                                 } 
                             },
-                            style: { backgroundColor: getBehavior(behavior).color }
+                            style: { backgroundColor: getServiceBehavior(behavior).color }
                         }}
                         />
                     </MyDrawer>                        
@@ -152,24 +152,33 @@ const Service = (props)=>{
                         </div>
 
                         {/* ConfirmModal: cm */}
-                        <ConfirmModal id={`cmServiceRemove-${rowData.id}`}
+                        <ConfirmModal 
+                        id={`cmServiceRemove-${rowData.id}`}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
+                        component={components.modal}
                         buttonOpen={{
                             disabled:false,
-                            title: <span className="mdi mdi-delete"></span> 
-                        }}
-                        buttonConfirm={{title:"",loading:form.saving}}
-                        buttonCancel ={{titel:""}}
-                        customState={{
-                            component: components.modal,
+                            title: <span className="mdi mdi-delete"></span>,
+                            // appearance:"primary",
+                            color:"red",
                             handleOpen: ()=>{
                                 dispatch(refreshService({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
                                 setComponent('modal',{id:`cmServiceRemove-${rowData.id}`, open:true})
                             },
-                            handleConfirm:()=>{remove()},
+                        }}
+                        buttonConfirm={{
+                                title:"",
+                                loading:form.saving,
+                                handleConfirm:()=>{remove()},
+                        }}
+                        buttonCancel ={{
+                            titel:"",
                             handleCancel :()=>setComponent('modal',{id:null, open:false})
                         }}
-                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
+                        style={{ 
+                            cmModal:{backgroundColor:"#ff00001c", borderRadius:"5px", padding:"10px"}, 
+                            myModal:{ backgroundColor:"#ff00001c"}
+                        }}
                         />
                         </>
                     )
@@ -188,14 +197,14 @@ const load = (all=[], qtd=0, attempts=0)=>{
     return ok
 }
 
-const getBehavior = (behavior) =>{
+const getServiceBehavior = (behavior) =>{
     switch (behavior) {
         case 'delete':
-            return {title:" Deletar"   , color:"var(--danger)"}
+            return {title:" Deletar"   , color:"var(--danger)!important"}
         case 'update':
-            return {title:" Atualizar" , color:"var(--warning)"} 
+            return {title:" Atualizar" , color:"var(--warning)!important"} 
         default://create
-            return {title:" Salvar"    , color:"var(--success)"}
+            return {title:" Salvar"    , color:"var(--success)!important"}
     }
 }
 

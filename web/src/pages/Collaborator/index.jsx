@@ -88,7 +88,7 @@ const Collaborator = (props)=>{
                     {/* Drawer */}
                     <MyDrawer className={styles.collaboratorDrawer} style={{}}
                     id={'drawer-collaborator'}
-                    title={`${getBehavior(behavior).title} colaborador`}
+                    title={`${getCollabBehavior(behavior).title} colaborador`}
                     placement={'left'}
                     buttonOpen={{
                         title: <span className="mdi mdi-account-plus"></span>,                        
@@ -150,7 +150,7 @@ const Collaborator = (props)=>{
                         behavior={behavior}
                         setPage={setCollaborator}
                         buttonSubmit={{
-                            title:  <span className="mdi mdi-zip-disk">{getBehavior(behavior).title} </span>,
+                            title:  <span className="mdi mdi-zip-disk">{getCollabBehavior(behavior).title} </span>,
                             loading: form.saving,
                             onClick: ()=>{ 
                                 if(behavior==='create'){
@@ -161,7 +161,7 @@ const Collaborator = (props)=>{
                                     setComponent('modal',{id:"cmCollaboratorRemove", open:true}) 
                                 } 
                             },
-                            style: { backgroundColor: getBehavior(behavior).color }
+                            style: { backgroundColor: getCollabBehavior(behavior).color }
                         }}
                         />
                     </MyDrawer>                        
@@ -196,51 +196,32 @@ const Collaborator = (props)=>{
 
                         {/* ConfirmModal: cm */}
                         <ConfirmModal id={"cmCollaboratorRemove"}
-                        config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
+                        config={{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
+                        component={components.modal}
                         buttonOpen={{
                             disabled:false,
-                            title: <span className="mdi mdi-delete"></span> 
-                        }}
-                        buttonConfirm={{title:"",loading:form.saving}}
-                        buttonCancel ={{titel:""}}
-                        customState={{
-                            component: components.modal,
+                            title: <span className="mdi mdi-delete"></span>,
+                            // appearance:"primary",
+                            color:"red",
                             handleOpen: ()=>{
                                 dispatch(refreshCollaborator({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
                                 setComponent('modal',{id:"cmCollaboratorRemove", open:true})
-                            },
+                            }, 
+                        }}
+                        buttonConfirm={{
+                            title:"",
+                            loading:form.saving,
                             handleConfirm:()=>{remove()},
+                        }}
+                        buttonCancel ={{
+                            titel:"",
                             handleCancel :()=>setComponent('modal',{id:null, open:false})
                         }}
-                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
+                        style={{ 
+                            cmModal:{backgroundColor:"#ff00001c", borderRadius:"5px", padding:"10px"}, 
+                            myModal:{ backgroundColor:"#ff00001c"}
+                        }}
                         />
-
-                        {/* Modal: see */}
-                        {/* <MyModal style={{}}
-                        id={rowData.id}                        
-                        config={{title:'DETALHES SALÃO::COLABORADOR'}}
-                        buttonOpen={{
-                            title:<span className="mdi mdi-eye"></span>,
-                        }}
-                        buttonSubmit={{
-                            title:<span className="mdi mdi-exit-to-app"></span>,
-                        }}
-                        customState={{
-                            component: components.modal,
-                            handleOpen:()=>{
-                                setComponent('modal',{id:rowData.id, open:true})
-                            },
-                            handleClose:()=>setComponent('modal',{id:null, open:false})
-                        }} >
-                            <TableOneRow objData={rowData.salonCollaborator}
-                            config={{
-                                uppercase: true, 
-                                rootLabel: true,
-                                char: '.',
-                                ignore:[ '_id', ] 
-                            }}
-                            />
-                        </MyModal> */}
                         </>
                     )
                 }}/>
@@ -258,14 +239,14 @@ const load = (all=[], qtd=0, attempts=0)=>{
     return ok
 }
 
-const getBehavior = (behavior) =>{
+const getCollabBehavior = (behavior) =>{
     switch (behavior) {
         case 'delete':
-            return {title:" Deletar"   , color:"var(--danger)"}
+            return {title:" Deletar"   , color:"var(--danger)!important"}
         case 'update':
-            return {title:" Atualizar" , color:"var(--warning)"} 
+            return {title:" Atualizar" , color:"var(--warning)!important"} 
         default://create
-            return {title:" Salvar"    , color:"var(--success)"}
+            return {title:" Salvar"    , color:"var(--success)!important"}
     }
 }
 

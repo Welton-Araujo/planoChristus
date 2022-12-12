@@ -155,7 +155,6 @@ export function* updateSchedule(){
 export function* unlinkSchedule(){
     //BUSCAR STATE.SCHEDULE:
     const { current, form, components } = yield select(state=>state.schedule)
-    const { salonSchedule={} } = current
     const endPointUnlink = `/horario/${current._id}`
     console.log('SAGAS::unlinkSchedule', endPointUnlink, current)
 

@@ -8,24 +8,13 @@ const MyModal = (props) => {
     const { 
         id="myModal",
         config={}, 
+        component={},
         buttonOpen={},
         buttonSubmit={},
-        customState={
-            component:{ id:null, open:false },
-            handleOpen:undefined, 
-            handleClose:undefined,
-        },
         children=undefined, 
         style={} 
     } = props
-    // console.log("Modal ... ", id,)
-
-    //STATE VIA SAGA(REDUX):
-    const { 
-        component, 
-        handleOpen,
-        handleClose, 
-    } = customState
+    console.log("MyModal ... ", id, buttonOpen)
 
     //STATE REACT:
     const [open, setOpen] = useState(false)
@@ -33,19 +22,21 @@ const MyModal = (props) => {
     const _handleClose    = ()=>setOpen(false)
 
     return (
-        <div className={styles.myModal} style={style}>
+        <div className={styles.myModal}>
         {   buttonOpen.disabled ? false :
             <ButtonToolbar>
-                <Button style={{color:"inherit"}}
-                    onClick={handleOpen || _handleOpen}
-                    appearance={buttonOpen.appearance||"default"}>
+                <Button className={buttonOpen.className} style={buttonOpen.style}
+                    onClick={buttonOpen.handleOpen || _handleOpen}
+                    appearance={buttonOpen.appearance||"ghost"}
+                    color={buttonOpen.color||"blue"}
+                    >
                     {buttonOpen.title||'Open'}
                 </Button>
             </ButtonToolbar>
         }
-            <Modal 
+            <Modal style={style}
             open    = {component.id===id || open} 
-            onClose = {handleClose       || _handleClose} >
+            onClose = {buttonSubmit.handleClose  || _handleClose} >
                 <Modal.Header>
                     <Modal.Title>{config.title||'Detalhes'}</Modal.Title>
                 </Modal.Header>
@@ -55,9 +46,11 @@ const MyModal = (props) => {
                 <Modal.Footer>
                 {   buttonSubmit.disabled ? false :
                     <Button style={{marginTop:"10px"}}
-                    onClick    = {handleClose || _handleClose} 
-                    loading    = {buttonSubmit.loading    || false}
-                    appearance = {buttonSubmit.appearance || "primary"}>
+                    onClick    = {buttonSubmit.handleClose || _handleClose} 
+                    loading    = {buttonSubmit.loading     || false}
+                    appearance = {buttonSubmit.appearance  || "primary"}
+                    color      = {buttonSubmit.color       || "blue"}
+                    >
                         {buttonSubmit.title || "Close"}
                     </Button>
                 }
