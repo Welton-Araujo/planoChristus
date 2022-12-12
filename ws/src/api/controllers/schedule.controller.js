@@ -5,9 +5,9 @@ const scheduleService = require('../services/schedule.service')
  *
 */
 const get = async (req, res)=>{
-    console.log('ScheduleController::get')
-    const { fields, ...query } = req.query// = { fields, param_1, param_2, ... }
-    const response = await scheduleService.get(fields, query)
+    const { filtro, ...query } = req.query// = { filtro, param_1, param_2, ... }
+    console.log('ScheduleController::get', filtro, query)
+    const response = await scheduleService.get(query, filtro)
     res.json(response)
 }
 
@@ -17,8 +17,8 @@ const get = async (req, res)=>{
 const getSalonSchedules = async (req, res)=>{
     console.log('ScheduleController::getSalonSchedules')
     const { salonId } = req.params
-    const { fields, ...query } = req.query
-    const response = await scheduleService.getSalonSchedules(salonId, fields, query)
+    const { filtro, ...query } = req.query
+    const response = await scheduleService.getSalonSchedules(salonId, query, filtro)
     res.json(response)
 }
 
@@ -55,8 +55,8 @@ const postCollaboratorSchedules = async (req, res)=>{
 const put = async (req, res)=>{
     console.log('ScheduleController::put')
     const { id } = req.params
-    const { fields } = req.query
-    const response = await scheduleService.put(id, req.body, fields )
+    const { filtro } = req.query
+    const response = await scheduleService.put(id, req.body, filtro )
     res.json(response)
 }
 

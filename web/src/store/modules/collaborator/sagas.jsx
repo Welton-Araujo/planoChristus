@@ -7,7 +7,7 @@ import {
     FILTER_COLLABORATOR,
     UPDATE_COLLABORATOR,
     UNLINK_COLLABORATOR,
-    ALL_SERVICES_COLLAB,
+    ALLSERVICES_COLLABORATOR,
     // STATE LOCAL
 
 } from '../../../constants/store/actionTypes'
@@ -286,5 +286,5 @@ export default all([
     takeLatest(FILTER_COLLABORATOR, filterCollaborator),
     takeLatest(UPDATE_COLLABORATOR, updateCollaborator),
     takeLatest(UNLINK_COLLABORATOR , unlinkCollaborator),
-    takeLatest(ALL_SERVICES_COLLAB , allServicesCollaborator),
+    takeLatest(ALLSERVICES_COLLABORATOR , allServicesCollaborator),
 ])

@@ -11,6 +11,7 @@ const {
 const SchedulingRepository   = require('../repositories/schedulling.repository')
 const CollaboratorRepository = require('../repositories/collaborator.repository')
 
+
 /** 
  * 
  * @param {*} query 
@@ -66,7 +67,7 @@ const post = async (clientId, salonId, collaboratorId, serviceId, date)=>{
 }
 
 /** AULA **/
-const filters = async (salonId, period, query={}, filters={}) => {
+const filters = async (salonId, period, query={}, filters="") => {
     console.log('schedulingService::filters', salonId, period)
     const { schedules } = await SchedulingRepository.find(
         {
@@ -82,10 +83,9 @@ const filters = async (salonId, period, query={}, filters={}) => {
             { path:'serviceId', select:'title duration'},
             { path:'collaboratorId', select:'name'},
             { path:'clientId', select:'name'}
-        ]
+        ]//populate
     )
-
-    return { error:false, message:'Agendamento por período.', periodo:period, schedules}
+    return { error:false, message:'Agendamento por período.', salonId, period, schedules}
 }
 
 /*** AULA ***/

@@ -5,14 +5,19 @@
   margin: 0px;
   padding: 0px;
 }
-
 .schedulingHeader{
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 5px;
 }
-
-.schedulingHeader h1{
+.schedulingTitle{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 5px;
+}
+.schedulingTitle h1{
   font-size: 1.5rem;
 }
 

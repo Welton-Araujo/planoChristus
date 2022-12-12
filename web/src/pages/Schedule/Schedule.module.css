@@ -1,0 +1,72 @@
+.scheduleContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0px;
+    padding: 0px ;
+}
+.scheduleHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}  
+.scheduleTitle{
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+}
+.scheduleTitle h1{
+    font-size: 1.5rem;
+}
+.scheduleBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+/* CLIENTPANEL */
+.schedulePanel{
+    color: inherit;
+}
+.scheduleSearch{
+    padding: 15px;
+    border-radius: 5px;
+    background-color: var(--form-gray);
+    /* margin-bottom: 20px; */
+    border-radius: 5px;
+    border: 1px solid aliceblue;
+}
+
+.scheduleBtnEdit{
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    width:100%;
+}
+
+
+/* COMPONENT QUERIES */
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) { }
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+    .scheduleHeader .rs-drawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+        width: 100%!important;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (max-width: 728px) {
+    .scheduleDrawer{/** CORRIGIR ERRO DE LARGURA PROVOCADO PELA TABLE */
+        width: 100%!important;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) { }

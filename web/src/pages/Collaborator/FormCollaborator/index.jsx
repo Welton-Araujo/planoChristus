@@ -1,5 +1,6 @@
 // OBS: CRIAR UM FORM DINAMICO NO FUTURO!
 // USANDO CLASS DO BOOTSTRAP:
+import moment from 'moment'
 import { Button, TagPicker, SelectPicker } from 'rsuite'
 
 import './Form.css'
@@ -337,7 +338,7 @@ const MyForm = (props) =>{
                     type={"date"}
                     placeholder={"Data cadastro"}
                     disabled={form.disabled}
-                    value={salonCollaborator["dateRegistration"].split('T')[0]}
+                    value={moment(salonCollaborator["dateRegistration"]).format("YYYY-MM-DD")}
                     autoFocus={focus==='date-registration'}
                     onChange={(e)=>{
                         focus = e.target.name

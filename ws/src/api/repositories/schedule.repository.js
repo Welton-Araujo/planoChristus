@@ -16,7 +16,7 @@ const find = async (query={}, fields='') => {
         // console.log('schedules ...', schedules)
         return { error:false, schedules }
     } catch (error) {
-        return { error:true, message:error.message, schedules:null }
+        return { error:true, message:error.message, schedules:[] }
     }
 }
 

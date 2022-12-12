@@ -60,6 +60,21 @@ export const collaboratorTable = {
     ]
 }
 
+export const scheduleTable = {
+    "style":{
+        "height":447
+    },
+    "header":[
+        {"label":"status",        "key":"status", "fixed":true, "style":{"width":90,"align":"left"}, "content":({status})=>getStatus({status, icon:"worker"}), },
+        {"label":"id",            "key":"id", "fixed":false, "style":{"width":250,"align":"center"}, "content":({id})=><Tag color={""}>{id}</Tag>, },
+        {"label":"ID salão",      "key":"salonId","fixed":false, "style":{"width":250,"align":"left"}},
+        {"label":"Dias",          "key":"day","fixed":false, "style":{"width":150,"align":"left"}},
+        {"label":"Serviços",      "key":"service","fixed":false, "style":{"width":150,"align":"left"}},
+        {"label":"Colaboradores", "key":"collaborators", "fixed":false, "style":{"width":240,"align":"left"}},
+        {"label":"data cadastro", "key":"dateRegistration", "fixed":false, "style":{"width":180,"align":"left"}, "content":({dateRegistration})=> dateRegistration, },
+    ]
+}
+
 export const serviceTable = {
     "style":{
         "height":447
@@ -79,6 +94,10 @@ export const serviceTable = {
     ]
 }
 
+
+/**
+ * @AUX FUNÇOES e CONST
+ */
 const getStatus = ({status="a", icon="user"}) =>{    
     return  <Tag color={statusConf.color[status]}>
                 <span className={statusConf[icon][status]}> {statusConf.text[status]}</span>

@@ -10,7 +10,7 @@ const CollaboratorServiceRepository = require('../repositories/relationship/coll
  *
 */
 const get = async (query={}, fields='')=>{
-    console.log('ScheduleService::get')
+    console.log('ScheduleService::get', query, fields)
     return ScheduleRepository.find(query, fields)
 }
 
@@ -60,7 +60,7 @@ const postCollaboratorSchedules = async (newServices)=>{
         value:colSer.collaboratorId._id
     }))
 
-    return { error:false, message: 'Horarios do colaborador salvo.', collaborators }
+    return { error:false, message: 'Colaboradores dos horarios.', collaborators }
 }
 
 /** AULA **/
@@ -71,7 +71,7 @@ const put = async (id, schedule, fields='')=>{
     const { oldSchedule } = await ScheduleRepository.findByIdAndUpdate(id, schedule)
     if( !oldSchedule ){ return{ error:true, message:'Horario(s) não existe.' } }
 
-    return { error:true, message:'Horarios encontrados.',schedule:oldSchedule }
+    return { error:false, message:'Horarios encontrados.',schedule:oldSchedule }
 }
 
 /** AULA **/

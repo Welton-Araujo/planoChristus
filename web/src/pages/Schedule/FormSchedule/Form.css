@@ -1,0 +1,60 @@
+.formBuilder,
+.fbGroup{
+    display: flex;
+    flex-wrap: wrap;
+}
+.formBuilder{
+    padding: 15px 0;
+}
+.fbTitle{
+    margin-top: 6px;
+}
+.fbGroup{
+    justify-content: space-between;
+    margin: 5px 0;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid aliceblue;
+}
+.fbItem{
+    width: 48%;
+    margin-bottom: 20px;
+}
+.fbBtnGroup{
+    width: 100%;
+    margin: 10px 0;
+}
+.fbBtnSubmit{
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: var(--secondary);
+    color: var(--white);
+}
+.fbBtnDelete{
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: var(--danger);
+    color: var(--white);
+}
+
+
+
+/* COMPONENT QUERIES */
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) { }
+
+/* Large devices (desktops, 992px and up) */
+@media only screen and (max-width: 992px) { }
+
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (max-width: 728px) {
+    .fbItem{
+        width: 100%!important;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media only screen and (max-width: 576px) { }

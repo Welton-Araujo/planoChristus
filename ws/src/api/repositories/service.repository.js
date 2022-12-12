@@ -77,8 +77,8 @@ const saveFull = async (service, files) => {
     console.log('ServiceRepository:: saveFull')
     const db = mongoose.connection
     const session = await db.startSession()
-    session.startTransaction()
     try {
+        session.startTransaction()
         //INSERT SERVICE:
         const savedService = await ServiceModel(service).save()
         if( !savedService ) { return {error:true, service:null, files:null } }
@@ -97,21 +97,12 @@ const saveFull = async (service, files) => {
 
         await session.commitTransaction()
         session.endSession()
-        return { 
-            error: false, 
-            message: "Serviço salvo com sucesso.", 
-            service: savedService,
-            files:   savedFiles
-        }
+        return { error:false, message:"Serviço salvo com sucesso.", service:savedService, files:savedFiles }
     } catch (error) {
+        console.log('ServiceRepository:: saveFull ERROR', error)
         await session.commitTransaction()
         session.endSession()
-        return { 
-            error: true, 
-            message: error, 
-            service:null, 
-            files: null 
-        }
+        return { error:true, message:error, service:null, files:null }
     }
 }
 
@@ -124,28 +115,19 @@ const saveFull = async (service, files) => {
  * @returns 
  */
 const updateFull = async (id, service, files) => {
+    console.log('ServiceRepository:: updateFull ')
     const db = mongoose.connection
     const session = await db.startSession()
-    session.startTransaction()
     try {
-        //Update service:
-        console.log('ServiceRepository: ...', service)
-        const upService = await ServiceModel.findByIdAndUpdate(id, service)
-        console.log('up serv 1111', upService)
-        
-        if( !upService ){
-            return { 
-                error: true, 
-                message: "Erro, serviço inexistente.", 
-                service: null,
-                files: null
-            }
-        }
-        //Delete olf file of service:
+        session.startTransaction()
+        // UPDATE SERVICE:
+        const upService = await ServiceModel.findByIdAndUpdate(id, service)        
+        if( !upService ){ return { error:true, message:"Erro, serviço inexistente.", service:null, files:null} }
+
+        //DELETE OLD FILES:
         const oldFile = await FileModel.deleteMany({ referenceId:id })
-        console.log('oldFile', oldFile)
         
-        //Insert File: Criar files[] do service para salvar no db:
+        //INSERT FILES: Criar files[] do service para salvar no db:
         const filesToDB = await files.map(({folderPath, meta})=>({
             referenceId: id,
             model: 'Service',
@@ -154,24 +136,14 @@ const updateFull = async (id, service, files) => {
         }))
         const upFiles = await FileModel.insertMany(filesToDB)
 
-        //finish
         await session.commitTransaction()
         session.endSession()
-        return { 
-            error: false, 
-            message: "Atualização feita com sucesso.",
-            service: upService,
-            files:   upFiles
-        }
+        return { error:false, message:"Atualização feita com sucesso.", service:upService, files:upFiles }
     } catch (error) {
-        //await session.commitTransaction()
-        //session.endSession()
-        return { 
-            error: true, 
-            message: error, 
-            service: null, 
-            files: null 
-        }
+        console.log('ServiceRepository:: updateFull ERROR', error)
+        await session.commitTransaction()
+        session.endSession()
+        return { error:true, message:error, service:null, files:null }
     }
 }
 
