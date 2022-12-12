@@ -1,9 +1,9 @@
-.formBuilder,
+.fbTemplate,
 .fbGroup{
     display: flex;
     flex-wrap: wrap;
 }
-.formBuilder{
+.fbTemplate{
     padding: 15px 0;
 }
 .fbTitle{
@@ -31,11 +31,6 @@
     border-radius: 6px;
     background-color: var(--secondary);
     color: var(--white);
-}
-.fileInfo{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 

@@ -1,9 +1,9 @@
-.formBuilder,
+.fbTemplate,
 .fbGroup{
     display: flex;
     flex-wrap: wrap;
 }
-.formBuilder{
+.fbTemplate{
     padding: 15px 0;
 }
 .fbTitle{
@@ -26,11 +26,8 @@
     margin: 10px 0;
 }
 .fbBtnSubmit{
-    width: 100%;
-    padding: 12px;
-    border-radius: 6px;
-    background-color: var(--secondary);
-    color: var(--white);
+    width: 100%!important;
+    padding: 12px!important;
 }
 
 

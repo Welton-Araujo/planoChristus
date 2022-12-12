@@ -7,50 +7,40 @@ const ConfirmModal = (props) =>{
     const { 
         id = "confirmModal",
         config = {title:"OPERAÇÃO"},
-        buttonOpen={disabled:false},
-        buttonSubmit={disabled:true},
-        buttonConfirm={title:"",loading:false},
-        buttonCancel ={titel:""},
-        customState = {},
-        style  = {}
+        component = {},
+        buttonOpen = {disabled:false},
+        buttonConfirm = {title:"",loading:false},
+        buttonCancel = {titel:""},
+        style = {}
     } = props    
     // console.log('ConfirmModal ### ', id, buttonConfirm)
 
-    //STATE VIA SAGA(REDUX):
-    const { 
-        //MyModal
-        component,
-        handleOpen,
-        handleClose,
-        //ConfirmModal
-        handleConfirm,
-        handleCancel, 
-    } = customState
-
     return(
-        <MyModal style={{}}
+        <MyModal
         id={id}
         config={{title: config.title || "OPERAÇÃO"}}
-        buttonOpen={{...buttonOpen}}
-        buttonSubmit={{...buttonSubmit}}
-        customState={{
-            component,
-            handleOpen: handleOpen, 
-            handleClose: handleClose || handleCancel,
-        }} >
-            <div className={styles.confirmModal}>
+        component={component}
+        buttonOpen={buttonOpen}
+        buttonSubmit={{
+            disabled:true,
+            handleClose:buttonCancel.handleCancel
+        }} 
+        style={style.myModal} 
+        >
+            {/* MyModal: Content */}
+            <div className={styles.confirmModal} style={style.cmModal}>
                 <div className={styles.cmBody}>
                     <h6>{config.message || "Deseja confirmar?"}</h6>
                 </div>
                 <div className={styles.cmFooter}>
                     <ButtonToolbar>
-                        <Button className={styles.cmBtnCancel} style={style.buttonCancel}
-                        onClick={handleCancel} >
+                        <Button className={styles.cmBtnCancel} style={buttonCancel.style}
+                        onClick={buttonCancel.handleCancel} >
                             {buttonCancel.title  || <span className="mdi mdi-cancel"></span>}
                         </Button>
-                        <Button className={styles.cmBtnConfirm} style={style.buttonConfirm}
+                        <Button className={styles.cmBtnConfirm} style={buttonConfirm.style}
                         loading={buttonConfirm.loading}
-                        onClick={handleConfirm} >
+                        onClick={buttonConfirm.handleConfirm} >
                             {buttonConfirm.title || <span className="mdi mdi-check"></span>}
                         </Button>
                     </ButtonToolbar>

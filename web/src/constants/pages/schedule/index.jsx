@@ -6,7 +6,6 @@
  * @Info        Mesmo com essa explicacao, foi definido a captura automatizado das vars.
  */
 
-console.log("**********", new Date().getDate())
 const YEAR  = new Date().getFullYear()
 const MONTH = new Date().getMonth()
 const DAY   = new Date().getDate()

@@ -9,7 +9,7 @@ export const INITIAL_STATE = {
         "day": [],
         "start": moment(),
         "end": moment(),
-        "dateRegistration": "",
+        "dateRegistration": new Date(),
     },
     services:[],
     collaborators:[],

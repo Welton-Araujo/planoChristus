@@ -20,9 +20,9 @@ import {
 
 import styles      from './Client.module.css'
 import FormClient  from './FormClient'
+import MyDrawer    from '../../components/Drawer'
 import MyTable     from '../../components/Table'
 // import TableOneRow from '../../components/TableOneRow'
-import MyDrawer    from '../../components/Drawer'
 // import MyModal       from '../../components/Modal'
 import ConfirmModal from '../../components/Modal/ConfirmModal'
 
@@ -79,7 +79,7 @@ const Client = (props)=>{
                     {/* Drawer */}
                     <MyDrawer className={styles.clientDrawer} style={{}}
                     id={'drawer-client'}
-                    title={`${getBehavior(behavior).title} cliente`}
+                    title={`${getClientBehavior(behavior).title} cliente`}
                     placement={'left'}
                     buttonOpen={{
                         title: <span className="mdi mdi-account-plus"></span>,                        
@@ -139,7 +139,7 @@ const Client = (props)=>{
                         behavior={behavior}
                         setPage={setClient}
                         buttonSubmit={{
-                            title:  <span className="mdi mdi-zip-disk">{getBehavior(behavior).title} </span>,
+                            title:  <span className="mdi mdi-zip-disk">{getClientBehavior(behavior).title} </span>,
                             loading: form.saving,
                             onClick: ()=>{ 
                                 if(behavior==='create'){
@@ -150,7 +150,7 @@ const Client = (props)=>{
                                     setComponent('modal',{id:"cmClientRemove", open:true}) 
                                 } 
                             },
-                            style: { backgroundColor: getBehavior(behavior).color }
+                            style: { backgroundColor: getClientBehavior(behavior).color }
                         }}
                         />
                     </MyDrawer>                        
@@ -186,41 +186,48 @@ const Client = (props)=>{
                         {/* ConfirmModal : cm */}
                         <ConfirmModal id={"cmClientRemove"}
                         config = {{ title:'CANCELAR SERVIÇO', message:"Confirmar operação?" }}
+                        component={components.modal}
                         buttonOpen={{
                             disabled:false,
-                            title: <span className="mdi mdi-delete"></span> 
-                        }}
-                        buttonConfirm={{title:"",loading:form.saving}}
-                        buttonCancel ={{titel:""}}
-                        customState={{
-                            component: components.modal,
+                            title: <span className="mdi mdi-delete"></span>,
+                            // appearance:"primary",
+                            color:"red",
                             handleOpen: ()=>{
                                 dispatch(refreshClient({ current:rowData, behavior:'delete', form:{ ...form, disabled:false} }))
                                 setComponent('modal',{id:"cmClientRemove", open:true})
                             },
+                        }}
+                        buttonConfirm={{
+                            title:"",
+                            loading:form.saving,
                             handleConfirm:()=>{remove()},
+                        }}
+                        buttonCancel ={{
+                            titel:"",
                             handleCancel :()=>setComponent('modal',{id:null, open:false})
                         }}
-                        style={{ buttonConfirm:{borderRadius:"11px"}, buttonCancel:{ } }}
+                        style={{ 
+                            cmModal:{backgroundColor:"#ff00001c", borderRadius:"5px", padding:"10px"}, 
+                            myModal:{ backgroundColor:"#ff00001c"}
+                        }}
                         />
                         
                         {/* Modal: see */}
                         {/* <MyModal style={{}}
                         id={rowData.id}                        
                         config={{title:'DETALHES'}}
+                        component={components.modal}
                         buttonOpen={{
                             title:<span className="mdi mdi-eye"></span>,
+                            appearance:"ghost",
+                            color:"yellow",
+                            handleOpen:()=>{setComponent('modal',{id:rowData.id, open:true})}
                         }}
                         buttonSubmit={{
                             title:<span className="mdi mdi-exit-to-app"></span>,
-                        }}
-                        customState={{
-                            component: components.modal,
-                            handleOpen:()=>{
-                                setComponent('modal',{id:rowData.id, open:true})
-                            },
-                            handleClose:()=>setComponent('modal',{id:null, open:false})
-                        }} >
+                            handleClose:()=>{setComponent('modal',{id:null, open:false})}
+                        }} 
+                        >
                             <TableOneRow objData={rowData.salonClient}
                             config={{
                                 uppercase: true, 
@@ -247,14 +254,14 @@ const load = (all=[], qtd=0, attempts=0)=>{
     return ok
 }
 
-const getBehavior = (behavior) =>{
+const getClientBehavior = (behavior) =>{
     switch (behavior) {
         case 'delete':
-            return {title:" Deletar"  , color:"var(--danger)"}
+            return {title:" Deletar"   , color:"var(--danger)!important"}
         case 'update':
-            return {title:" Atualizar", color:"var(--warning)"} 
+            return {title:" Atualizar" , color:"var(--warning)!important"} 
         default://create
-            return {title:" Salvar"   , color:"var(--success)"}
+            return {title:" Salvar"    , color:"var(--success)!important"}
     }
 }
 
