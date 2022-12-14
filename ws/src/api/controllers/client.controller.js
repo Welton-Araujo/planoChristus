@@ -26,12 +26,12 @@ const post = async (req, res)=>{
     res.json(response)
 }
 
-/**AULA **/
+/** NAO FEZ **/
 const put = async (req, res)=>{
     console.log('ClientController::put')   
     const { clientId } = req.params
-    const { status, bondId:salColId , services } = req.body
-    const response = await clientService.put( clientId, status, salColId , services )
+    const clientData = req.body
+    const response = await clientService.put(clientId, clientData)
     res.json(response)
 }
 

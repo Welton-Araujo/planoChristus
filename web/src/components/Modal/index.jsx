@@ -14,7 +14,7 @@ const MyModal = (props) => {
         children=undefined, 
         style={} 
     } = props
-    console.log("MyModal ... ", id, buttonOpen)
+    // console.log("MyModal ... ", id, buttonOpen)
 
     //STATE REACT:
     const [open, setOpen] = useState(false)

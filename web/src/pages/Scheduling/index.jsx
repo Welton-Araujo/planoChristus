@@ -66,7 +66,7 @@ const formatEvents = (schedules) =>{
         const allMin = dateToMin(schedule.duration)// Date_Hour_Min => AllMin
         const end    = moment(schedule.date).add(allMin,'minutes').toDate()
         return{
-            title: `${schedule.serviceId.title} - ${schedule.clientId.name} - ${schedule.collaboratorId.name} - ${schedule.date} `,
+            title: `${schedule.serviceId?.title} - ${schedule.clientId?.name} - ${schedule.collaboratorId?.name} - ${schedule.date} `,
             start,
             end
         }

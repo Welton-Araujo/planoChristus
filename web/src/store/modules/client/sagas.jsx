@@ -20,7 +20,7 @@ import api   from '../../../utils/external/api'
 
 // TESTE STATIC
 import login from '../../../data/fakeReq/login.json'
-import clientTest from '../../../data/fakeReq/clientTest.json'
+// import clientTest from '../../../data/fakeReq/clientTest.json'
 
 
 /**
@@ -136,7 +136,7 @@ export function* filterClient(){
         //ATUALIZAR STATE:
         if(data.clients.length > 0){
             yield put(refreshClient({ 
-                current: data.clients[0],//PRIMEIRO
+                current:{ ...data.clients[0], exists:true },//PRIMEIRO
                 form:{ ...form, filtering:false, disabled:true } 
             }))
         }else{
@@ -158,8 +158,6 @@ export function* filterClient(){
 export function* updateClient(){        
     //BUSCAR STATE.CLIENT:
     const { current, form, components } = yield select(state=>state.client)
-    const { salonClient={} } = current
-    const clientServices     = clientTest.put.services
     const endPointUpdate     = `/cliente/${current.id}`
     console.log('SAGAS::updateClient:', endPointUpdate, current )
 
@@ -168,11 +166,7 @@ export function* updateClient(){
         yield put(refreshClient({ form:{ ...form, saving:true } }))
 
         //REQUEST CLIENTES PARA API:
-        const { data } = yield call(api.put, endPointUpdate,{
-            bondId: salonClient.salonClientId,
-            status: salonClient.status,
-            services: clientServices
-        })
+        const { data } = yield call(api.put, endPointUpdate,{ ...current })
         
         //ATUALIZAR FORM: loading:
         yield put(refreshClient({ form:{ ...form, saving:false } }))
@@ -204,7 +198,7 @@ export function* updateClient(){
 
 export function* unlinkClient(){
     //BUSCAR STATE.CLIENT:
-    const { all, current, form, components } = yield select(state=>state.client)
+    const { current, form, components } = yield select(state=>state.client)
     const { salonClient={} } = current
     const endPointUnlink = `/cliente/servico/${salonClient.salonClientId}`
     console.log('SAGAS::unlinkClient', endPointUnlink, current)
@@ -229,11 +223,10 @@ export function* unlinkClient(){
         yield put(allClientAction())
         //FECHAR O COMPONENTE:
         yield put(refreshClient({
-            // all:data.clients,
             components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } } 
         }))
         //LIMPAR FORM:
-        // yield put(resetClient())
+        yield put(resetClient())
 
     } catch (error) {
         alert('SAGA unlinkClient erro ... ' + error)
