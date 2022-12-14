@@ -9,7 +9,10 @@ const SalonClientRepository = require('../repositories/relationship/salonClient.
 /**  **/
 const get = async ( query={}, fields='' )=>{    
     console.log('ClientService::post Pagar.me', query, fields )
-    return ClientRepository.find(query, fields)
+    const { error, clients } = await ClientRepository.find(query, fields)
+    if(error){ return { error:true, message:'Erro ao buscar lista de clientes.' } }
+
+    return { error:false, message:'Lista de clientes.', clients } 
 }
 
 /** AULA **
@@ -22,13 +25,13 @@ const getSalonClients = async ( salonId, fields='clientId status dateRegistratio
     console.log('ClientService::getSalonClients', salonId, fields )
     
     //BUSCAR RELACIONAMETO:
-    const { salonClients } = await SalonClientRepository.find(
+    const { error, salonClients } = await SalonClientRepository.find(
         { salonId, status:{$ne:'e'} },//query
         fields, 
         { path:'clientId', select:'-passwd -customertId' }//populate
     )
     // console.log('ClientService::salonClients', salonClients.clientId, salonClients )
-    if( isEmpty(salonClients) ){ return {error:true, message:'Salão sem cliente(s).', clients:[] } }
+    if( error ){ return { error:true, message:'Erro ao buscar clienres do salão.', clients:[] } }
 
     // FORMATAR CLIENTES
     const formattedClients = salonClients.map((salCli) =>{ 
@@ -156,9 +159,10 @@ const deleteById = async (id) => {
     console.log('ClientService::deleteById', id)
     //BUSCAR RELACIONAMENTO:
     const { upSalonClient } = await SalonClientRepository.findByIdAndUpdate(id, {status:'e'})
-    if( !upSalonClient ){ return { error: true, message: 'Erro ao deletar.' } }
+    if( !upSalonClient ){ return { error:true, message:'Erro ao deletar.' } }
+    console.log('********', !upSalonClient, upSalonClient)
     
-    return { error: false, message: 'Deletado com sucesso.' }
+    return { error:false, message:'Deletado com sucesso.' }
 }
 
 const filters = async (query={}, filters={}) => {

@@ -47,7 +47,7 @@ export function* allClient(){
 
         console.log('SAGAS allClient ...',data)
         if( data.error ){
-            alert('SAGAS CLIENT erro ... ' + data.message)
+            alert('SAGAS allClient erro ... ' + data.message)
             return false
         }
 
@@ -55,7 +55,7 @@ export function* allClient(){
         yield put(refreshClient({ all:data.clients }))
 
     } catch (error) {
-        alert('SAGA CLIENT erro ... ' + error)
+        alert('SAGA allClient erro ... ' + error)
         yield put(refreshClient({ form:{ ...form, filterring:false } }))
     }
 }
@@ -86,7 +86,7 @@ export function* addClient(){
 
         // console.log('SAGAS addClients ...',data)
         if( data.error ){
-            alert('SAGA CLIENT erro ... ' + data.message)
+            alert('SAGA addClient erro ... ' + data.message)
             return false
         }
         
@@ -98,7 +98,7 @@ export function* addClient(){
         yield put(resetClient())
 
     } catch (error) {
-        alert('SAGA CLIENT erro ... ' + error)
+        alert('SAGA addClient erro ... ' + error)
         yield put(refreshClient({ form:{ ...form, saving:false } }))
     }
 }
@@ -129,7 +129,7 @@ export function* filterClient(){
 
         console.log('SAGAS::filterClients ...',data)
         if( data.error ){
-            alert('SAGA CLIENT erro ... ' + data.message)
+            alert('SAGA filterClient erro ... ' + data.message)
             return false
         }
         
@@ -145,7 +145,7 @@ export function* filterClient(){
         }
 
     } catch (error) {
-        alert('SAGA CLIENT erro ... ' + error)
+        alert('SAGA filterClient erro ... ' + error)
         yield put(refreshClient({ form:{ ...form, filterring:false } }))
     }
 }
@@ -179,7 +179,7 @@ export function* updateClient(){
 
         console.log('SAGAS updateClient ...',data)
         if( data.error ){
-            alert('SAGA CLIENT erro ... ' + data.message)
+            alert('SAGA updateClient erro ... ' + data.message)
             return false
         }
         
@@ -191,7 +191,7 @@ export function* updateClient(){
         yield put(resetClient())
 
     } catch (error) {
-        alert('SAGA CLIENT erro ... ' + error)
+        alert('SAGA updateClient erro ... ' + error)
         yield put(refreshClient({ form:{ ...form, saving:false } }))
     }
 }
@@ -204,7 +204,7 @@ export function* updateClient(){
 
 export function* unlinkClient(){
     //BUSCAR STATE.CLIENT:
-    const { current, form, components } = yield select(state=>state.client)
+    const { all, current, form, components } = yield select(state=>state.client)
     const { salonClient={} } = current
     const endPointUnlink = `/cliente/servico/${salonClient.salonClientId}`
     console.log('SAGAS::unlinkClient', endPointUnlink, current)
@@ -221,19 +221,22 @@ export function* unlinkClient(){
 
         console.log('SAGAS unlinkClient ...',data)
         if( data.error ){
-            alert('SAGA CLIENT erro ... ' + data.message)
+            alert('SAGA unlinkClient erro ... ' + data.message)
             return false
         }
         
         //RECARREGAR A TABLE:
         yield put(allClientAction())
         //FECHAR O COMPONENTE:
-        yield put(refreshClient({ components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } } }))
+        yield put(refreshClient({
+            // all:data.clients,
+            components:{ ...components, drawer:{ id:null, open:false }, modal:{ id:null, open:false } } 
+        }))
         //LIMPAR FORM:
-        yield put(resetClient())
+        // yield put(resetClient())
 
     } catch (error) {
-        alert('SAGA CLIENT erro ... ' + error)
+        alert('SAGA unlinkClient erro ... ' + error)
         yield put(refreshClient({ form:{ ...form, saving:false } }))
     }
 }
