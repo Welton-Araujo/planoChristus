@@ -4,8 +4,8 @@ import styles from './Alert.module.css'
 const Alert = (props) =>{
     const{
         id="alert",
-        className="default",
-        actived=true,
+        className="",
+        actived=false,
         config={
             title:<span className="mdi mdi-alert"> ALERTA</span>,
             message:"Aviso importante",
@@ -13,11 +13,11 @@ const Alert = (props) =>{
         },
         style={}
     } = props
-    console.log('Alert ### ', id, className, config)
+    console.log('Alert ### actived', actived)
 
     return<>
         { actived ?
-            <div id={id} className={`${styles.alert} `} style={style} >
+            <div id={id} className={`${styles.alert} ${className}`} style={style} >
                 <b className={styles.alertTitle} style={config.style}>
                     {config.title}
                 </b>

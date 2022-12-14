@@ -9,7 +9,10 @@ const SalonClientRepository = require('../repositories/relationship/salonClient.
 /**  **/
 const get = async ( query={}, fields='' )=>{    
     console.log('ClientService::post Pagar.me', query, fields )
-    return ClientRepository.find(query, fields)
+    const { error, clients } = await ClientRepository.find(query, fields)
+    if(error){ return { error:true, message:'Erro ao buscar lista de clientes.' } }
+
+    return { error:false, message:'Lista de clientes.', clients } 
 }
 
 /** AULA **
@@ -22,13 +25,13 @@ const getSalonClients = async ( salonId, fields='clientId status dateRegistratio
     console.log('ClientService::getSalonClients', salonId, fields )
     
     //BUSCAR RELACIONAMETO:
-    const { salonClients } = await SalonClientRepository.find(
+    const { error, salonClients } = await SalonClientRepository.find(
         { salonId, status:{$ne:'e'} },//query
         fields, 
         { path:'clientId', select:'-passwd -customertId' }//populate
     )
     // console.log('ClientService::salonClients', salonClients.clientId, salonClients )
-    if( isEmpty(salonClients) ){ return {error:true, message:'Salão sem cliente(s).', clients:[] } }
+    if( error ){ return { error:true, message:'Erro ao buscar clienres do salão.', clients:[] } }
 
     // FORMATAR CLIENTES
     const formattedClients = salonClients.map((salCli) =>{ 
@@ -51,7 +54,7 @@ const getSalonClients = async ( salonId, fields='clientId status dateRegistratio
             salonClient:{
                 salonClientId: salCli._id,
                 status: salCli.status,
-                clidateRegistration: salCli.dateRegistration
+                dateRegistration: salCli.dateRegistration
             }
         }))
     }).flat()
@@ -107,6 +110,7 @@ const post = async ( salonId, clientCandidate )=>{
         salonId,
         clientId: newClient.id,
     })
+    if( !newSalonClient ){ return{ error:false, message:'Cliente cadastrado, mas não inserido no salão.' }}
 
     await session.commitTransaction()
     session.endSession()
@@ -122,33 +126,30 @@ const post = async ( salonId, clientCandidate )=>{
  * @param {*} services 
  * @returns 
  */
-const put = async ( clientId, status, salColId , services )=>{
-    console.log('ClientService::put', clientId, status, salColId, services)
+const put = async (clientId, clientData)=>{
+    console.log('ClientService::put', clientId, clientData)
     const db = mongoose.connection
     const session = await db.startSession()
     session.startTransaction()
+    
+    // VAR RELACIONAMENTO: SalonClient 
+    const { salonClient={} } = clientData
 
     //BUSCAR CLIENTE:
-    const { oldClient } = await ClientRepository.findOne({_id: clientId})
+    const { oldClient } = await ClientRepository.findByIdAndUpdate(clientId, clientData)
     if( !oldClient ){ return{ error:true, message:'Cliente não existe.' } }
     
     //ATUALIZA RELACIONAMENTO: (UPDATE STATUS)
-    const { upSalonClient } = await SalonClientRepository.findByIdAndUpdate(salColId, { status })
-    // if( !upSalonClient ){ return{ error:true, message:'Cliente não tem serviços neste salão.' } }
-
-    //DELETAR RELACIONAMENTO: (DEL SERVICES)
-    const { delSalonClients } = await SalonClientRepository.deleteMany({clientId})
-    console.log('delSalonClients', delSalonClients)
-
-    //INSERIR RELACIONAMENTO: (INSERT SERVICES) 
-    const clientServices      = services.map((serviceId)=>({ serviceId, clientId }))
-    const { newSalonClients } = await SalonClientRepository.insertMany(clientServices)
-    if( !newSalonClients ){ return{ error:true, message:'Serviços do clientes não inseridos neste salão.' } }
+    const { upSalonClient } = await SalonClientRepository.findByIdAndUpdate(
+        salonClient.salonClientId,
+        { status:salonClient.status }
+    )
+    if( !upSalonClient ){ return{ error:false, message:'Cliente atualizado [mas houve erro na atuazalização do status com o salão.]' } }
 
     await session.commitTransaction()
     session.endSession()
 
-    return { error: true, message: 'Serviços do cliente atualizados com sucesso.', services: newSalonClients }
+    return { error:false, message:'Cliente atualizado com sucesso.' }
 }
 
 /** AULA **/
@@ -156,15 +157,17 @@ const deleteById = async (id) => {
     console.log('ClientService::deleteById', id)
     //BUSCAR RELACIONAMENTO:
     const { upSalonClient } = await SalonClientRepository.findByIdAndUpdate(id, {status:'e'})
-    if( !upSalonClient ){ return { error: true, message: 'Erro ao deletar.' } }
+    if( !upSalonClient ){ return { error:true, message:'Erro ao deletar.' } }
+    console.log('********', !upSalonClient, upSalonClient)
     
-    return { error: false, message: 'Deletado com sucesso.' }
+    return { error:false, message:'Deletado com sucesso.' }
 }
 
 const filters = async (query={}, filters={}) => {
     console.log('ClientService::filters',query, filters)
     return ClientRepository.find(query, filters)
 }
+
 
 module.exports = {
 

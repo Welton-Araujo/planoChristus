@@ -25,13 +25,18 @@ const MyForm = (props) =>{
         buttonSubmit={},
         setPage=()=>{}, 
     } = props    
-    const alertActived = alert.actived || (behavior==='create'&&page.name ? true:false)
-    const { document={}, address={}, geo:{coordinates=[]} } = page
-    // console.log("MyForm ### current", address)
+    const {
+        exists:alertActived, 
+        document={},
+        address={},
+        geo:{coordinates=[]},
+        salonClient={}
+    } = page
+    console.log("MyForm ### ", alertActived,form)
 
     return(
         <div className={styles.fbTemplate}>
-            <Alert className={``} key={`${Math.random()}`} 
+            <Alert className={`${styles.clientAlert}`} key={`${Math.random()}`} 
             actived={alertActived}
             config={alert}
             style={{}}
@@ -130,6 +135,7 @@ const MyForm = (props) =>{
                     }}>
                         <option value={"a"}>{"Ativo"}</option>
                         <option value={"i"}>{"Inativo"}</option>
+                        {/* <option value={"e"}>{"Excluído"}</option> */}
                     </select>
                 </div>
             </div>
@@ -372,6 +378,42 @@ const MyForm = (props) =>{
                 </div>
             </div>
             
+            <b className={styles.fbTitle}>{"Salão"}</b>
+            <div className={styles.fbGroup}>
+                <div key={`${Math.random()}`} className={`${styles.fbItem} form-group`}>
+                    <b>{"ID (salão cliente)"}</b>
+                    <input
+                    className={"form-control"}
+                    name={"salCliID"}
+                    type={"text"}
+                    placeholder={"ID salão.cliente"}
+                    disabled={true}
+                    defaultValue={salonClient?.salonClientId}
+                    autoFocus={focus==='salCliID'}
+                    onChange={(e)=>{
+                        focus = e.target.name
+                        setPage('salonClient',{ ...salonClient, salonClientId:e.target.value})
+                    }}/>
+                </div>
+                <div key={`${Math.random()}`} className={`${styles.fbItem} form-group`}>
+                    <b>{"Status"}</b>
+                    <select
+                    className={"form-control"}
+                    name={"salCliStatus"}
+                    disabled={form.disabled}
+                    defaultValue={salonClient?.status}
+                    autoFocus={focus==='salCliStatus'}
+                    onChange={(e)=>{
+                        focus="salCliStatus"
+                        setPage('salonClient',{ ...salonClient, status:e.target.value})
+                    }}>
+                        <option value={"a"}>{"Ativo"}</option>
+                        <option value={"i"}>{"Inativo"}</option>
+                        {/* <option value={"e"}>{"Excluído"}</option> */}
+                    </select>
+                </div>
+            </div>
+
             <div className={styles.fbBtnGroup}>
                 <Button className={styles.fbBtnSubmit} style={buttonSubmit.style}
                 name    = {'btnSubmit'}

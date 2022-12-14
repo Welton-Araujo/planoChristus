@@ -26,7 +26,12 @@ export const INITIAL_STATE = {
             type: "Point",
             coordinates: []
         },
-        customerId:""
+        customerId:"",
+        salonClient:{
+            salonClientId: "",
+            status: "",
+            dateRegistration: ""
+        }
     },
     form:{
         filtering: false,

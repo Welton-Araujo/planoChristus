@@ -38,7 +38,7 @@ const service = new Schema({
     status:{
         type: String,
         required: true,
-        enum: ['a','i','d'],// Active, Inactive and Deleted
+        enum: ['a','i','e'],// Active, Inactive and Excluded
         default: 'a'
     },
     dateRegistration:{
